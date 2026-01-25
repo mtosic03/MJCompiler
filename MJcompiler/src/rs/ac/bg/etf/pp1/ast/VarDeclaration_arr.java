@@ -1,13 +1,24 @@
 // generated with ast extension for cup
 // version 0.8
-// 25/0/2026 0:33:27
+// 25/0/2026 11:33:6
 
 
 package rs.ac.bg.etf.pp1.ast;
 
-public class IdentList_epsilon extends IdentList {
+public class VarDeclaration_arr extends VarDeclaration {
 
-    public IdentList_epsilon () {
+    private String I1;
+
+    public VarDeclaration_arr (String I1) {
+        this.I1=I1;
+    }
+
+    public String getI1() {
+        return I1;
+    }
+
+    public void setI1(String I1) {
+        this.I1=I1;
     }
 
     public void accept(Visitor visitor) {
@@ -28,10 +39,13 @@ public class IdentList_epsilon extends IdentList {
     public String toString(String tab) {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
-        buffer.append("IdentList_epsilon(\n");
+        buffer.append("VarDeclaration_arr(\n");
+
+        buffer.append(" "+tab+I1);
+        buffer.append("\n");
 
         buffer.append(tab);
-        buffer.append(") [IdentList_epsilon]");
+        buffer.append(") [VarDeclaration_arr]");
         return buffer.toString();
     }
 }

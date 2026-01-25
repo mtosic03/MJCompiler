@@ -1,37 +1,37 @@
-INFO  00:57:28,827 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
-INFO  00:57:28,901 - #2 program
-INFO  00:57:28,901 - #45 Test
-INFO  00:57:28,901 - #5 const
-INFO  00:57:28,904 - #45 char
-INFO  00:57:28,904 - #45 a
-INFO  00:57:28,905 - #6 =
-INFO  00:57:28,905 - #48 a
-INFO  00:57:28,905 - #8 ,
-INFO  00:57:28,906 - #45 b
-INFO  00:57:28,906 - #6 =
-INFO  00:57:28,906 - #48 b
-INFO  00:57:28,906 - #7 ;
-INFO  00:57:28,907 - #45 int
-INFO  00:57:28,909 - #45 p
-INFO  00:57:28,909 - #8 ,
-INFO  00:57:28,910 - #45 q
-INFO  00:57:28,910 - #9 [
-INFO  00:57:28,911 - #10 ]
-INFO  00:57:28,911 - #7 ;
-INFO  00:57:28,913 - #45 char
-INFO  00:57:28,914 - #45 x
-INFO  00:57:28,914 - #9 [
-INFO  00:57:28,922 - #10 ]
-INFO  00:57:28,922 - #7 ;
-INFO  00:57:28,922 - #3 {
-INFO  00:57:28,923 - #12 void
-INFO  00:57:28,923 - #45 main
-INFO  00:57:28,924 - #13 (
-INFO  00:57:28,925 - #14 )
-INFO  00:57:28,926 - #3 {
-INFO  00:57:28,927 - #4 }
-INFO  00:57:28,928 - #4 }
-INFO  00:57:28,935 - Program(
+INFO  12:18:50,690 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  12:18:50,770 - #2 program
+INFO  12:18:50,770 - #45 Test
+INFO  12:18:50,770 - #5 const
+INFO  12:18:50,772 - #45 char
+INFO  12:18:50,772 - #45 a
+INFO  12:18:50,773 - #6 =
+INFO  12:18:50,773 - #48 a
+INFO  12:18:50,773 - #8 ,
+INFO  12:18:50,774 - #45 b
+INFO  12:18:50,774 - #6 =
+INFO  12:18:50,774 - #48 b
+INFO  12:18:50,775 - #7 ;
+INFO  12:18:50,775 - #45 int
+INFO  12:18:50,776 - #45 p
+INFO  12:18:50,776 - #9 [
+INFO  12:18:50,777 - #10 ]
+INFO  12:18:50,777 - #8 ,
+INFO  12:18:50,777 - #45 q
+INFO  12:18:50,777 - #9 [
+INFO  12:18:50,777 - #10 ]
+INFO  12:18:50,777 - #7 ;
+INFO  12:18:50,779 - #45 char
+INFO  12:18:50,788 - #45 x
+INFO  12:18:50,789 - #7 ;
+INFO  12:18:50,789 - #3 {
+INFO  12:18:50,789 - #12 void
+INFO  12:18:50,789 - #45 main
+INFO  12:18:50,790 - #13 (
+INFO  12:18:50,790 - #14 )
+INFO  12:18:50,791 - #3 {
+INFO  12:18:50,792 - #4 }
+INFO  12:18:50,793 - #4 }
+INFO  12:18:50,802 - Program(
   ProgramName(
    Test
   ) [ProgramName]
@@ -66,27 +66,27 @@ INFO  00:57:28,935 - Program(
         Type(
          int
         ) [Type]
-       p
-        ZeroOneSqBracket_epsilon(
-        ) [ZeroOneSqBracket_epsilon]
-        IdentList_rek(
-         q
-          ZeroOneSqBracket_brackets(
-          ) [ZeroOneSqBracket_brackets]
-          IdentList_epsilon(
-          ) [IdentList_epsilon]
-        ) [IdentList_rek]
+        VarDeclaration_arr(
+         p
+        ) [VarDeclaration_arr]
+        VarDeclarationMore_rek(
+          VarDeclaration_arr(
+           q
+          ) [VarDeclaration_arr]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclarationMore_rek]
       ) [VarDeclList]
     ) [ConstVarEnumDeclList_var]
     VarDeclList(
       Type(
        char
       ) [Type]
-     x
-      ZeroOneSqBracket_brackets(
-      ) [ZeroOneSqBracket_brackets]
-      IdentList_epsilon(
-      ) [IdentList_epsilon]
+      VarDeclaration_elem(
+       x
+      ) [VarDeclaration_elem]
+      VarDeclarationMore_epsilon(
+      ) [VarDeclarationMore_epsilon]
     ) [VarDeclList]
   ) [ConstVarEnumDeclList_var]
   MethodDeclList_endRek(
@@ -105,6 +105,6 @@ INFO  00:57:28,935 - Program(
     ) [MethodDecl]
   ) [MethodDeclList_endRek]
 ) [Program]
-INFO  00:57:28,935 - =====================================================================
-INFO  00:57:28,945 - =====================================================================
-INFO  00:57:28,946 - Parsiranje uspesno zavrseno!
+INFO  12:18:50,803 - =====================================================================
+INFO  12:18:50,812 - =====================================================================
+INFO  12:18:50,813 - Parsiranje uspesno zavrseno!

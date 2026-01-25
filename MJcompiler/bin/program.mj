@@ -1,8 +1,8 @@
 program Test
 
 const char a = 'a', b='b';
-int p, q[];
-char x[];
+int p[], q[];
+char x;
 
 {
 	void main(){}

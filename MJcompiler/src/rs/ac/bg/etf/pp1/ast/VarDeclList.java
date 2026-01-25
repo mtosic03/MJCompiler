@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 25/0/2026 0:33:27
+// 25/0/2026 11:33:6
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -10,18 +10,16 @@ public class VarDeclList implements SyntaxNode {
     private SyntaxNode parent;
     private int line;
     private Type Type;
-    private String I2;
-    private ZeroOneSqBracket ZeroOneSqBracket;
-    private IdentList IdentList;
+    private VarDeclaration VarDeclaration;
+    private VarDeclarationMore VarDeclarationMore;
 
-    public VarDeclList (Type Type, String I2, ZeroOneSqBracket ZeroOneSqBracket, IdentList IdentList) {
+    public VarDeclList (Type Type, VarDeclaration VarDeclaration, VarDeclarationMore VarDeclarationMore) {
         this.Type=Type;
         if(Type!=null) Type.setParent(this);
-        this.I2=I2;
-        this.ZeroOneSqBracket=ZeroOneSqBracket;
-        if(ZeroOneSqBracket!=null) ZeroOneSqBracket.setParent(this);
-        this.IdentList=IdentList;
-        if(IdentList!=null) IdentList.setParent(this);
+        this.VarDeclaration=VarDeclaration;
+        if(VarDeclaration!=null) VarDeclaration.setParent(this);
+        this.VarDeclarationMore=VarDeclarationMore;
+        if(VarDeclarationMore!=null) VarDeclarationMore.setParent(this);
     }
 
     public Type getType() {
@@ -32,28 +30,20 @@ public class VarDeclList implements SyntaxNode {
         this.Type=Type;
     }
 
-    public String getI2() {
-        return I2;
+    public VarDeclaration getVarDeclaration() {
+        return VarDeclaration;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
+    public void setVarDeclaration(VarDeclaration VarDeclaration) {
+        this.VarDeclaration=VarDeclaration;
     }
 
-    public ZeroOneSqBracket getZeroOneSqBracket() {
-        return ZeroOneSqBracket;
+    public VarDeclarationMore getVarDeclarationMore() {
+        return VarDeclarationMore;
     }
 
-    public void setZeroOneSqBracket(ZeroOneSqBracket ZeroOneSqBracket) {
-        this.ZeroOneSqBracket=ZeroOneSqBracket;
-    }
-
-    public IdentList getIdentList() {
-        return IdentList;
-    }
-
-    public void setIdentList(IdentList IdentList) {
-        this.IdentList=IdentList;
+    public void setVarDeclarationMore(VarDeclarationMore VarDeclarationMore) {
+        this.VarDeclarationMore=VarDeclarationMore;
     }
 
     public SyntaxNode getParent() {
@@ -78,21 +68,21 @@ public class VarDeclList implements SyntaxNode {
 
     public void childrenAccept(Visitor visitor) {
         if(Type!=null) Type.accept(visitor);
-        if(ZeroOneSqBracket!=null) ZeroOneSqBracket.accept(visitor);
-        if(IdentList!=null) IdentList.accept(visitor);
+        if(VarDeclaration!=null) VarDeclaration.accept(visitor);
+        if(VarDeclarationMore!=null) VarDeclarationMore.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
         if(Type!=null) Type.traverseTopDown(visitor);
-        if(ZeroOneSqBracket!=null) ZeroOneSqBracket.traverseTopDown(visitor);
-        if(IdentList!=null) IdentList.traverseTopDown(visitor);
+        if(VarDeclaration!=null) VarDeclaration.traverseTopDown(visitor);
+        if(VarDeclarationMore!=null) VarDeclarationMore.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
         if(Type!=null) Type.traverseBottomUp(visitor);
-        if(ZeroOneSqBracket!=null) ZeroOneSqBracket.traverseBottomUp(visitor);
-        if(IdentList!=null) IdentList.traverseBottomUp(visitor);
+        if(VarDeclaration!=null) VarDeclaration.traverseBottomUp(visitor);
+        if(VarDeclarationMore!=null) VarDeclarationMore.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -107,17 +97,14 @@ public class VarDeclList implements SyntaxNode {
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        buffer.append(" "+tab+I2);
-        buffer.append("\n");
-
-        if(ZeroOneSqBracket!=null)
-            buffer.append(ZeroOneSqBracket.toString("  "+tab));
+        if(VarDeclaration!=null)
+            buffer.append(VarDeclaration.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(IdentList!=null)
-            buffer.append(IdentList.toString("  "+tab));
+        if(VarDeclarationMore!=null)
+            buffer.append(VarDeclarationMore.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

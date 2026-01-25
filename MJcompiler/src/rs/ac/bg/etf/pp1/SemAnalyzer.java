@@ -91,34 +91,24 @@ public class SemAnalyzer extends VisitorAdaptor {
 	// VAR DECLARATIONS //
 	
 	@Override 
-	public void visit(VarDeclList varDeclList) {
-		Obj varObj=Tab.find(varDeclList.getI2());
+	public void visit(VarDeclaration_elem varDeclaration_elem) {
+		Obj varObj=Tab.find(varDeclaration_elem.getI1());
 		if(varObj != Tab.noObj) {
-			report_error("Dvostruka definicija promenljive "+ varDeclList.getI2(),varDeclList);
+			report_error("Dvostruka definicija promenljive "+varDeclaration_elem.getI1(),varDeclaration_elem);
 		}else {
-			if(varDeclList.getZeroOneSqBracket() instanceof ZeroOneSqBracket_brackets) {
-				varObj=Tab.insert(Obj.Var,varDeclList.getI2(), new Struct(Struct.Array,currentType));
-			}else {
-				varObj=Tab.insert(Obj.Var,varDeclList.getI2(), currentType);
-			}
+			varObj=Tab.insert(Obj.Var, varDeclaration_elem.getI1(), currentType);
 		}
 	}
 	
-	@Override
-	public void visit(IdentList_rek identList_rek) {
-		Obj varObj=Tab.find(identList_rek.getI1());
-		if(varObj!=Tab.noObj) {
-			report_error("Dvostruka definicija promenljive "+ identList_rek.getI1(),identList_rek);
+	@Override 
+	public void visit(VarDeclaration_arr varDeclaration_arr) {
+		Obj varObj=Tab.find(varDeclaration_arr.getI1());
+		if(varObj != Tab.noObj) {
+			report_error("Dvostruka definicija promenljive "+varDeclaration_arr.getI1(),varDeclaration_arr);
 		}else {
-			if(identList_rek.getZeroOneSqBracket() instanceof ZeroOneSqBracket_brackets) {
-				varObj=Tab.insert(Obj.Var,identList_rek.getI1(), new Struct(Struct.Array,currentType));
-			}else {
-				varObj=Tab.insert(Obj.Var,identList_rek.getI1(), currentType);
-			}
+			varObj=Tab.insert(Obj.Var, varDeclaration_arr.getI1(), new Struct(Struct.Array,currentType));
 		}
 	}
-	
-	
 	@Override 
 	public void visit(Type type) {
 		Obj typeObj=Tab.find(type.getI1());

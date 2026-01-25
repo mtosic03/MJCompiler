@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 25/0/2026 0:33:28
+// 25/0/2026 11:33:7
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -8,6 +8,7 @@ package rs.ac.bg.etf.pp1.ast;
 public abstract class VisitorAdaptor implements Visitor { 
 
     public void visit(Mulop Mulop) { }
+    public void visit(VarDeclaration VarDeclaration) { }
     public void visit(Constant Constant) { }
     public void visit(AddExpr AddExpr) { }
     public void visit(Relop Relop) { }
@@ -23,7 +24,6 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(AssignNumConstMore AssignNumConstMore) { }
     public void visit(TypeIdentList TypeIdentList) { }
     public void visit(AndCondFactList AndCondFactList) { }
-    public void visit(IdentList IdentList) { }
     public void visit(AssignNumConst AssignNumConst) { }
     public void visit(CaseList CaseList) { }
     public void visit(ZeroOneSqBracket ZeroOneSqBracket) { }
@@ -41,6 +41,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(OneOrZeroFormPars OneOrZeroFormPars) { }
     public void visit(Statement Statement) { }
     public void visit(VarDeclMore VarDeclMore) { }
+    public void visit(VarDeclarationMore VarDeclarationMore) { }
     public void visit(CommaExprList CommaExprList) { }
     public void visit(MethodDeclList MethodDeclList) { }
     public void visit(DesignatorListRest DesignatorListRest) { }
@@ -130,6 +131,8 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(VarDeclMore_list VarDeclMore_list) { visit(); }
     public void visit(TypeIdentList_epsilon TypeIdentList_epsilon) { visit(); }
     public void visit(TypeIdentList_rek TypeIdentList_rek) { visit(); }
+    public void visit(ZeroOneSqBracket_epsilon ZeroOneSqBracket_epsilon) { visit(); }
+    public void visit(ZeroOneSqBracket_brackets ZeroOneSqBracket_brackets) { visit(); }
     public void visit(FormPars FormPars) { visit(); }
     public void visit(OneOrZeroFormPars_epsilon OneOrZeroFormPars_epsilon) { visit(); }
     public void visit(OneOrZeroFormPars_form OneOrZeroFormPars_form) { visit(); }
@@ -144,10 +147,10 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(AssignNumConst_epsilon AssignNumConst_epsilon) { visit(); }
     public void visit(AssignNumConst_num AssignNumConst_num) { visit(); }
     public void visit(EnumDeclList EnumDeclList) { visit(); }
-    public void visit(IdentList_epsilon IdentList_epsilon) { visit(); }
-    public void visit(IdentList_rek IdentList_rek) { visit(); }
-    public void visit(ZeroOneSqBracket_epsilon ZeroOneSqBracket_epsilon) { visit(); }
-    public void visit(ZeroOneSqBracket_brackets ZeroOneSqBracket_brackets) { visit(); }
+    public void visit(VarDeclarationMore_epsilon VarDeclarationMore_epsilon) { visit(); }
+    public void visit(VarDeclarationMore_rek VarDeclarationMore_rek) { visit(); }
+    public void visit(VarDeclaration_arr VarDeclaration_arr) { visit(); }
+    public void visit(VarDeclaration_elem VarDeclaration_elem) { visit(); }
     public void visit(VarDeclList VarDeclList) { visit(); }
     public void visit(Constant_bool Constant_bool) { visit(); }
     public void visit(Constant_character Constant_character) { visit(); }
