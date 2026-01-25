@@ -1,0 +1,71 @@
+INFO  21:50:55,298 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  21:50:55,460 - #2 program
+INFO  21:50:55,460 - #45 Test
+INFO  21:50:55,460 - #5 const
+INFO  21:50:55,463 - #45 char
+INFO  21:50:55,463 - #45 a
+INFO  21:50:55,464 - #6 =
+INFO  21:50:55,465 - #48 a
+INFO  21:50:55,465 - #8 ,
+INFO  21:50:55,466 - #45 a
+INFO  21:50:55,466 - #6 =
+INFO  21:50:55,467 - #46 1
+INFO  21:50:55,467 - #7 ;
+INFO  21:50:55,468 - #3 {
+INFO  21:50:55,469 - #12 void
+INFO  21:50:55,470 - #45 main
+INFO  21:50:55,471 - #13 (
+INFO  21:50:55,472 - #14 )
+INFO  21:50:55,472 - #3 {
+INFO  21:50:55,473 - #4 }
+INFO  21:50:55,474 - #4 }
+INFO  21:50:55,482 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_const(
+    ConstVarEnumDeclList_epsilon(
+    ) [ConstVarEnumDeclList_epsilon]
+    ConstDeclList(
+      Type(
+       char
+      ) [Type]
+      ConstDecl(
+       a
+        Constant_character(
+         a
+        ) [Constant_character]
+      ) [ConstDecl]
+      ConstDeclMore_rek(
+        ConstDecl(
+         a
+          Constant_number(
+           1
+          ) [Constant_number]
+        ) [ConstDecl]
+        ConstDeclMore_epsilon(
+        ) [ConstDeclMore_epsilon]
+      ) [ConstDeclMore_rek]
+    ) [ConstDeclList]
+  ) [ConstVarEnumDeclList_const]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  21:50:55,491 - =====================================================================
+ERROR 21:50:55,501 - Dvostruka definicija konstante a na liniji 3
+ERROR 21:50:55,502 - Dvostruka definicija konstante a na liniji 3
+INFO  21:50:55,502 - =====================================================================
+ERROR 21:50:55,502 - Parsiranje NIJE uspesno zavrseno!

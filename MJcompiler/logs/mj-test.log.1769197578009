@@ -1,0 +1,223 @@
+INFO  20:44:05,355 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  20:44:05,417 - #2 program
+INFO  20:44:05,418 - #45 CompleteGrammarTest
+INFO  20:44:05,418 - #5 const
+INFO  20:44:05,419 - #45 int
+INFO  20:44:05,419 - #45 maxSize
+INFO  20:44:05,420 - #6 =
+INFO  20:44:05,420 - #46 100
+INFO  20:44:05,420 - #7 ;
+INFO  20:44:05,421 - #5 const
+INFO  20:44:05,422 - #45 char
+INFO  20:44:05,422 - #45 newline
+INFO  20:44:05,423 - #6 =
+INFO  20:44:05,423 - #48 a
+INFO  20:44:05,423 - #7 ;
+INFO  20:44:05,423 - #5 const
+INFO  20:44:05,423 - #45 bool
+INFO  20:44:05,423 - #45 debug
+INFO  20:44:05,423 - #6 =
+INFO  20:44:05,423 - #47 1
+INFO  20:44:05,424 - #7 ;
+INFO  20:44:05,424 - #11 enum
+INFO  20:44:05,433 - #45 Color
+INFO  20:44:05,433 - #3 {
+INFO  20:44:05,433 - #45 red
+INFO  20:44:05,433 - #6 =
+INFO  20:44:05,433 - #46 1
+INFO  20:44:05,433 - #8 ,
+INFO  20:44:05,433 - #45 green
+INFO  20:44:05,434 - #6 =
+INFO  20:44:05,434 - #46 2
+INFO  20:44:05,434 - #8 ,
+INFO  20:44:05,434 - #45 blue
+INFO  20:44:05,434 - #6 =
+INFO  20:44:05,434 - #46 3
+INFO  20:44:05,434 - #4 }
+INFO  20:44:05,435 - #11 enum
+INFO  20:44:05,436 - #45 Status
+INFO  20:44:05,436 - #3 {
+INFO  20:44:05,436 - #45 active
+INFO  20:44:05,436 - #8 ,
+INFO  20:44:05,437 - #45 inactive
+INFO  20:44:05,437 - #8 ,
+INFO  20:44:05,437 - #45 pending
+INFO  20:44:05,437 - #4 }
+INFO  20:44:05,437 - #45 int
+INFO  20:44:05,438 - #45 globalVar
+INFO  20:44:05,438 - #7 ;
+INFO  20:44:05,439 - #45 char
+INFO  20:44:05,441 - #45 globalChar
+INFO  20:44:05,441 - #7 ;
+INFO  20:44:05,441 - #45 bool
+INFO  20:44:05,441 - #45 globalFlag
+INFO  20:44:05,441 - #7 ;
+INFO  20:44:05,441 - #45 int
+INFO  20:44:05,441 - #45 niz
+INFO  20:44:05,441 - #9 [
+INFO  20:44:05,441 - #10 ]
+INFO  20:44:05,442 - #7 ;
+INFO  20:44:05,443 - #3 {
+INFO  20:44:05,443 - #12 void
+INFO  20:44:05,443 - #45 main
+INFO  20:44:05,443 - #13 (
+INFO  20:44:05,444 - #14 )
+INFO  20:44:05,444 - #3 {
+INFO  20:44:05,445 - #4 }
+INFO  20:44:05,446 - #4 }
+INFO  20:44:05,452 - Program(
+ CompleteGrammarTest
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_var(
+      ConstVarEnumDeclList_var(
+        ConstVarEnumDeclList_var(
+          ConstVarEnumDeclList_enum(
+            ConstVarEnumDeclList_enum(
+              ConstVarEnumDeclList_const(
+                ConstVarEnumDeclList_const(
+                  ConstVarEnumDeclList_const(
+                    ConstVarEnumDeclList_epsilon(
+                    ) [ConstVarEnumDeclList_epsilon]
+                    ConstDeclList(
+                      Type(
+                       int
+                      ) [Type]
+                      ConstDecl(
+                       maxSize
+                        Constant_number(
+                         100
+                        ) [Constant_number]
+                      ) [ConstDecl]
+                      ConstDeclMore_epsilon(
+                      ) [ConstDeclMore_epsilon]
+                    ) [ConstDeclList]
+                  ) [ConstVarEnumDeclList_const]
+                  ConstDeclList(
+                    Type(
+                     char
+                    ) [Type]
+                    ConstDecl(
+                     newline
+                      Constant_character(
+                       a
+                      ) [Constant_character]
+                    ) [ConstDecl]
+                    ConstDeclMore_epsilon(
+                    ) [ConstDeclMore_epsilon]
+                  ) [ConstDeclList]
+                ) [ConstVarEnumDeclList_const]
+                ConstDeclList(
+                  Type(
+                   bool
+                  ) [Type]
+                  ConstDecl(
+                   debug
+                    Constant_bool(
+                     1
+                    ) [Constant_bool]
+                  ) [ConstDecl]
+                  ConstDeclMore_epsilon(
+                  ) [ConstDeclMore_epsilon]
+                ) [ConstDeclList]
+              ) [ConstVarEnumDeclList_const]
+              EnumDeclList(
+               Color
+               red
+                AssignNumConst_num(
+                 1
+                ) [AssignNumConst_num]
+                AssignNumConstMore_rek(
+                 green
+                  AssignNumConst_num(
+                   2
+                  ) [AssignNumConst_num]
+                  AssignNumConstMore_rek(
+                   blue
+                    AssignNumConst_num(
+                     3
+                    ) [AssignNumConst_num]
+                    AssignNumConstMore_epsilon(
+                    ) [AssignNumConstMore_epsilon]
+                  ) [AssignNumConstMore_rek]
+                ) [AssignNumConstMore_rek]
+              ) [EnumDeclList]
+            ) [ConstVarEnumDeclList_enum]
+            EnumDeclList(
+             Status
+             active
+              AssignNumConst_epsilon(
+              ) [AssignNumConst_epsilon]
+              AssignNumConstMore_rek(
+               inactive
+                AssignNumConst_epsilon(
+                ) [AssignNumConst_epsilon]
+                AssignNumConstMore_rek(
+                 pending
+                  AssignNumConst_epsilon(
+                  ) [AssignNumConst_epsilon]
+                  AssignNumConstMore_epsilon(
+                  ) [AssignNumConstMore_epsilon]
+                ) [AssignNumConstMore_rek]
+              ) [AssignNumConstMore_rek]
+            ) [EnumDeclList]
+          ) [ConstVarEnumDeclList_enum]
+          VarDeclList(
+            Type(
+             int
+            ) [Type]
+           globalVar
+            ZeroOneSqBracket_epsilon(
+            ) [ZeroOneSqBracket_epsilon]
+            IdentList_epsilon(
+            ) [IdentList_epsilon]
+          ) [VarDeclList]
+        ) [ConstVarEnumDeclList_var]
+        VarDeclList(
+          Type(
+           char
+          ) [Type]
+         globalChar
+          ZeroOneSqBracket_epsilon(
+          ) [ZeroOneSqBracket_epsilon]
+          IdentList_epsilon(
+          ) [IdentList_epsilon]
+        ) [VarDeclList]
+      ) [ConstVarEnumDeclList_var]
+      VarDeclList(
+        Type(
+         bool
+        ) [Type]
+       globalFlag
+        ZeroOneSqBracket_epsilon(
+        ) [ZeroOneSqBracket_epsilon]
+        IdentList_epsilon(
+        ) [IdentList_epsilon]
+      ) [VarDeclList]
+    ) [ConstVarEnumDeclList_var]
+    VarDeclList(
+      Type(
+       int
+      ) [Type]
+     niz
+      ZeroOneSqBracket_brackets(
+      ) [ZeroOneSqBracket_brackets]
+      IdentList_epsilon(
+      ) [IdentList_epsilon]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+     main
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  20:44:05,453 - =====================================================================
+INFO  20:44:05,453 - Parsiranje uspesno zavrseno!

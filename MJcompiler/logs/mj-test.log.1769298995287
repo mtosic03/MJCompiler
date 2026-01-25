@@ -1,0 +1,109 @@
+INFO  00:56:17,880 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  00:56:17,958 - #2 program
+INFO  00:56:17,958 - #45 Test
+INFO  00:56:17,958 - #5 const
+INFO  00:56:17,960 - #45 char
+INFO  00:56:17,960 - #45 a
+INFO  00:56:17,961 - #6 =
+INFO  00:56:17,961 - #48 a
+INFO  00:56:17,962 - #8 ,
+INFO  00:56:17,963 - #45 b
+INFO  00:56:17,963 - #6 =
+INFO  00:56:17,963 - #48 b
+INFO  00:56:17,963 - #7 ;
+INFO  00:56:17,964 - #45 int
+INFO  00:56:17,967 - #45 p
+INFO  00:56:17,967 - #8 ,
+INFO  00:56:17,968 - #45 p
+INFO  00:56:17,968 - #7 ;
+INFO  00:56:17,969 - #45 char
+INFO  00:56:17,970 - #45 x
+INFO  00:56:17,970 - #9 [
+INFO  00:56:17,970 - #10 ]
+INFO  00:56:17,971 - #7 ;
+INFO  00:56:17,972 - #3 {
+INFO  00:56:17,972 - #12 void
+INFO  00:56:17,972 - #45 main
+INFO  00:56:17,974 - #13 (
+INFO  00:56:17,975 - #14 )
+INFO  00:56:17,976 - #3 {
+INFO  00:56:17,977 - #4 }
+INFO  00:56:17,977 - #4 }
+INFO  00:56:17,986 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_var(
+      ConstVarEnumDeclList_const(
+        ConstVarEnumDeclList_epsilon(
+        ) [ConstVarEnumDeclList_epsilon]
+        ConstDeclList(
+          Type(
+           char
+          ) [Type]
+          ConstDecl(
+           a
+            Constant_character(
+             a
+            ) [Constant_character]
+          ) [ConstDecl]
+          ConstDeclMore_rek(
+            ConstDecl(
+             b
+              Constant_character(
+               b
+              ) [Constant_character]
+            ) [ConstDecl]
+            ConstDeclMore_epsilon(
+            ) [ConstDeclMore_epsilon]
+          ) [ConstDeclMore_rek]
+        ) [ConstDeclList]
+      ) [ConstVarEnumDeclList_const]
+      VarDeclList(
+        Type(
+         int
+        ) [Type]
+       p
+        ZeroOneSqBracket_epsilon(
+        ) [ZeroOneSqBracket_epsilon]
+        IdentList_rek(
+         p
+          ZeroOneSqBracket_epsilon(
+          ) [ZeroOneSqBracket_epsilon]
+          IdentList_epsilon(
+          ) [IdentList_epsilon]
+        ) [IdentList_rek]
+      ) [VarDeclList]
+    ) [ConstVarEnumDeclList_var]
+    VarDeclList(
+      Type(
+       char
+      ) [Type]
+     x
+      ZeroOneSqBracket_brackets(
+      ) [ZeroOneSqBracket_brackets]
+      IdentList_epsilon(
+      ) [IdentList_epsilon]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  00:56:17,986 - =====================================================================
+ERROR 00:56:17,997 - Dvostruka definicija promenljive p na liniji 4
+INFO  00:56:17,997 - =====================================================================
+ERROR 00:56:17,997 - Parsiranje NIJE uspesno zavrseno!

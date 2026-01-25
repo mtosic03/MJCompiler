@@ -1,0 +1,11 @@
+INFO  21:20:12,496 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  21:20:12,572 - #2 program
+INFO  21:20:12,572 - #45 Test
+INFO  21:20:12,572 - #5 const
+INFO  21:20:12,574 - #45 char
+INFO  21:20:12,574 - #45 a
+INFO  21:20:12,575 - #6 =
+INFO  21:20:12,585 - #45 char
+ERROR 21:20:12,585 - 
+Sintaksna greska na liniji 3
+ERROR 21:20:12,585 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 3

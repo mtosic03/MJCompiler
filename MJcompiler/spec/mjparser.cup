@@ -1,0 +1,401 @@
+package rs.ac.bg.etf.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import rs.ac.bg.etf.pp1.ast.*;
+
+parser code{:
+	
+	boolean errorDetected;
+	
+	Logger log =Logger.getLogger(getClass());
+	
+	public void report_fatal_error(String message, Object info) throws java.lang.Exception{
+		done_parsing();
+		report_error(message,info);
+	}
+	
+	public void syntax_error(Symbol cur_token){
+		report_error("\nSintaksna greska",cur_token);
+	}
+	
+	public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception{
+		report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti",cur_token);
+	}
+	
+	public void report_error(String message, Object info){
+		errorDetected=true;
+		StringBuilder msg=new StringBuilder(message);
+		if(info instanceof Symbol)
+			msg.append(" na liniji ").append(((Symbol)info).left);
+		log.error(msg.toString());
+	}
+	
+:}
+
+init with{:
+	errorDetected=false;
+:}
+
+scan with{:
+	Symbol s=this.getScanner().next_token();
+	if(s!=null && s.value!=null)
+		log.info(s.toString()+" "+s.value.toString());
+	return s;
+:}
+
+terminal PROG, CURLYOPENBRACKET, CURLYCLBRACKET, CONST, ASSIGN, SEMICOLON, COMMA,
+SQUAREOPENBRACKET, SQUARECLBRACKET, ENUM, VOID, OPENBRACKET, CLBRACKET, DOT, LENGTH, PLUS, MINUS,
+PERCENT, MUL, DIV, NEW, QUESTIONMARK, COLON, EQUAL, DIFFERENT, GREATERTHEN, GREATERTHENOREQUAL, LESSTHEN, LESSTHENOREQUAL,
+AND, OR, INC, DEC, IF, ELSE, BREAK, CONTINUE, RETURN, READ, PRINT, SWITCH, CASE, FOR;
+terminal String IDENT;
+terminal Integer NUMBER, BOOL;
+terminal Character CHARACTER;
+
+
+nonterminal Program, ConstVarEnumDeclList, MethodDeclList, 
+ConstDeclList, VarDeclList, EnumDeclList, MethodDecl, Type, Constant, ConstDecl,
+ConstDeclMore, ZeroOneSqBracket, IdentList, AssignNumConst, AssignNumConstMore,
+TypeOrVoid, OneOrZeroFormPars, FormPars, VarDeclMore, TypeIdentList, StatementList, Statement, SingleStatement,
+DesignatorStatement, Designator, DesignatorListRest, IdentOrLength, Expr, Term, AddopTermList, Addop,
+Factor, MulopFactorList, Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, CondFact,
+RelopExprZeroOne, Relop, Condition, CondTerm, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
+CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, AddExpr, ProgramName,
+MethodName;
+
+
+precedence left ELSE;
+
+
+// ============================================================
+// PROGRAM 
+// ============================================================
+
+Program ::= (Program) PROG ProgramName ConstVarEnumDeclList CURLYOPENBRACKET MethodDeclList CURLYCLBRACKET;
+
+ProgramName ::= (ProgramName) IDENT;
+
+ConstVarEnumDeclList ::= 	(ConstVarEnumDeclList_const) ConstVarEnumDeclList ConstDeclList
+							| 
+							(ConstVarEnumDeclList_var)	ConstVarEnumDeclList VarDeclList
+							|
+							(ConstVarEnumDeclList_enum) ConstVarEnumDeclList EnumDeclList
+							|
+							(ConstVarEnumDeclList_epsilon) /* epsilon */
+							;
+
+// ============================================================
+// CONST DECLARATIONS 
+// ============================================================
+
+ConstDeclList ::=  (ConstDeclList) CONST Type ConstDecl ConstDeclMore SEMICOLON;
+
+ConstDecl ::= (ConstDecl) IDENT ASSIGN Constant;
+
+ConstDeclMore ::= (ConstDeclMore_rek)	COMMA ConstDecl ConstDeclMore
+				  |
+				  (ConstDeclMore_epsilon) /* epsilon */
+				  ;
+
+Constant ::= 	(Constant_number) NUMBER
+				|
+				(Constant_character) CHARACTER
+				|
+				(Constant_bool) BOOL
+				;
+
+// ============================================================
+// VAR DECLARATIONS 
+// ============================================================
+
+VarDeclList ::= (VarDeclList) Type IDENT ZeroOneSqBracket IdentList SEMICOLON;
+
+ZeroOneSqBracket ::=    (ZeroOneSqBracket_brackets) SQUAREOPENBRACKET SQUARECLBRACKET
+						|
+						(ZeroOneSqBracket_epsilon) /* epsilon */
+						;
+						
+IdentList ::= (IdentList_rek) COMMA IDENT ZeroOneSqBracket IdentList
+			  |
+			  (IdentList_epsilon) /* epsilon */
+			  ;
+ 					
+ 			  
+// ============================================================
+// ENUM DECLARATIONS 
+// ============================================================
+
+EnumDeclList ::= (EnumDeclList) ENUM IDENT CURLYOPENBRACKET IDENT AssignNumConst AssignNumConstMore CURLYCLBRACKET;
+
+AssignNumConst ::= 	(AssignNumConst_num) ASSIGN NUMBER
+					|
+					(AssignNumConst_epsilon) /* epsilon */
+					;
+
+AssignNumConstMore ::=  (AssignNumConstMore_rek) COMMA IDENT AssignNumConst AssignNumConstMore
+						|
+						(AssignNumConstMore_epsilon) /* epsilon */
+						;
+
+// ============================================================
+// METHOD DECLARATIONS 
+// ============================================================
+
+MethodDeclList ::=  (MethodDeclList_rek) MethodDeclList MethodDecl
+					|
+					(MethodDeclList_endRek) MethodDecl
+					;
+
+MethodDecl ::= (MethodDecl) TypeOrVoid MethodName OPENBRACKET OneOrZeroFormPars CLBRACKET VarDeclMore CURLYOPENBRACKET StatementList CURLYCLBRACKET;
+
+MethodName ::= (MethodName) IDENT;
+
+TypeOrVoid ::=  (TypeOrVoid_type) Type
+				|
+				(TypeOrVoid_void) VOID
+				;
+
+OneOrZeroFormPars ::=  (OneOrZeroFormPars_form) FormPars
+					   |
+					   (OneOrZeroFormPars_epsilon) /* epsilon */
+					   ;
+
+FormPars ::= (FormPars) Type IDENT ZeroOneSqBracket TypeIdentList;
+
+TypeIdentList ::= (TypeIdentList_rek) COMMA Type IDENT ZeroOneSqBracket TypeIdentList
+				  |
+				  (TypeIdentList_epsilon) /* epsilon */
+				  ;
+
+VarDeclMore ::= (VarDeclMore_list) VarDeclList VarDeclMore
+				|
+				(VarDeclMore_epsilon)
+				;
+
+// ============================================================
+// TYPE 
+// ============================================================
+
+Type ::= (Type) IDENT;
+
+
+// ============================================================
+// STATEMENTS
+// ============================================================
+
+StatementList ::=   (StatementList_rek) StatementList Statement 		
+  					|
+				    (StatementList_epsilon) /*epsilon*/
+					;	
+				  
+Statement ::= 	(Statement_ss) SingleStatement
+				|
+				(Statement_block) Statements
+				;
+				
+Statements ::=  (Statements) CURLYOPENBRACKET StatementList CURLYCLBRACKET;
+
+
+SingleStatement ::=     (SingleStatement_first) DesignatorStatement SEMICOLON
+						|
+						(SingleStatement_second) IF OPENBRACKET Condition CLBRACKET Statement ElseBlock
+						|
+						(SingleStatement_third) BREAK SEMICOLON
+						|
+						(SingleStatement_fourth) CONTINUE SEMICOLON
+						|
+						(SingleStatement_fifth) RETURN ZeroOneExpr SEMICOLON
+						|
+						(SingleStatement_sixth) READ OPENBRACKET Designator CLBRACKET SEMICOLON
+						|
+						(SingleStatement_seventh)	PRINT OPENBRACKET Expr CommaNumConst CLBRACKET SEMICOLON
+						|
+						(SingleStatement_eighth) SWITCH OPENBRACKET Expr CLBRACKET CURLYOPENBRACKET CaseList CURLYCLBRACKET
+						|
+						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne SEMICOLON ConditionZeroOne SEMICOLON DesignatorStatementZeroOne CLBRACKET Statement
+						;
+						
+ElseBlock ::= 	(ElseBlock_first) ELSE SingleStatement
+				|
+				(ElseBlock_epsilon)
+				;
+
+ZeroOneExpr ::= (ZeroOneExpr_first) Expr
+				|
+				(ZeroOneExpr_epsilon)
+				;
+
+CommaNumConst ::= (CommaNumConst_first) COMMA NUMBER
+				  |
+				  (CommaNumConst_epsilon)
+				  ;
+
+CaseList ::=    (CaseList_first) CASE NUMBER COLON StatementList CaseList 
+				|
+				(CaseList_epsilon)
+				;
+			
+DesignatorStatementZeroOne ::=  (DesignatorStatementZeroOne_first) DesignatorStatement	
+								|
+								(DesignatorStatementZeroOne_epsilon)
+								;  
+
+ConditionZeroOne ::=    (ConditionZeroOne_first) Condition
+						|
+						(ConditionZeroOne_epsilon)
+						;	
+	
+						
+// ============================================================
+// DESIGNATOR STATEMENT
+// ============================================================
+
+DesignatorStatement ::= (DesignatorStatement) Designator DesignatorRest; 
+
+DesignatorRest ::=  (DesignatorRest_first) Assignop Expr
+					|
+					(DesignatorRest_second) OPENBRACKET ActParsZeroOne CLBRACKET
+					|
+					(DesignatorRest_third) INC
+					|	 			
+					(DesignatorRest_fourth) DEC
+					;
+
+Assignop ::= (Assignop) ASSIGN;	
+
+
+// ============================================================
+// ACTUAL PARAMETERS 
+// ============================================================
+
+ActPars ::= (ActPars) Expr CommaExprList;
+
+CommaExprList ::=   (CommaExprList_rek) COMMA Expr CommaExprList
+					|
+					(CommaExprList_epsilon)
+					;
+
+ActParsZeroOne ::=  (ActParsZeroOne_ActPars) ActPars
+					|
+					(ActParsZeroOne_epsilon)
+					; 
+
+ActParsBracketsZeroOne ::=  (ActParsBracketsZeroOne_brackets) OPENBRACKET ActParsZeroOne CLBRACKET
+							|
+							(ActParsBracketsZeroOne_epsilon)
+							;
+							
+							
+							
+// ============================================================
+// CONDITION 
+// ============================================================
+
+Condition ::= (Condition) CondTerm OrCondTermList;
+
+OrCondTermList ::=  (OrCondTermList_rek) OrCondTermList OR CondTerm 
+					|
+					(OrCondTermList_epsilon) /* epsilon */ 
+					; 
+
+CondTerm ::= (CondTerm) CondFact AndCondFactList;
+
+AndCondFactList ::= (AndCondFactList_rek) AndCondFactList AND CondFact 
+					|
+					(AndCondFactList_epsilon) /* epsilon */
+					;
+
+CondFact ::= (CondFact) AddExpr RelopExprZeroOne;
+
+RelopExprZeroOne ::=    (RelopExprZeroOne_relopExpr) Relop AddExpr
+						|
+						(RelopExprZeroOne_epsilon)
+						;
+
+Relop ::=   (Relop_first) EQUAL
+			|
+			(Relop_second) DIFFERENT
+			|
+			(Relop_third) GREATERTHEN
+			|
+			(Relop_fourth) GREATERTHENOREQUAL
+			|
+			(Relop_fifth) LESSTHEN
+			|
+			(Relop_sixth) LESSTHENOREQUAL
+			;				
+			
+// ============================================================
+// EXPRESSIONS 
+// ============================================================
+
+Expr ::=    (Expr_ternary) Condition QUESTIONMARK Expr COLON Expr
+            |
+            (Expr_normal) AddExpr
+            ;
+
+AddExpr ::= (AddExpr_addop) Unary Term AddopTermList;
+
+Unary ::=   (Unary_minus) MINUS
+            |
+            (Unary_epsilon) /* epsilon */
+            ;
+
+AddopTermList ::=   (AddopTermList_rek) AddopTermList Addop Term
+                    |
+                    (AddopTermList_epsilon) /* epsilon */
+                    ;
+
+Addop ::=   (Addop_plus) PLUS
+            |
+            (Addop_minus) MINUS
+            ;
+
+// ============================================================
+// TERM 
+// ============================================================
+
+Term ::= (Term) MulopFactorList;
+
+MulopFactorList ::= (MulopFactorList_rek) MulopFactorList Mulop Factor   				
+					|
+					(MulopFactorList_factor) Factor
+					; 
+
+Mulop ::=   (Mulop_mul) MUL
+			|				
+			(Mulop_div) DIV
+			|
+			(Mulop_percent) PERCENT
+			;
+
+// ============================================================
+// FACTOR 
+// ============================================================
+
+Factor ::=  (Factor_first) Designator ActParsBracketsZeroOne
+			|
+			(Factor_second) Constant
+			|
+			(Factor_third) NEW Type SQUAREOPENBRACKET Expr SQUARECLBRACKET
+			|
+			(Factor_fourth) OPENBRACKET Expr CLBRACKET
+			; 
+
+// ============================================================
+// DESIGNATOR 
+// ============================================================
+
+Designator ::= (Designator) IDENT DesignatorListRest;
+
+DesignatorListRest ::=  (DesignatorListRest_dot) DOT IdentOrLength DesignatorListRest
+						|
+						(DesignatorListRest_expr) SQUAREOPENBRACKET Expr SQUARECLBRACKET DesignatorListRest
+						|
+						(DesignatorListRest_epsilon) /*epsilon*/
+						;  				
+
+IdentOrLength ::=   (IdentOrLength_ident) IDENT
+					|
+					(IdentOrLength_length) LENGTH
+					;

@@ -1,0 +1,91 @@
+INFO  00:19:18,982 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  00:19:19,056 - #2 program
+INFO  00:19:19,056 - #45 Test
+INFO  00:19:19,057 - #5 const
+INFO  00:19:19,059 - #45 char
+INFO  00:19:19,060 - #45 a
+INFO  00:19:19,061 - #6 =
+INFO  00:19:19,061 - #48 a
+INFO  00:19:19,061 - #8 ,
+INFO  00:19:19,063 - #45 b
+INFO  00:19:19,063 - #6 =
+INFO  00:19:19,063 - #48 b
+INFO  00:19:19,063 - #7 ;
+INFO  00:19:19,064 - #45 char
+INFO  00:19:19,065 - #45 x
+INFO  00:19:19,065 - #8 ,
+INFO  00:19:19,067 - #45 y
+INFO  00:19:19,067 - #7 ;
+INFO  00:19:19,069 - #3 {
+INFO  00:19:19,070 - #12 void
+INFO  00:19:19,070 - #45 main
+INFO  00:19:19,071 - #13 (
+INFO  00:19:19,072 - #14 )
+INFO  00:19:19,082 - #3 {
+INFO  00:19:19,083 - #4 }
+INFO  00:19:19,084 - #4 }
+INFO  00:19:19,090 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_const(
+      ConstVarEnumDeclList_epsilon(
+      ) [ConstVarEnumDeclList_epsilon]
+      ConstDeclList(
+        Type(
+         char
+        ) [Type]
+        ConstDecl(
+         a
+          Constant_character(
+           a
+          ) [Constant_character]
+        ) [ConstDecl]
+        ConstDeclMore_rek(
+          ConstDecl(
+           b
+            Constant_character(
+             b
+            ) [Constant_character]
+          ) [ConstDecl]
+          ConstDeclMore_epsilon(
+          ) [ConstDeclMore_epsilon]
+        ) [ConstDeclMore_rek]
+      ) [ConstDeclList]
+    ) [ConstVarEnumDeclList_const]
+    VarDeclList(
+      Type(
+       char
+      ) [Type]
+     x
+      ZeroOneSqBracket_epsilon(
+      ) [ZeroOneSqBracket_epsilon]
+      IdentList_rek(
+       y
+        ZeroOneSqBracket_epsilon(
+        ) [ZeroOneSqBracket_epsilon]
+        IdentList_epsilon(
+        ) [IdentList_epsilon]
+      ) [IdentList_rek]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  00:19:19,090 - =====================================================================
+INFO  00:19:19,100 - =====================================================================
+INFO  00:19:19,101 - Parsiranje uspesno zavrseno!

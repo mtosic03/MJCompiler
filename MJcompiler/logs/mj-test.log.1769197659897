@@ -1,0 +1,19 @@
+INFO  20:47:25,631 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  20:47:25,697 - #2 program
+INFO  20:47:25,697 - #45 test_303
+INFO  20:47:25,698 - #5 const
+INFO  20:47:25,699 - #45 int
+INFO  20:47:25,699 - #45 cinilac
+INFO  20:47:25,699 - #6 =
+INFO  20:47:25,699 - #46 4
+INFO  20:47:25,699 - #8 ,
+INFO  20:47:25,700 - #45 delilac
+INFO  20:47:25,700 - #6 =
+INFO  20:47:25,700 - #46 3
+INFO  20:47:25,700 - #7 ;
+INFO  20:47:25,701 - #45 abstract
+INFO  20:47:25,702 - #45 class
+INFO  20:47:25,702 - #45 AbsPredmet
+ERROR 20:47:25,702 - 
+Sintaksna greska na liniji 6
+ERROR 20:47:25,702 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 6

@@ -1,0 +1,84 @@
+INFO  00:18:18,626 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  00:18:18,703 - #2 program
+INFO  00:18:18,703 - #45 Test
+INFO  00:18:18,703 - #5 const
+INFO  00:18:18,705 - #45 char
+INFO  00:18:18,705 - #45 a
+INFO  00:18:18,706 - #6 =
+INFO  00:18:18,706 - #48 a
+INFO  00:18:18,706 - #8 ,
+INFO  00:18:18,708 - #45 b
+INFO  00:18:18,708 - #6 =
+INFO  00:18:18,708 - #48 b
+INFO  00:18:18,709 - #7 ;
+INFO  00:18:18,709 - #45 int
+INFO  00:18:18,710 - #45 x
+INFO  00:18:18,711 - #7 ;
+INFO  00:18:18,712 - #3 {
+INFO  00:18:18,713 - #12 void
+INFO  00:18:18,714 - #45 main
+INFO  00:18:18,715 - #13 (
+INFO  00:18:18,716 - #14 )
+INFO  00:18:18,717 - #3 {
+INFO  00:18:18,718 - #4 }
+INFO  00:18:18,731 - #4 }
+INFO  00:18:18,738 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_const(
+      ConstVarEnumDeclList_epsilon(
+      ) [ConstVarEnumDeclList_epsilon]
+      ConstDeclList(
+        Type(
+         char
+        ) [Type]
+        ConstDecl(
+         a
+          Constant_character(
+           a
+          ) [Constant_character]
+        ) [ConstDecl]
+        ConstDeclMore_rek(
+          ConstDecl(
+           b
+            Constant_character(
+             b
+            ) [Constant_character]
+          ) [ConstDecl]
+          ConstDeclMore_epsilon(
+          ) [ConstDeclMore_epsilon]
+        ) [ConstDeclMore_rek]
+      ) [ConstDeclList]
+    ) [ConstVarEnumDeclList_const]
+    VarDeclList(
+      Type(
+       int
+      ) [Type]
+     x
+      ZeroOneSqBracket_epsilon(
+      ) [ZeroOneSqBracket_epsilon]
+      IdentList_epsilon(
+      ) [IdentList_epsilon]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  00:18:18,739 - =====================================================================
+INFO  00:18:18,748 - =====================================================================
+INFO  00:18:18,749 - Parsiranje uspesno zavrseno!

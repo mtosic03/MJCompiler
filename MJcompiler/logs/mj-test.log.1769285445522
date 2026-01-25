@@ -1,0 +1,57 @@
+INFO  21:04:34,703 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  21:04:34,780 - #2 program
+INFO  21:04:34,780 - #45 Test
+INFO  21:04:34,780 - #5 const
+INFO  21:04:34,782 - #45 int
+INFO  21:04:34,782 - #45 a
+INFO  21:04:34,783 - #6 =
+INFO  21:04:34,783 - #46 1
+INFO  21:04:34,783 - #7 ;
+INFO  21:04:34,785 - #3 {
+INFO  21:04:34,786 - #12 void
+INFO  21:04:34,788 - #45 main
+INFO  21:04:34,788 - #13 (
+INFO  21:04:34,789 - #14 )
+INFO  21:04:34,790 - #3 {
+INFO  21:04:34,790 - #4 }
+INFO  21:04:34,791 - #4 }
+INFO  21:04:34,797 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_const(
+    ConstVarEnumDeclList_epsilon(
+    ) [ConstVarEnumDeclList_epsilon]
+    ConstDeclList(
+      Type(
+       int
+      ) [Type]
+      ConstDecl(
+       a
+        Constant_number(
+         1
+        ) [Constant_number]
+      ) [ConstDecl]
+      ConstDeclMore_epsilon(
+      ) [ConstDeclMore_epsilon]
+    ) [ConstDeclList]
+  ) [ConstVarEnumDeclList_const]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  21:04:34,806 - =====================================================================
+INFO  21:04:34,816 - =====================================================================
+INFO  21:04:34,816 - Parsiranje uspesno zavrseno!

@@ -1,0 +1,69 @@
+INFO  21:51:43,949 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  21:51:44,024 - #2 program
+INFO  21:51:44,024 - #45 Test
+INFO  21:51:44,024 - #5 const
+INFO  21:51:44,025 - #45 char
+INFO  21:51:44,027 - #45 a
+INFO  21:51:44,028 - #6 =
+INFO  21:51:44,028 - #48 a
+INFO  21:51:44,028 - #8 ,
+INFO  21:51:44,029 - #45 v
+INFO  21:51:44,029 - #6 =
+INFO  21:51:44,030 - #46 1
+INFO  21:51:44,030 - #7 ;
+INFO  21:51:44,031 - #3 {
+INFO  21:51:44,032 - #12 void
+INFO  21:51:44,033 - #45 main
+INFO  21:51:44,034 - #13 (
+INFO  21:51:44,034 - #14 )
+INFO  21:51:44,035 - #3 {
+INFO  21:51:44,036 - #4 }
+INFO  21:51:44,037 - #4 }
+INFO  21:51:44,043 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_const(
+    ConstVarEnumDeclList_epsilon(
+    ) [ConstVarEnumDeclList_epsilon]
+    ConstDeclList(
+      Type(
+       char
+      ) [Type]
+      ConstDecl(
+       a
+        Constant_character(
+         a
+        ) [Constant_character]
+      ) [ConstDecl]
+      ConstDeclMore_rek(
+        ConstDecl(
+         v
+          Constant_number(
+           1
+          ) [Constant_number]
+        ) [ConstDecl]
+        ConstDeclMore_epsilon(
+        ) [ConstDeclMore_epsilon]
+      ) [ConstDeclMore_rek]
+    ) [ConstDeclList]
+  ) [ConstVarEnumDeclList_const]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  21:51:44,053 - =====================================================================
+INFO  21:51:44,065 - =====================================================================
+INFO  21:51:44,066 - Parsiranje uspesno zavrseno!
