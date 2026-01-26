@@ -26,6 +26,10 @@ public class Compiler {
 		Log4JUtils.instance().prepareLogFile(Logger.getRootLogger());
 	}
 	
+	public static void tsdump() {
+		Tab.dump();
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		Logger log = Logger.getLogger(Compiler.class);
@@ -62,7 +66,7 @@ public class Compiler {
 			
 			//Ispis tabele simbola 
 			log.info("=====================================================================");
-			Tab.dump();
+			tsdump();
 			
 			
 			if(!p.errorDetected && sa.passed()){

@@ -1,9 +1,13 @@
 program Test
-
-const char a = 'a', b='b';
-int p[], q[];
-char x;
+enum Broj {x = 0, y , z=5, k}
 
 {
-	void main(){}
+	void main()int x, p[];{}
+	
+	int meth(int fp1)int x, p[];{
+		return 1;
+	}
+	
+	
+	
 }

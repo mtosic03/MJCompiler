@@ -1,0 +1,129 @@
+INFO  12:33:18,051 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  12:33:18,133 - #2 program
+INFO  12:33:18,133 - #45 Test
+INFO  12:33:18,134 - #5 const
+INFO  12:33:18,137 - #45 char
+INFO  12:33:18,137 - #45 a
+INFO  12:33:18,138 - #6 =
+INFO  12:33:18,138 - #48 a
+INFO  12:33:18,138 - #8 ,
+INFO  12:33:18,140 - #45 b
+INFO  12:33:18,140 - #6 =
+INFO  12:33:18,140 - #48 b
+INFO  12:33:18,140 - #7 ;
+INFO  12:33:18,142 - #45 char
+INFO  12:33:18,143 - #45 p
+INFO  12:33:18,144 - #9 [
+INFO  12:33:18,144 - #10 ]
+INFO  12:33:18,144 - #8 ,
+INFO  12:33:18,144 - #45 q
+INFO  12:33:18,145 - #9 [
+INFO  12:33:18,145 - #10 ]
+INFO  12:33:18,145 - #7 ;
+INFO  12:33:18,147 - #45 char
+INFO  12:33:18,158 - #45 x
+INFO  12:33:18,158 - #7 ;
+INFO  12:33:18,158 - #3 {
+INFO  12:33:18,159 - #12 void
+INFO  12:33:18,159 - #45 main
+INFO  12:33:18,160 - #13 (
+INFO  12:33:18,161 - #14 )
+INFO  12:33:18,161 - #45 int
+INFO  12:33:18,162 - #45 x
+INFO  12:33:18,162 - #7 ;
+INFO  12:33:18,162 - #3 {
+INFO  12:33:18,163 - #4 }
+INFO  12:33:18,163 - #4 }
+INFO  12:33:18,171 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_var(
+      ConstVarEnumDeclList_const(
+        ConstVarEnumDeclList_epsilon(
+        ) [ConstVarEnumDeclList_epsilon]
+        ConstDeclList(
+          Type(
+           char
+          ) [Type]
+          ConstDecl(
+           a
+            Constant_character(
+             a
+            ) [Constant_character]
+          ) [ConstDecl]
+          ConstDeclMore_rek(
+            ConstDecl(
+             b
+              Constant_character(
+               b
+              ) [Constant_character]
+            ) [ConstDecl]
+            ConstDeclMore_epsilon(
+            ) [ConstDeclMore_epsilon]
+          ) [ConstDeclMore_rek]
+        ) [ConstDeclList]
+      ) [ConstVarEnumDeclList_const]
+      VarDeclList(
+        Type(
+         char
+        ) [Type]
+        VarDeclaration_arr(
+         p
+        ) [VarDeclaration_arr]
+        VarDeclarationMore_rek(
+          VarDeclaration_arr(
+           q
+          ) [VarDeclaration_arr]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclarationMore_rek]
+      ) [VarDeclList]
+    ) [ConstVarEnumDeclList_var]
+    VarDeclList(
+      Type(
+       char
+      ) [Type]
+      VarDeclaration_elem(
+       x
+      ) [VarDeclaration_elem]
+      VarDeclarationMore_epsilon(
+      ) [VarDeclarationMore_epsilon]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_list(
+        VarDeclList(
+          Type(
+           int
+          ) [Type]
+          VarDeclaration_elem(
+           x
+          ) [VarDeclaration_elem]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclList]
+        VarDeclMore_epsilon(
+        ) [VarDeclMore_epsilon]
+      ) [VarDeclMore_list]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  12:33:18,171 - =====================================================================
+ERROR 12:33:18,182 - Dvostruka definicija promenljive p na liniji 4
+ERROR 12:33:18,182 - Dvostruka definicija promenljive q na liniji 4
+ERROR 12:33:18,183 - Dvostruka definicija promenljive x na liniji 5
+ERROR 12:33:18,183 - Dvostruka definicija promenljive x na liniji 8
+INFO  12:33:18,183 - =====================================================================
+ERROR 12:33:18,184 - Parsiranje NIJE uspesno zavrseno!

@@ -60,6 +60,7 @@ nonterminal
 ConstDeclList ConstDeclList;
 nonterminal VarDeclList VarDeclList;
 nonterminal EnumDeclList EnumDeclList;
+nonterminal EnumDeclName EnumDeclName;
 nonterminal MethodDecl MethodDecl;
 nonterminal Type Type;
 nonterminal Constant Constant;
@@ -68,15 +69,13 @@ nonterminal VarDeclaration VarDeclaration;
 nonterminal VarDeclarationMore VarDeclarationMore;
 nonterminal
 ConstDeclMore ConstDeclMore;
-nonterminal ZeroOneSqBracket ZeroOneSqBracket;
-nonterminal AssignNumConst AssignNumConst;
-nonterminal AssignNumConstMore AssignNumConstMore;
+nonterminal EnumMemberList EnumMemberList;
+nonterminal EnumMember EnumMember;
+nonterminal FormParList FormParList;
 nonterminal
-TypeOrVoid TypeOrVoid;
-nonterminal OneOrZeroFormPars OneOrZeroFormPars;
-nonterminal FormPars FormPars;
+FormPars FormPars;
 nonterminal VarDeclMore VarDeclMore;
-nonterminal TypeIdentList TypeIdentList;
+nonterminal FormParMore FormParMore;
 nonterminal StatementList StatementList;
 nonterminal Statement Statement;
 nonterminal SingleStatement SingleStatement;
@@ -119,7 +118,7 @@ nonterminal Unary Unary;
 nonterminal AddExpr AddExpr;
 nonterminal ProgramName ProgramName;
 nonterminal
-MethodName MethodName;
+MethodNameType MethodNameType;
 
 
 precedence left ELSE;
@@ -183,18 +182,21 @@ VarDeclarationMore ::= (VarDeclarationMore_rek) COMMA VarDeclaration:V1 VarDecla
 // ENUM DECLARATIONS 
 // ============================================================
 
-EnumDeclList ::= (EnumDeclList) ENUM IDENT:I1 CURLYOPENBRACKET IDENT:I2 AssignNumConst:A3 AssignNumConstMore:A4 CURLYCLBRACKET {: RESULT=new EnumDeclList(I1, I2, A3, A4); RESULT.setLine(I1left); :};
+EnumDeclList ::= (EnumDeclList) ENUM EnumDeclName:E1 CURLYOPENBRACKET EnumMemberList:E2 CURLYCLBRACKET {: RESULT=new EnumDeclList(E1, E2); RESULT.setLine(E1left); :};
 
-AssignNumConst ::= 	(AssignNumConst_num) ASSIGN NUMBER:N1 {: RESULT=new AssignNumConst_num(N1); RESULT.setLine(N1left); :}
-					|
-					(AssignNumConst_epsilon) {: RESULT=new AssignNumConst_epsilon(); :} /* epsilon */
-					;
+EnumDeclName ::=(EnumDeclName) IDENT:I1 {: RESULT=new EnumDeclName(I1); RESULT.setLine(I1left); :};
 
-AssignNumConstMore ::=  (AssignNumConstMore_rek) COMMA IDENT:I1 AssignNumConst:A2 AssignNumConstMore:A3 {: RESULT=new AssignNumConstMore_rek(I1, A2, A3); RESULT.setLine(I1left); :}
-						|
-						(AssignNumConstMore_epsilon) {: RESULT=new AssignNumConstMore_epsilon(); :} /* epsilon */
-						;
+EnumMemberList ::= (EnumMemberList_first) EnumMember:E1 {: RESULT=new EnumMemberList_first(E1); RESULT.setLine(E1left); :}
+                   | 
+                   (EnumMemberList_rek) EnumMember:E1 COMMA EnumMemberList:E2 {: RESULT=new EnumMemberList_rek(E1, E2); RESULT.setLine(E1left); :}
+                   ;
 
+EnumMember ::=  (EnumMember_num) IDENT:I1 {: RESULT=new EnumMember_num(I1); RESULT.setLine(I1left); :}
+                |
+                (EnumMember_assign) IDENT:I1 ASSIGN NUMBER:N2 {: RESULT=new EnumMember_assign(I1, N2); RESULT.setLine(I1left); :}
+                ;
+             
+             
 // ============================================================
 // METHOD DECLARATIONS 
 // ============================================================
@@ -204,31 +206,28 @@ MethodDeclList ::=  (MethodDeclList_rek) MethodDeclList:M1 MethodDecl:M2 {: RESU
 					(MethodDeclList_endRek) MethodDecl:M1 {: RESULT=new MethodDeclList_endRek(M1); RESULT.setLine(M1left); :}
 					;
 
-MethodDecl ::= (MethodDecl) TypeOrVoid:T1 MethodName:M2 OPENBRACKET OneOrZeroFormPars:O3 CLBRACKET VarDeclMore:V4 CURLYOPENBRACKET StatementList:S5 CURLYCLBRACKET {: RESULT=new MethodDecl(T1, M2, O3, V4, S5); RESULT.setLine(T1left); :};
-
-MethodName ::= (MethodName) IDENT:I1 {: RESULT=new MethodName(I1); RESULT.setLine(I1left); :};
-
-TypeOrVoid ::=  (TypeOrVoid_type) Type:T1 {: RESULT=new TypeOrVoid_type(T1); RESULT.setLine(T1left); :}
-				|
-				(TypeOrVoid_void) VOID {: RESULT=new TypeOrVoid_void(); :}
-				;
-
-OneOrZeroFormPars ::=  (OneOrZeroFormPars_form) FormPars:F1 {: RESULT=new OneOrZeroFormPars_form(F1); RESULT.setLine(F1left); :}
-					   |
-					   (OneOrZeroFormPars_epsilon) {: RESULT=new OneOrZeroFormPars_epsilon(); :} /* epsilon */
-					   ;
-
-FormPars ::= (FormPars) Type:T1 IDENT:I2 ZeroOneSqBracket:Z3 TypeIdentList:T4 {: RESULT=new FormPars(T1, I2, Z3, T4); RESULT.setLine(T1left); :};
+MethodDecl ::= (MethodDecl) MethodNameType:M1 OPENBRACKET FormParList:F2 CLBRACKET VarDeclMore:V3 CURLYOPENBRACKET StatementList:S4 CURLYCLBRACKET {: RESULT=new MethodDecl(M1, F2, V3, S4); RESULT.setLine(M1left); :};
 
 
-ZeroOneSqBracket ::=    (ZeroOneSqBracket_brackets) SQUAREOPENBRACKET SQUARECLBRACKET {: RESULT=new ZeroOneSqBracket_brackets(); :}
+MethodNameType ::=      (MethodNameType_type) Type:T1 IDENT:I2 {: RESULT=new MethodNameType_type(T1, I2); RESULT.setLine(T1left); :}  
 						|
-						(ZeroOneSqBracket_epsilon) {: RESULT=new ZeroOneSqBracket_epsilon(); :} /* epsilon */
+						(MethodNameType_void) VOID IDENT:I1 {: RESULT=new MethodNameType_void(I1); RESULT.setLine(I1left); :}
 						;
 
-TypeIdentList ::= (TypeIdentList_rek) COMMA Type:T1 IDENT:I2 ZeroOneSqBracket:Z3 TypeIdentList:T4 {: RESULT=new TypeIdentList_rek(T1, I2, Z3, T4); RESULT.setLine(T1left); :}
+FormParList ::=  	   (FormParList_form) FormPars:F1 FormParMore:F2 {: RESULT=new FormParList_form(F1, F2); RESULT.setLine(F1left); :}
+					   |
+					   (FormParList_epsilon) {: RESULT=new FormParList_epsilon(); :} /* epsilon */
+					   ;
+
+FormPars ::=    (FormPars_var) Type:T1 IDENT:I2 {: RESULT=new FormPars_var(T1, I2); RESULT.setLine(T1left); :} 
+				|
+				(FormPars_arr) Type:T1 IDENT:I2 SQUAREOPENBRACKET SQUARECLBRACKET {: RESULT=new FormPars_arr(T1, I2); RESULT.setLine(T1left); :}
+				;
+
+
+FormParMore ::=   (FormParMore_rek) COMMA FormPars:F1 FormParMore:F2 {: RESULT=new FormParMore_rek(F1, F2); RESULT.setLine(F1left); :}
 				  |
-				  (TypeIdentList_epsilon) {: RESULT=new TypeIdentList_epsilon(); :} /* epsilon */
+				  (FormParMore_epsilon) {: RESULT=new FormParMore_epsilon(); :} /* epsilon */
 				  ;
 
 VarDeclMore ::= (VarDeclMore_list) VarDeclList:V1 VarDeclMore:V2 {: RESULT=new VarDeclMore_list(V1, V2); RESULT.setLine(V1left); :}

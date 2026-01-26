@@ -1,0 +1,125 @@
+INFO  12:36:16,079 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  12:36:16,154 - #2 program
+INFO  12:36:16,155 - #45 Test
+INFO  12:36:16,155 - #5 const
+INFO  12:36:16,157 - #45 char
+INFO  12:36:16,157 - #45 a
+INFO  12:36:16,158 - #6 =
+INFO  12:36:16,158 - #48 a
+INFO  12:36:16,158 - #8 ,
+INFO  12:36:16,159 - #45 b
+INFO  12:36:16,159 - #6 =
+INFO  12:36:16,159 - #48 b
+INFO  12:36:16,159 - #7 ;
+INFO  12:36:16,160 - #45 char
+INFO  12:36:16,161 - #45 p
+INFO  12:36:16,161 - #9 [
+INFO  12:36:16,161 - #10 ]
+INFO  12:36:16,163 - #8 ,
+INFO  12:36:16,163 - #45 q
+INFO  12:36:16,163 - #9 [
+INFO  12:36:16,163 - #10 ]
+INFO  12:36:16,163 - #7 ;
+INFO  12:36:16,164 - #45 char
+INFO  12:36:16,174 - #45 x
+INFO  12:36:16,175 - #7 ;
+INFO  12:36:16,175 - #3 {
+INFO  12:36:16,175 - #12 void
+INFO  12:36:16,175 - #45 main
+INFO  12:36:16,176 - #13 (
+INFO  12:36:16,176 - #14 )
+INFO  12:36:16,177 - #45 int
+INFO  12:36:16,177 - #45 x
+INFO  12:36:16,177 - #7 ;
+INFO  12:36:16,177 - #3 {
+INFO  12:36:16,179 - #4 }
+INFO  12:36:16,179 - #4 }
+INFO  12:36:16,186 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_var(
+      ConstVarEnumDeclList_const(
+        ConstVarEnumDeclList_epsilon(
+        ) [ConstVarEnumDeclList_epsilon]
+        ConstDeclList(
+          Type(
+           char
+          ) [Type]
+          ConstDecl(
+           a
+            Constant_character(
+             a
+            ) [Constant_character]
+          ) [ConstDecl]
+          ConstDeclMore_rek(
+            ConstDecl(
+             b
+              Constant_character(
+               b
+              ) [Constant_character]
+            ) [ConstDecl]
+            ConstDeclMore_epsilon(
+            ) [ConstDeclMore_epsilon]
+          ) [ConstDeclMore_rek]
+        ) [ConstDeclList]
+      ) [ConstVarEnumDeclList_const]
+      VarDeclList(
+        Type(
+         char
+        ) [Type]
+        VarDeclaration_arr(
+         p
+        ) [VarDeclaration_arr]
+        VarDeclarationMore_rek(
+          VarDeclaration_arr(
+           q
+          ) [VarDeclaration_arr]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclarationMore_rek]
+      ) [VarDeclList]
+    ) [ConstVarEnumDeclList_var]
+    VarDeclList(
+      Type(
+       char
+      ) [Type]
+      VarDeclaration_elem(
+       x
+      ) [VarDeclaration_elem]
+      VarDeclarationMore_epsilon(
+      ) [VarDeclarationMore_epsilon]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_endRek(
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       main
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_list(
+        VarDeclList(
+          Type(
+           int
+          ) [Type]
+          VarDeclaration_elem(
+           x
+          ) [VarDeclaration_elem]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclList]
+        VarDeclMore_epsilon(
+        ) [VarDeclMore_epsilon]
+      ) [VarDeclMore_list]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  12:36:16,186 - =====================================================================
+INFO  12:36:16,199 - =====================================================================
+INFO  12:36:16,199 - Parsiranje uspesno zavrseno!

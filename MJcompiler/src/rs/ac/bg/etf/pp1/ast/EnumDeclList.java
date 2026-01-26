@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 25/0/2026 11:33:6
+// 26/0/2026 19:11:14
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -9,50 +9,30 @@ public class EnumDeclList implements SyntaxNode {
 
     private SyntaxNode parent;
     private int line;
-    private String I1;
-    private String I2;
-    private AssignNumConst AssignNumConst;
-    private AssignNumConstMore AssignNumConstMore;
+    private EnumDeclName EnumDeclName;
+    private EnumMemberList EnumMemberList;
 
-    public EnumDeclList (String I1, String I2, AssignNumConst AssignNumConst, AssignNumConstMore AssignNumConstMore) {
-        this.I1=I1;
-        this.I2=I2;
-        this.AssignNumConst=AssignNumConst;
-        if(AssignNumConst!=null) AssignNumConst.setParent(this);
-        this.AssignNumConstMore=AssignNumConstMore;
-        if(AssignNumConstMore!=null) AssignNumConstMore.setParent(this);
+    public EnumDeclList (EnumDeclName EnumDeclName, EnumMemberList EnumMemberList) {
+        this.EnumDeclName=EnumDeclName;
+        if(EnumDeclName!=null) EnumDeclName.setParent(this);
+        this.EnumMemberList=EnumMemberList;
+        if(EnumMemberList!=null) EnumMemberList.setParent(this);
     }
 
-    public String getI1() {
-        return I1;
+    public EnumDeclName getEnumDeclName() {
+        return EnumDeclName;
     }
 
-    public void setI1(String I1) {
-        this.I1=I1;
+    public void setEnumDeclName(EnumDeclName EnumDeclName) {
+        this.EnumDeclName=EnumDeclName;
     }
 
-    public String getI2() {
-        return I2;
+    public EnumMemberList getEnumMemberList() {
+        return EnumMemberList;
     }
 
-    public void setI2(String I2) {
-        this.I2=I2;
-    }
-
-    public AssignNumConst getAssignNumConst() {
-        return AssignNumConst;
-    }
-
-    public void setAssignNumConst(AssignNumConst AssignNumConst) {
-        this.AssignNumConst=AssignNumConst;
-    }
-
-    public AssignNumConstMore getAssignNumConstMore() {
-        return AssignNumConstMore;
-    }
-
-    public void setAssignNumConstMore(AssignNumConstMore AssignNumConstMore) {
-        this.AssignNumConstMore=AssignNumConstMore;
+    public void setEnumMemberList(EnumMemberList EnumMemberList) {
+        this.EnumMemberList=EnumMemberList;
     }
 
     public SyntaxNode getParent() {
@@ -76,19 +56,19 @@ public class EnumDeclList implements SyntaxNode {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(AssignNumConst!=null) AssignNumConst.accept(visitor);
-        if(AssignNumConstMore!=null) AssignNumConstMore.accept(visitor);
+        if(EnumDeclName!=null) EnumDeclName.accept(visitor);
+        if(EnumMemberList!=null) EnumMemberList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(AssignNumConst!=null) AssignNumConst.traverseTopDown(visitor);
-        if(AssignNumConstMore!=null) AssignNumConstMore.traverseTopDown(visitor);
+        if(EnumDeclName!=null) EnumDeclName.traverseTopDown(visitor);
+        if(EnumMemberList!=null) EnumMemberList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(AssignNumConst!=null) AssignNumConst.traverseBottomUp(visitor);
-        if(AssignNumConstMore!=null) AssignNumConstMore.traverseBottomUp(visitor);
+        if(EnumDeclName!=null) EnumDeclName.traverseBottomUp(visitor);
+        if(EnumMemberList!=null) EnumMemberList.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -97,20 +77,14 @@ public class EnumDeclList implements SyntaxNode {
         buffer.append(tab);
         buffer.append("EnumDeclList(\n");
 
-        buffer.append(" "+tab+I1);
-        buffer.append("\n");
-
-        buffer.append(" "+tab+I2);
-        buffer.append("\n");
-
-        if(AssignNumConst!=null)
-            buffer.append(AssignNumConst.toString("  "+tab));
+        if(EnumDeclName!=null)
+            buffer.append(EnumDeclName.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");
 
-        if(AssignNumConstMore!=null)
-            buffer.append(AssignNumConstMore.toString("  "+tab));
+        if(EnumMemberList!=null)
+            buffer.append(EnumMemberList.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

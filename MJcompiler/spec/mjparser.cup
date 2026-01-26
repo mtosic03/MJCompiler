@@ -54,14 +54,14 @@ terminal Character CHARACTER;
 
 
 nonterminal Program, ConstVarEnumDeclList, MethodDeclList, 
-ConstDeclList, VarDeclList, EnumDeclList, MethodDecl, Type, Constant, ConstDecl, VarDeclaration, VarDeclarationMore,
-ConstDeclMore, ZeroOneSqBracket, AssignNumConst, AssignNumConstMore,
-TypeOrVoid, OneOrZeroFormPars, FormPars, VarDeclMore, TypeIdentList, StatementList, Statement, SingleStatement,
+ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, Type, Constant, ConstDecl, VarDeclaration, VarDeclarationMore,
+ConstDeclMore, EnumMemberList, EnumMember, FormParList,
+FormPars, VarDeclMore, FormParMore, StatementList, Statement, SingleStatement,
 DesignatorStatement, Designator, DesignatorListRest, IdentOrLength, Expr, Term, AddopTermList, Addop,
 Factor, MulopFactorList, Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, CondFact,
 RelopExprZeroOne, Relop, Condition, CondTerm, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
 CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, AddExpr, ProgramName,
-MethodName;
+MethodNameType;
 
 
 precedence left ELSE;
@@ -125,18 +125,21 @@ VarDeclarationMore ::= (VarDeclarationMore_rek) COMMA VarDeclaration VarDeclarat
 // ENUM DECLARATIONS 
 // ============================================================
 
-EnumDeclList ::= (EnumDeclList) ENUM IDENT CURLYOPENBRACKET IDENT AssignNumConst AssignNumConstMore CURLYCLBRACKET;
+EnumDeclList ::= (EnumDeclList) ENUM EnumDeclName CURLYOPENBRACKET EnumMemberList CURLYCLBRACKET;
 
-AssignNumConst ::= 	(AssignNumConst_num) ASSIGN NUMBER
-					|
-					(AssignNumConst_epsilon) /* epsilon */
-					;
+EnumDeclName ::=(EnumDeclName) IDENT;
 
-AssignNumConstMore ::=  (AssignNumConstMore_rek) COMMA IDENT AssignNumConst AssignNumConstMore
-						|
-						(AssignNumConstMore_epsilon) /* epsilon */
-						;
+EnumMemberList ::= (EnumMemberList_first) EnumMember
+                   | 
+                   (EnumMemberList_rek) EnumMember COMMA EnumMemberList
+                   ;
 
+EnumMember ::=  (EnumMember_num) IDENT
+                |
+                (EnumMember_assign) IDENT ASSIGN NUMBER
+                ;
+             
+             
 // ============================================================
 // METHOD DECLARATIONS 
 // ============================================================
@@ -146,31 +149,28 @@ MethodDeclList ::=  (MethodDeclList_rek) MethodDeclList MethodDecl
 					(MethodDeclList_endRek) MethodDecl
 					;
 
-MethodDecl ::= (MethodDecl) TypeOrVoid MethodName OPENBRACKET OneOrZeroFormPars CLBRACKET VarDeclMore CURLYOPENBRACKET StatementList CURLYCLBRACKET;
-
-MethodName ::= (MethodName) IDENT;
-
-TypeOrVoid ::=  (TypeOrVoid_type) Type
-				|
-				(TypeOrVoid_void) VOID
-				;
-
-OneOrZeroFormPars ::=  (OneOrZeroFormPars_form) FormPars
-					   |
-					   (OneOrZeroFormPars_epsilon) /* epsilon */
-					   ;
-
-FormPars ::= (FormPars) Type IDENT ZeroOneSqBracket TypeIdentList;
+MethodDecl ::= (MethodDecl) MethodNameType OPENBRACKET FormParList CLBRACKET VarDeclMore CURLYOPENBRACKET StatementList CURLYCLBRACKET;
 
 
-ZeroOneSqBracket ::=    (ZeroOneSqBracket_brackets) SQUAREOPENBRACKET SQUARECLBRACKET
+MethodNameType ::=      (MethodNameType_type) Type IDENT  
 						|
-						(ZeroOneSqBracket_epsilon) /* epsilon */
+						(MethodNameType_void) VOID IDENT
 						;
 
-TypeIdentList ::= (TypeIdentList_rek) COMMA Type IDENT ZeroOneSqBracket TypeIdentList
+FormParList ::=  	   (FormParList_form) FormPars FormParMore
+					   |
+					   (FormParList_epsilon) /* epsilon */
+					   ;
+
+FormPars ::=    (FormPars_var) Type IDENT 
+				|
+				(FormPars_arr) Type IDENT SQUAREOPENBRACKET SQUARECLBRACKET
+				;
+
+
+FormParMore ::=   (FormParMore_rek) COMMA FormPars FormParMore
 				  |
-				  (TypeIdentList_epsilon) /* epsilon */
+				  (FormParMore_epsilon) /* epsilon */
 				  ;
 
 VarDeclMore ::= (VarDeclMore_list) VarDeclList VarDeclMore

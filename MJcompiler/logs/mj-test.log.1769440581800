@@ -1,0 +1,40 @@
+INFO  16:16:11,488 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  16:16:11,558 - #2 program
+INFO  16:16:11,559 - #45 Test
+INFO  16:16:11,559 - #5 const
+INFO  16:16:11,560 - #45 char
+INFO  16:16:11,560 - #45 a
+INFO  16:16:11,561 - #6 =
+INFO  16:16:11,561 - #48 a
+INFO  16:16:11,561 - #8 ,
+INFO  16:16:11,562 - #45 b
+INFO  16:16:11,562 - #6 =
+INFO  16:16:11,563 - #48 b
+INFO  16:16:11,563 - #7 ;
+INFO  16:16:11,564 - #45 char
+INFO  16:16:11,565 - #45 p
+INFO  16:16:11,565 - #9 [
+INFO  16:16:11,565 - #10 ]
+INFO  16:16:11,565 - #8 ,
+INFO  16:16:11,566 - #45 q
+INFO  16:16:11,566 - #9 [
+INFO  16:16:11,566 - #10 ]
+INFO  16:16:11,566 - #7 ;
+INFO  16:16:11,567 - #45 char
+INFO  16:16:11,568 - #45 x
+INFO  16:16:11,568 - #7 ;
+INFO  16:16:11,568 - #11 enum
+INFO  16:16:11,569 - #45 Milan
+INFO  16:16:11,569 - #3 {
+INFO  16:16:11,569 - #45 w
+INFO  16:16:11,569 - #6 =
+INFO  16:16:11,569 - #46 1
+INFO  16:16:11,569 - #8 ,
+INFO  16:16:11,569 - #45 e
+INFO  16:16:11,569 - #6 =
+INFO  16:16:11,569 - #46 2
+INFO  16:16:11,569 - #4 }
+INFO  16:16:11,570 - #7 ;
+ERROR 16:16:11,570 - 
+Sintaksna greska na liniji 6
+ERROR 16:16:11,571 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 6

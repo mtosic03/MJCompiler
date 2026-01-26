@@ -1,0 +1,155 @@
+INFO  12:47:36,801 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  12:47:36,892 - #2 program
+INFO  12:47:36,892 - #45 Test
+INFO  12:47:36,892 - #5 const
+INFO  12:47:36,896 - #45 char
+INFO  12:47:36,896 - #45 a
+INFO  12:47:36,898 - #6 =
+INFO  12:47:36,898 - #48 a
+INFO  12:47:36,898 - #8 ,
+INFO  12:47:36,900 - #45 b
+INFO  12:47:36,900 - #6 =
+INFO  12:47:36,900 - #48 b
+INFO  12:47:36,901 - #7 ;
+INFO  12:47:36,902 - #45 char
+INFO  12:47:36,903 - #45 p
+INFO  12:47:36,903 - #9 [
+INFO  12:47:36,903 - #10 ]
+INFO  12:47:36,903 - #8 ,
+INFO  12:47:36,904 - #45 q
+INFO  12:47:36,904 - #9 [
+INFO  12:47:36,904 - #10 ]
+INFO  12:47:36,904 - #7 ;
+INFO  12:47:36,907 - #45 char
+INFO  12:47:36,917 - #45 x
+INFO  12:47:36,917 - #7 ;
+INFO  12:47:36,917 - #3 {
+INFO  12:47:36,918 - #12 void
+INFO  12:47:36,918 - #45 main
+INFO  12:47:36,919 - #13 (
+INFO  12:47:36,920 - #14 )
+INFO  12:47:36,921 - #45 int
+INFO  12:47:36,921 - #45 x
+INFO  12:47:36,921 - #8 ,
+INFO  12:47:36,921 - #45 p
+INFO  12:47:36,921 - #9 [
+INFO  12:47:36,921 - #10 ]
+INFO  12:47:36,922 - #7 ;
+INFO  12:47:36,922 - #3 {
+INFO  12:47:36,923 - #4 }
+INFO  12:47:36,924 - #12 void
+INFO  12:47:36,926 - #45 p
+INFO  12:47:36,926 - #13 (
+INFO  12:47:36,926 - #14 )
+INFO  12:47:36,926 - #3 {
+INFO  12:47:36,927 - #4 }
+INFO  12:47:36,927 - #4 }
+INFO  12:47:36,935 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_var(
+    ConstVarEnumDeclList_var(
+      ConstVarEnumDeclList_const(
+        ConstVarEnumDeclList_epsilon(
+        ) [ConstVarEnumDeclList_epsilon]
+        ConstDeclList(
+          Type(
+           char
+          ) [Type]
+          ConstDecl(
+           a
+            Constant_character(
+             a
+            ) [Constant_character]
+          ) [ConstDecl]
+          ConstDeclMore_rek(
+            ConstDecl(
+             b
+              Constant_character(
+               b
+              ) [Constant_character]
+            ) [ConstDecl]
+            ConstDeclMore_epsilon(
+            ) [ConstDeclMore_epsilon]
+          ) [ConstDeclMore_rek]
+        ) [ConstDeclList]
+      ) [ConstVarEnumDeclList_const]
+      VarDeclList(
+        Type(
+         char
+        ) [Type]
+        VarDeclaration_arr(
+         p
+        ) [VarDeclaration_arr]
+        VarDeclarationMore_rek(
+          VarDeclaration_arr(
+           q
+          ) [VarDeclaration_arr]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclarationMore_rek]
+      ) [VarDeclList]
+    ) [ConstVarEnumDeclList_var]
+    VarDeclList(
+      Type(
+       char
+      ) [Type]
+      VarDeclaration_elem(
+       x
+      ) [VarDeclaration_elem]
+      VarDeclarationMore_epsilon(
+      ) [VarDeclarationMore_epsilon]
+    ) [VarDeclList]
+  ) [ConstVarEnumDeclList_var]
+  MethodDeclList_rek(
+    MethodDeclList_endRek(
+      MethodDecl(
+        TypeOrVoid_void(
+        ) [TypeOrVoid_void]
+        MethodName(
+         main
+        ) [MethodName]
+        OneOrZeroFormPars_epsilon(
+        ) [OneOrZeroFormPars_epsilon]
+        VarDeclMore_list(
+          VarDeclList(
+            Type(
+             int
+            ) [Type]
+            VarDeclaration_elem(
+             x
+            ) [VarDeclaration_elem]
+            VarDeclarationMore_rek(
+              VarDeclaration_arr(
+               p
+              ) [VarDeclaration_arr]
+              VarDeclarationMore_epsilon(
+              ) [VarDeclarationMore_epsilon]
+            ) [VarDeclarationMore_rek]
+          ) [VarDeclList]
+          VarDeclMore_epsilon(
+          ) [VarDeclMore_epsilon]
+        ) [VarDeclMore_list]
+        StatementList_epsilon(
+        ) [StatementList_epsilon]
+      ) [MethodDecl]
+    ) [MethodDeclList_endRek]
+    MethodDecl(
+      TypeOrVoid_void(
+      ) [TypeOrVoid_void]
+      MethodName(
+       p
+      ) [MethodName]
+      OneOrZeroFormPars_epsilon(
+      ) [OneOrZeroFormPars_epsilon]
+      VarDeclMore_epsilon(
+      ) [VarDeclMore_epsilon]
+      StatementList_epsilon(
+      ) [StatementList_epsilon]
+    ) [MethodDecl]
+  ) [MethodDeclList_rek]
+) [Program]
+INFO  12:47:36,936 - =====================================================================
+INFO  12:47:36,948 - =====================================================================
+INFO  12:47:36,948 - Parsiranje uspesno zavrseno!

@@ -1,0 +1,15 @@
+INFO  19:01:41,003 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  19:01:41,071 - #2 program
+INFO  19:01:41,072 - #45 Test
+INFO  19:01:41,072 - #11 enum
+INFO  19:01:41,073 - #45 Broj
+INFO  19:01:41,073 - #3 {
+INFO  19:01:41,074 - #45 NULA
+INFO  19:01:41,074 - #6 =
+INFO  19:01:41,075 - #46 0
+INFO  19:01:41,075 - #8 ,
+INFO  19:01:41,075 - #45 JEDAN
+INFO  19:01:41,075 - #6 =
+ERROR 19:01:41,075 - 
+Sintaksna greska na liniji 2
+ERROR 19:01:41,075 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 2

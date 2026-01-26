@@ -1,0 +1,160 @@
+INFO  18:54:02,485 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  18:54:02,550 - #2 program
+INFO  18:54:02,550 - #45 Test
+INFO  18:54:02,550 - #11 enum
+INFO  18:54:02,551 - #45 Broj
+INFO  18:54:02,552 - #3 {
+INFO  18:54:02,552 - #45 NULA
+INFO  18:54:02,552 - #4 }
+INFO  18:54:02,553 - #3 {
+INFO  18:54:02,554 - #12 void
+INFO  18:54:02,554 - #45 main
+INFO  18:54:02,555 - #13 (
+INFO  18:54:02,555 - #14 )
+INFO  18:54:02,556 - #45 int
+INFO  18:54:02,556 - #45 x
+INFO  18:54:02,557 - #8 ,
+INFO  18:54:02,557 - #45 p
+INFO  18:54:02,557 - #9 [
+INFO  18:54:02,557 - #10 ]
+INFO  18:54:02,557 - #7 ;
+INFO  18:54:02,558 - #3 {
+INFO  18:54:02,560 - #4 }
+INFO  18:54:02,561 - #45 int
+INFO  18:54:02,570 - #45 meth
+INFO  18:54:02,571 - #13 (
+INFO  18:54:02,571 - #45 int
+INFO  18:54:02,571 - #45 fp1
+INFO  18:54:02,571 - #14 )
+INFO  18:54:02,572 - #45 int
+INFO  18:54:02,572 - #45 x
+INFO  18:54:02,572 - #8 ,
+INFO  18:54:02,572 - #45 p
+INFO  18:54:02,572 - #9 [
+INFO  18:54:02,572 - #10 ]
+INFO  18:54:02,573 - #7 ;
+INFO  18:54:02,573 - #3 {
+INFO  18:54:02,573 - #39 return
+INFO  18:54:02,573 - #46 1
+INFO  18:54:02,574 - #7 ;
+INFO  18:54:02,577 - #4 }
+INFO  18:54:02,577 - #4 }
+INFO  18:54:02,584 - Program(
+  ProgramName(
+   Test
+  ) [ProgramName]
+  ConstVarEnumDeclList_enum(
+    ConstVarEnumDeclList_epsilon(
+    ) [ConstVarEnumDeclList_epsilon]
+    EnumDeclList(
+      EnumDeclName(
+       Broj
+      ) [EnumDeclName]
+      AssignNumConst_num(
+       NULA
+      ) [AssignNumConst_num]
+      AssignNumConstMore_epsilon(
+      ) [AssignNumConstMore_epsilon]
+    ) [EnumDeclList]
+  ) [ConstVarEnumDeclList_enum]
+  MethodDeclList_rek(
+    MethodDeclList_endRek(
+      MethodDecl(
+        MethodNameType_void(
+         main
+        ) [MethodNameType_void]
+        FormParList_epsilon(
+        ) [FormParList_epsilon]
+        VarDeclMore_list(
+          VarDeclList(
+            Type(
+             int
+            ) [Type]
+            VarDeclaration_elem(
+             x
+            ) [VarDeclaration_elem]
+            VarDeclarationMore_rek(
+              VarDeclaration_arr(
+               p
+              ) [VarDeclaration_arr]
+              VarDeclarationMore_epsilon(
+              ) [VarDeclarationMore_epsilon]
+            ) [VarDeclarationMore_rek]
+          ) [VarDeclList]
+          VarDeclMore_epsilon(
+          ) [VarDeclMore_epsilon]
+        ) [VarDeclMore_list]
+        StatementList_epsilon(
+        ) [StatementList_epsilon]
+      ) [MethodDecl]
+    ) [MethodDeclList_endRek]
+    MethodDecl(
+      MethodNameType_type(
+        Type(
+         int
+        ) [Type]
+       meth
+      ) [MethodNameType_type]
+      FormParList_form(
+        FormPars_var(
+          Type(
+           int
+          ) [Type]
+         fp1
+        ) [FormPars_var]
+        FormParMore_epsilon(
+        ) [FormParMore_epsilon]
+      ) [FormParList_form]
+      VarDeclMore_list(
+        VarDeclList(
+          Type(
+           int
+          ) [Type]
+          VarDeclaration_elem(
+           x
+          ) [VarDeclaration_elem]
+          VarDeclarationMore_rek(
+            VarDeclaration_arr(
+             p
+            ) [VarDeclaration_arr]
+            VarDeclarationMore_epsilon(
+            ) [VarDeclarationMore_epsilon]
+          ) [VarDeclarationMore_rek]
+        ) [VarDeclList]
+        VarDeclMore_epsilon(
+        ) [VarDeclMore_epsilon]
+      ) [VarDeclMore_list]
+      StatementList_rek(
+        StatementList_epsilon(
+        ) [StatementList_epsilon]
+        Statement_ss(
+          SingleStatement_fifth(
+            ZeroOneExpr_first(
+              Expr_normal(
+                AddExpr_addop(
+                  Unary_epsilon(
+                  ) [Unary_epsilon]
+                  Term(
+                    MulopFactorList_factor(
+                      Factor_second(
+                        Constant_number(
+                         1
+                        ) [Constant_number]
+                      ) [Factor_second]
+                    ) [MulopFactorList_factor]
+                  ) [Term]
+                  AddopTermList_epsilon(
+                  ) [AddopTermList_epsilon]
+                ) [AddExpr_addop]
+              ) [Expr_normal]
+            ) [ZeroOneExpr_first]
+          ) [SingleStatement_fifth]
+        ) [Statement_ss]
+      ) [StatementList_rek]
+    ) [MethodDecl]
+  ) [MethodDeclList_rek]
+) [Program]
+INFO  18:54:02,585 - =====================================================================
+ERROR 18:54:02,595 - Dvostruka deklaracija elementa enuma na liniji 2
+INFO  18:54:02,595 - =====================================================================
+ERROR 18:54:02,596 - Parsiranje NIJE uspesno zavrseno!
