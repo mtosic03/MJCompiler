@@ -54,15 +54,19 @@ terminal Character CHARACTER;
 
 
 nonterminal Program, ConstVarEnumDeclList, MethodDeclList, 
-ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, Type, Constant, ConstDecl, VarDeclaration, VarDeclarationMore,
-ConstDeclMore, EnumMemberList, EnumMember, FormParList,
+ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, Type,
+ConstDecl, VarDeclaration, VarDeclarationMore, 
+ConstDeclMore, EnumMemberList, EnumMember, FormParList, Constant,
 FormPars, VarDeclMore, FormParMore, StatementList, Statement, SingleStatement,
-DesignatorStatement, Designator, DesignatorListRest, IdentOrLength, Expr, Term, AddopTermList, Addop,
-Factor, MulopFactorList, Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, CondFact,
+DesignatorStatement, IdentOrLength, Addop, 
+Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, CondFact,
 RelopExprZeroOne, Relop, Condition, CondTerm, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
-CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, AddExpr, ProgramName,
+CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, ProgramName,
 MethodNameType;
 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
+
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest;
 
 precedence left ELSE;
 
@@ -340,12 +344,8 @@ Expr ::=    (Expr_ternary) Condition QUESTIONMARK Expr COLON Expr
             (Expr_normal) AddExpr
             ;
 
-AddExpr ::= (AddExpr_addop) Unary Term AddopTermList;
+AddExpr ::= (AddExpr_addop) Term AddopTermList;
 
-Unary ::=   (Unary_minus) MINUS
-            |
-            (Unary_epsilon) /* epsilon */
-            ;
 
 AddopTermList ::=   (AddopTermList_rek) AddopTermList Addop Term
                     |
@@ -379,20 +379,32 @@ Mulop ::=   (Mulop_mul) MUL
 // FACTOR 
 // ============================================================
 
-Factor ::=  (Factor_first) Designator ActParsBracketsZeroOne
-			|
-			(Factor_second) Constant
-			|
-			(Factor_third) NEW Type SQUAREOPENBRACKET Expr SQUARECLBRACKET
-			|
-			(Factor_fourth) OPENBRACKET Expr CLBRACKET
-			; 
+Factor ::=  (Factor) Unary FactorSub;
 
+FactorSub ::=   (FactorSub_des) Designator ActParsBracketsZeroOne
+				|
+				(FactorSub_num) NUMBER
+				|
+				(FactorSub_chr) CHARACTER
+				|
+				(FactorSub_bool) BOOL 
+				|
+				(FactorSub_new) NEW Type SQUAREOPENBRACKET Expr SQUARECLBRACKET
+				|
+				(FactorSub_expr) OPENBRACKET Expr CLBRACKET
+				; 
+
+Unary ::=   (Unary_minus) MINUS
+            |
+            (Unary_epsilon) /* epsilon */
+            ;
+            
 // ============================================================
-// DESIGNATOR 
+// DESIGNATOR ----promeniti designator gramatiku kako bi lakse odradio 3 fazu
 // ============================================================
 
 Designator ::= (Designator) IDENT DesignatorListRest;
+
 
 DesignatorListRest ::=  (DesignatorListRest_dot) DOT IdentOrLength DesignatorListRest
 						|

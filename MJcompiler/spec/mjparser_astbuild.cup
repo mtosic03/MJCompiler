@@ -63,15 +63,16 @@ nonterminal EnumDeclList EnumDeclList;
 nonterminal EnumDeclName EnumDeclName;
 nonterminal MethodDecl MethodDecl;
 nonterminal Type Type;
-nonterminal Constant Constant;
-nonterminal ConstDecl ConstDecl;
+nonterminal
+ConstDecl ConstDecl;
 nonterminal VarDeclaration VarDeclaration;
 nonterminal VarDeclarationMore VarDeclarationMore;
-nonterminal
+nonterminal 
 ConstDeclMore ConstDeclMore;
 nonterminal EnumMemberList EnumMemberList;
 nonterminal EnumMember EnumMember;
 nonterminal FormParList FormParList;
+nonterminal Constant Constant;
 nonterminal
 FormPars FormPars;
 nonterminal VarDeclMore VarDeclMore;
@@ -81,17 +82,10 @@ nonterminal Statement Statement;
 nonterminal SingleStatement SingleStatement;
 nonterminal
 DesignatorStatement DesignatorStatement;
-nonterminal Designator Designator;
-nonterminal DesignatorListRest DesignatorListRest;
 nonterminal IdentOrLength IdentOrLength;
-nonterminal Expr Expr;
-nonterminal Term Term;
-nonterminal AddopTermList AddopTermList;
 nonterminal Addop Addop;
-nonterminal
-Factor Factor;
-nonterminal MulopFactorList MulopFactorList;
-nonterminal Mulop Mulop;
+nonterminal 
+Mulop Mulop;
 nonterminal ActParsZeroOne ActParsZeroOne;
 nonterminal ActParsBracketsZeroOne ActParsBracketsZeroOne;
 nonterminal ActPars ActPars;
@@ -115,11 +109,13 @@ nonterminal ConditionZeroOne ConditionZeroOne;
 nonterminal ElseBlock ElseBlock;
 nonterminal Statements Statements;
 nonterminal Unary Unary;
-nonterminal AddExpr AddExpr;
 nonterminal ProgramName ProgramName;
 nonterminal
 MethodNameType MethodNameType;
 
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
+
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest;
 
 precedence left ELSE;
 
@@ -397,12 +393,8 @@ Expr ::=    (Expr_ternary) Condition:C1 QUESTIONMARK Expr:E2 COLON Expr:E3 {: RE
             (Expr_normal) AddExpr:A1 {: RESULT=new Expr_normal(A1); RESULT.setLine(A1left); :}
             ;
 
-AddExpr ::= (AddExpr_addop) Unary:U1 Term:T2 AddopTermList:A3 {: RESULT=new AddExpr_addop(U1, T2, A3); RESULT.setLine(U1left); :};
+AddExpr ::= (AddExpr_addop) Term:T1 AddopTermList:A2 {: RESULT=new AddExpr_addop(T1, A2); RESULT.setLine(T1left); :};
 
-Unary ::=   (Unary_minus) MINUS {: RESULT=new Unary_minus(); :}
-            |
-            (Unary_epsilon) {: RESULT=new Unary_epsilon(); :} /* epsilon */
-            ;
 
 AddopTermList ::=   (AddopTermList_rek) AddopTermList:A1 Addop:A2 Term:T3 {: RESULT=new AddopTermList_rek(A1, A2, T3); RESULT.setLine(A1left); :}
                     |
@@ -436,20 +428,32 @@ Mulop ::=   (Mulop_mul) MUL {: RESULT=new Mulop_mul(); :}
 // FACTOR 
 // ============================================================
 
-Factor ::=  (Factor_first) Designator:D1 ActParsBracketsZeroOne:A2 {: RESULT=new Factor_first(D1, A2); RESULT.setLine(D1left); :}
-			|
-			(Factor_second) Constant:C1 {: RESULT=new Factor_second(C1); RESULT.setLine(C1left); :}
-			|
-			(Factor_third) NEW Type:T1 SQUAREOPENBRACKET Expr:E2 SQUARECLBRACKET {: RESULT=new Factor_third(T1, E2); RESULT.setLine(T1left); :}
-			|
-			(Factor_fourth) OPENBRACKET Expr:E1 CLBRACKET {: RESULT=new Factor_fourth(E1); RESULT.setLine(E1left); :}
-			; 
+Factor ::=  (Factor) Unary:U1 FactorSub:F2 {: RESULT=new Factor(U1, F2); RESULT.setLine(U1left); :};
 
+FactorSub ::=   (FactorSub_des) Designator:D1 ActParsBracketsZeroOne:A2 {: RESULT=new FactorSub_des(D1, A2); RESULT.setLine(D1left); :}
+				|
+				(FactorSub_num) NUMBER:N1 {: RESULT=new FactorSub_num(N1); RESULT.setLine(N1left); :}
+				|
+				(FactorSub_chr) CHARACTER:C1 {: RESULT=new FactorSub_chr(C1); RESULT.setLine(C1left); :}
+				|
+				(FactorSub_bool) BOOL:B1 {: RESULT=new FactorSub_bool(B1); RESULT.setLine(B1left); :} 
+				|
+				(FactorSub_new) NEW Type:T1 SQUAREOPENBRACKET Expr:E2 SQUARECLBRACKET {: RESULT=new FactorSub_new(T1, E2); RESULT.setLine(T1left); :}
+				|
+				(FactorSub_expr) OPENBRACKET Expr:E1 CLBRACKET {: RESULT=new FactorSub_expr(E1); RESULT.setLine(E1left); :}
+				; 
+
+Unary ::=   (Unary_minus) MINUS {: RESULT=new Unary_minus(); :}
+            |
+            (Unary_epsilon) {: RESULT=new Unary_epsilon(); :} /* epsilon */
+            ;
+            
 // ============================================================
 // DESIGNATOR 
 // ============================================================
 
 Designator ::= (Designator) IDENT:I1 DesignatorListRest:D2 {: RESULT=new Designator(I1, D2); RESULT.setLine(I1left); :};
+
 
 DesignatorListRest ::=  (DesignatorListRest_dot) DOT IdentOrLength:I1 DesignatorListRest:D2 {: RESULT=new DesignatorListRest_dot(I1, D2); RESULT.setLine(I1left); :}
 						|

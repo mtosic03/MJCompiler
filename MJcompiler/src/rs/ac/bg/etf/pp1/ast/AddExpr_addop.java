@@ -1,31 +1,20 @@
 // generated with ast extension for cup
 // version 0.8
-// 26/0/2026 19:11:14
+// 2/1/2026 0:0:47
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class AddExpr_addop extends AddExpr {
 
-    private Unary Unary;
     private Term Term;
     private AddopTermList AddopTermList;
 
-    public AddExpr_addop (Unary Unary, Term Term, AddopTermList AddopTermList) {
-        this.Unary=Unary;
-        if(Unary!=null) Unary.setParent(this);
+    public AddExpr_addop (Term Term, AddopTermList AddopTermList) {
         this.Term=Term;
         if(Term!=null) Term.setParent(this);
         this.AddopTermList=AddopTermList;
         if(AddopTermList!=null) AddopTermList.setParent(this);
-    }
-
-    public Unary getUnary() {
-        return Unary;
-    }
-
-    public void setUnary(Unary Unary) {
-        this.Unary=Unary;
     }
 
     public Term getTerm() {
@@ -49,20 +38,17 @@ public class AddExpr_addop extends AddExpr {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(Unary!=null) Unary.accept(visitor);
         if(Term!=null) Term.accept(visitor);
         if(AddopTermList!=null) AddopTermList.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(Unary!=null) Unary.traverseTopDown(visitor);
         if(Term!=null) Term.traverseTopDown(visitor);
         if(AddopTermList!=null) AddopTermList.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(Unary!=null) Unary.traverseBottomUp(visitor);
         if(Term!=null) Term.traverseBottomUp(visitor);
         if(AddopTermList!=null) AddopTermList.traverseBottomUp(visitor);
         accept(visitor);
@@ -72,12 +58,6 @@ public class AddExpr_addop extends AddExpr {
         StringBuffer buffer=new StringBuffer();
         buffer.append(tab);
         buffer.append("AddExpr_addop(\n");
-
-        if(Unary!=null)
-            buffer.append(Unary.toString("  "+tab));
-        else
-            buffer.append(tab+"  null");
-        buffer.append("\n");
 
         if(Term!=null)
             buffer.append(Term.toString("  "+tab));

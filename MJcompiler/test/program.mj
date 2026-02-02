@@ -1,13 +1,11 @@
-program Test
-enum Broj {x = 0, y , z=5, k}
-
+program Prog
+int a[];
+enum Broj{nula=0, jedan=0, dva}
 {
-	void main()int x, p[];{}
 	
-	int meth(int fp1)int x, p[];{
-		return 1;
-	}
-	
-	
-	
+    void main() 
+    {
+      a=new int[Broj.nula+8];
+    }
+ 
 }

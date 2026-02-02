@@ -1,6 +1,5 @@
 package rs.ac.bg.etf.pp1;
 
-import java.io.Console;
 
 import org.apache.log4j.Logger;
 
@@ -13,17 +12,24 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	private boolean errorDetected=false;
 	Logger log=Logger.getLogger(getClass());
+	
 	private Obj currentProgram;
 	private Struct currentType;
+	
 	private int constant;
 	private Struct constantType;
+	
 	private Struct boolType=Tab.find("bool").getType();
+	
 	private Obj mainMethod;
 	private Obj currentMethod;
+	
 	private Obj currentEnum;
 	private int enumCurrentValue;
-	private boolean firstEnumMember;
 	
+	private boolean hasReturn;
+
+
 	public void report_error(String message, SyntaxNode info) {
 		errorDetected=true;
 		StringBuilder msg=new StringBuilder(message);
@@ -131,14 +137,14 @@ public class SemAnalyzer extends VisitorAdaptor {
 		}
 	}
 	
-	// ENUM DECLARATIONS ----proveriti da li se lepo cuva u tabeli simbola---- //
+	// ENUM DECLARATIONS //
 	
 
-	@Override 
+	@Override
 	public void visit(EnumDeclName enumDeclName) {
 	    Obj enumObj = Tab.find(enumDeclName.getI1());
 	    if(enumObj != Tab.noObj) {
-	        report_error("Dvostruka deklaracija enuma", enumDeclName);
+	        report_error("Dvostruka deklaracija enum-a", enumDeclName);
 	        currentEnum = null;
 	    } else {
 	        currentEnum = Tab.insert(Obj.Type, enumDeclName.getI1(), new Struct(Struct.Enum));
@@ -149,42 +155,46 @@ public class SemAnalyzer extends VisitorAdaptor {
 
 	@Override
 	public void visit(EnumMember_num enumMember_num) {
+	    if(currentEnum == null) return;
 	    Obj existing = Tab.currentScope().findSymbol(enumMember_num.getI1());
 	    if(existing != null && existing != Tab.noObj) {
-	        report_error("Dvostruka deklaracija elementa enuma", enumMember_num);
+	        report_error("Dvostruka deklaracija enum konstante", enumMember_num);
 	    } else {
-	        Obj enumMember = Tab.insert(Obj.Con, enumMember_num.getI1(), Tab.intType);
-	        enumMember.setAdr(enumCurrentValue);
-	        enumCurrentValue++;
+	        Obj c = Tab.insert(Obj.Con, enumMember_num.getI1(), Tab.intType);
+	        c.setAdr(enumCurrentValue++);
 	    }
 	}
 
 	@Override
 	public void visit(EnumMember_assign enumMember_assign) {
+	    if(currentEnum == null) return;
 	    Obj existing = Tab.currentScope().findSymbol(enumMember_assign.getI1());
 	    if(existing != null && existing != Tab.noObj) {
-	        report_error("Dvostruka deklaracija elementa enuma", enumMember_assign);
+	        report_error("Dvostruka deklaracija enum konstante", enumMember_assign);
 	    } else {
-	        Obj enumMember = Tab.insert(Obj.Con, enumMember_assign.getI1(), Tab.intType);
-	        enumMember.setAdr(enumMember_assign.getN2());
+	        Obj c = Tab.insert(Obj.Con, enumMember_assign.getI1(), Tab.intType);
+	        c.setAdr(enumMember_assign.getN2());
 	        enumCurrentValue = enumMember_assign.getN2() + 1;
 	    }
 	}
 
-	@Override 
+	@Override
 	public void visit(EnumDeclList enumDeclList) {
-		if(currentEnum != null) {
+	    if(currentEnum != null) {
 	        Tab.chainLocalSymbols(currentEnum);
 	        Tab.closeScope();
 	        currentEnum = null;
 	    }
 	}
+
+
 	
-	// METHOD DECLARATIONS (fali logika za proveru da li postoji return) //
+	// METHOD DECLARATIONS //
 	@Override
 	public void visit(MethodNameType_void methodNameType_void) {
 		currentMethod=Tab.insert(Obj.Meth,methodNameType_void.getI1(),Tab.noType);
 		Tab.openScope();
+		hasReturn=false;
 		if(methodNameType_void.getI1().equalsIgnoreCase("main"))
 			mainMethod=currentMethod;
 		
@@ -193,15 +203,25 @@ public class SemAnalyzer extends VisitorAdaptor {
 	@Override
 	public void visit(MethodNameType_type methodNameType_type) {
 		currentMethod=Tab.insert(Obj.Meth,methodNameType_type.getI2(),currentType);
-		//logika koja proverava da li methodNameType_type ima povratnu vrednost - mozda obraditi kada budem pisao statement return??
+		hasReturn=false;
 		Tab.openScope();
 	}
 	
 	@Override
 	public void visit(MethodDecl methodDecl) {
+		if (currentMethod.getType() != Tab.noType) {
+	        if (!hasReturn) {
+	            report_error("Metoda koja nije void mora imati return deklaraciju",methodDecl);
+	        }
+	    }
 		Tab.chainLocalSymbols(currentMethod);
 		Tab.closeScope();
 		currentMethod=null;
+	}
+	
+	@Override
+	public void visit(SingleStatement_fifth  singleStatement_fifth ) {
+		hasReturn=true;
 	}
 	
 	// FORM PARAMETER DECLARATION //
@@ -257,5 +277,417 @@ public class SemAnalyzer extends VisitorAdaptor {
 		}
 	}
 	
-}
+	// *****KONTEKSNI USLOVI***** //
+	
+	// ===== DESIGNATOR  ===== //
 
+	private Obj processDesignatorListRest(Obj baseObj, DesignatorListRest rest) {
+		if(rest instanceof DesignatorListRest_epsilon) {
+			// Bazni slučaj - vraćamo bazni objekat
+			return baseObj;
+		}
+		else if(rest instanceof DesignatorListRest_dot) {
+			DesignatorListRest_dot dotRest = (DesignatorListRest_dot)rest;
+			
+			// Prvo rekurzivno procesiramo unutrašnji lanac
+			Obj currentObj = processDesignatorListRest(baseObj, dotRest.getDesignatorListRest());
+			
+			if(currentObj == null || currentObj == Tab.noObj) {
+				return Tab.noObj;
+			}
+			
+			Struct currentType = currentObj.getType();
+			
+			// Provera za "length" pristup
+			if(dotRest.getIdentOrLength() instanceof IdentOrLength_length) {
+				if(currentType.getKind() != Struct.Array) {
+					report_error("Pristup 'length' polju je dozvoljen samo za nizove", dotRest);
+					return Tab.noObj;
+				}
+				// length je polje tipa int
+				return new Obj(Obj.Fld, "length", Tab.intType);
+			}
+			
+			// Inače, pristup ident polju/metodi klase ili konstanti enum-a
+			String memberName = ((IdentOrLength_ident)dotRest.getIdentOrLength()).getI1();
+			
+			if(currentType.getKind() == Struct.Class) {
+				// Pristup polju ili metodi klase - members su u Struct-u
+				Obj member = currentType.getMembersTable().searchKey(memberName);
+				if(member == null) {
+					report_error("Polje ili metoda '"+memberName+"' ne postoji u klasi", dotRest);
+					return Tab.noObj;
+				}
+				return member;
+			}
+			else if(currentObj.getKind() == Obj.Type && currentType.getKind() == Struct.Enum) {
+				// Pristup konstanti enum-a
+				// Enum konstante su u LOCAL SYMBOLS Obj-a, NE u Struct members!
+				Obj enumConst = null;
+				for(Obj member : currentObj.getLocalSymbols()) {
+					if(member.getName().equals(memberName)) {
+						enumConst = member;
+						break;
+					}
+				}
+				
+				if(enumConst == null) {
+					report_error("Konstanta '"+memberName+"' ne postoji u nabrajanju", dotRest);
+					return Tab.noObj;
+				}
+				return enumConst;
+			}
+			else {
+				report_error("Tip objekta mora biti klasa ili nabrajanje za pristup polju", dotRest);
+				return Tab.noObj;
+			}
+		}
+		else if(rest instanceof DesignatorListRest_expr) {
+			DesignatorListRest_expr exprRest = (DesignatorListRest_expr)rest;
+			
+			// Prvo rekurzivno procesiramo unutrašnji lanac
+			Obj currentObj = processDesignatorListRest(baseObj, exprRest.getDesignatorListRest());
+			
+			if(currentObj == null || currentObj == Tab.noObj) {
+				return Tab.noObj;
+			}
+			
+			Struct currentType = currentObj.getType();
+			
+			// Provera da li je tip niz
+			if(currentType.getKind() != Struct.Array) {
+				report_error("Indeksiranje nije dozvoljeno, tip mora biti niz", exprRest);
+				return Tab.noObj;
+			}
+			
+			// Provera tipa indeksa
+			Struct indexType = exprRest.getExpr().struct;
+			if(indexType == null || !indexType.equals(Tab.intType)) {
+				report_error("Indeks niza mora biti int tipa", exprRest);
+			}
+			
+			// Vraćamo element niza
+			return new Obj(Obj.Elem, "elem", currentType.getElemType());
+		}
+		
+		return Tab.noObj;
+	}
+	
+	// ===== DESIGNATOR VISITORS ===== //
+	
+	// Designator = ident DesignatorListRest
+	@Override 
+	public void visit(Designator designator) {
+		// Nalazimo bazni objekat
+		Obj baseObj = Tab.find(designator.getI1());
+		
+		if(baseObj == Tab.noObj) {
+			report_error("Pristup nedefinisanoj promenljivi ("+ designator.getI1()+")",designator);
+			designator.obj=Tab.noObj;
+			return;
+		}
+		
+		// Designator može biti Var, Con, Type (za enum), ili Meth
+		if(baseObj.getKind()!=Obj.Var && baseObj.getKind()!=Obj.Con && 
+		   baseObj.getKind()!=Obj.Type && baseObj.getKind()!=Obj.Meth){
+			report_error("Neadekvatan tip objekta ("+ designator.getI1()+")",designator);
+			designator.obj=Tab.noObj;
+			return;
+		}
+		
+		// Obradimo DesignatorListRest rekurzivno koristeći pomocnu metodu
+		designator.obj = processDesignatorListRest(baseObj, designator.getDesignatorListRest());
+	}
+	
+	
+	// FACTOR SUB //
+	@Override
+	public void visit(FactorSub_chr factorSub_chr) {
+		factorSub_chr.struct=Tab.charType;
+	}
+	
+	@Override
+	public void visit(FactorSub_num factorSub_num) {
+		factorSub_num.struct=Tab.intType;
+	}
+	
+	@Override
+	public void visit(FactorSub_bool factorSub_bool) {
+		factorSub_bool.struct=boolType;
+	}
+	
+	@Override
+	public void visit(FactorSub_des factorSub_des) {
+		Obj designatorObj = factorSub_des.getDesignator().obj;
+		if(designatorObj != null && designatorObj != Tab.noObj) {
+			factorSub_des.struct = designatorObj.getType();
+		} else {
+			factorSub_des.struct = Tab.noType;
+		}
+	}
+	
+	@Override 
+	public void visit(FactorSub_new factorSub_new) {
+		Struct exprType = factorSub_new.getExpr().struct;
+		if(exprType == null || !exprType.equals(Tab.intType)) {
+			report_error("Velicina niza mora biti int tipa", factorSub_new);
+		}
+
+		Type typeNode = factorSub_new.getType();
+		Obj typeObj = Tab.find(typeNode.getI1());
+		
+		Struct arrayElemType;
+		if(typeObj == Tab.noObj || typeObj.getKind() != Obj.Type) {
+			arrayElemType = Tab.noType;
+		} else {
+			arrayElemType = typeObj.getType();
+		}
+
+		factorSub_new.struct = new Struct(Struct.Array, arrayElemType);
+	}
+	
+	@Override
+	public void visit(FactorSub_expr factorSub_expr) {
+		factorSub_expr.struct = factorSub_expr.getExpr().struct;
+	}
+	
+	// FACTOR //
+	
+	@Override
+	public void visit(Factor factor) {
+		if(factor.getUnary() instanceof Unary_minus) {
+			if(factor.getFactorSub().struct != null && factor.getFactorSub().struct.equals(Tab.intType)) {
+				factor.struct=Tab.intType;
+			}else {
+				report_error("Negacija ne int vrednosti",factor);
+				factor.struct=Tab.noType;
+			}
+		}else {
+			factor.struct=factor.getFactorSub().struct;
+		}
+	}
+	
+	// TERM //
+	
+	@Override
+	public void visit(MulopFactorList_factor mulopFactorList_factor) {
+		mulopFactorList_factor.struct = mulopFactorList_factor.getFactor().struct;
+	}
+	
+	@Override
+	public void visit(MulopFactorList_rek mulopFactorList_rek) {
+		Struct leftType = mulopFactorList_rek.getMulopFactorList().struct;
+		Struct rightType = mulopFactorList_rek.getFactor().struct;
+		
+		if(leftType != null && leftType.equals(Tab.intType) && 
+		   rightType != null && rightType.equals(Tab.intType)) {
+			mulopFactorList_rek.struct = Tab.intType;
+		} else {
+			report_error("Operandi multiplikativne operacije moraju biti int tipa", mulopFactorList_rek);
+			mulopFactorList_rek.struct = Tab.noType;
+		}
+	}
+	
+	@Override
+	public void visit(Term term) {
+		term.struct = term.getMulopFactorList().struct;
+	}
+	
+	// ADDEXPR //
+	
+	
+	@Override
+	public void visit(AddopTermList_rek addopTermList_rek) {
+		Struct leftType = addopTermList_rek.getAddopTermList().struct;
+		Struct rightType = addopTermList_rek.getTerm().struct;
+		
+		// Ako je left null, znači da je ovo prvi term u listi
+		if(leftType == null) {
+			addopTermList_rek.struct = rightType;
+		}
+		else if(leftType.equals(Tab.intType) && rightType != null && rightType.equals(Tab.intType)) {
+			addopTermList_rek.struct = Tab.intType;
+		} else {
+			report_error("Operandi aditivne operacije moraju biti int tipa", addopTermList_rek);
+			addopTermList_rek.struct = Tab.noType;
+		}
+	}
+	
+	@Override
+	public void visit(AddExpr_addop addExpr_addop) {
+		Struct termType = addExpr_addop.getTerm().struct;
+		Struct listType = addExpr_addop.getAddopTermList().struct;
+		
+		// Kada je AddopTermList epsilon, listType je null
+		// U tom slučaju rezultat je samo Term
+		if(listType == null) {
+			addExpr_addop.struct = termType;
+		} else {
+			// Ako postoji lista, ona već sadrži rezultat operacija
+			addExpr_addop.struct = listType;
+		}
+	}
+	
+	// EXPR //
+	
+	@Override
+	public void visit(Expr_normal expr_normal) {
+		expr_normal.struct = expr_normal.getAddExpr().struct;
+	}
+	
+	@Override
+	public void visit(Expr_ternary expr_ternary) {
+		// Condition ? Expr : Expr
+		Struct trueExpr = expr_ternary.getExpr().struct;
+		Struct falseExpr = expr_ternary.getExpr1().struct;
+		
+		if(trueExpr != null && falseExpr != null && trueExpr.equals(falseExpr)) {
+			expr_ternary.struct = trueExpr;
+		} else {
+			report_error("Izrazi u ternarnom operatoru moraju biti istog tipa", expr_ternary);
+			expr_ternary.struct = Tab.noType;
+		}
+	}
+	
+	// CONDITION //
+	
+	@Override
+	public void visit(CondFact condFact) {
+		if(condFact.getRelopExprZeroOne() instanceof RelopExprZeroOne_relopExpr) {
+			RelopExprZeroOne_relopExpr relopExpr = (RelopExprZeroOne_relopExpr)condFact.getRelopExprZeroOne();
+			
+			Struct leftType = condFact.getAddExpr().struct;
+			Struct rightType = relopExpr.getAddExpr().struct;
+			
+			if(leftType != null && rightType != null && !leftType.compatibleWith(rightType)) {
+				report_error("Tipovi u relacionoj operaciji nisu kompatibilni", condFact);
+			}
+			
+			// Provera za reference - samo == i !=
+			if(leftType != null && rightType != null && 
+			   (leftType.isRefType() || rightType.isRefType())) {
+				Relop relop = relopExpr.getRelop();
+				if(!(relop instanceof Relop_first || relop instanceof Relop_second)) {
+					report_error("Sa referentnim tipovima mogu se koristiti samo == i !=", condFact);
+				}
+			}
+		}
+	}
+	
+	
+	// DESIGNATOR STATEMENT //
+	
+	@Override
+	public void visit(DesignatorRest_first designatorRest_first) {
+		// Assignop Expr - dodela
+		Obj designatorObj = ((DesignatorStatement)designatorRest_first.getParent()).getDesignator().obj;
+		Struct exprType = designatorRest_first.getExpr().struct;
+		
+		if(designatorObj == null || designatorObj == Tab.noObj) {
+			return;
+		}
+		
+		// Designator mora biti Var, Elem ili Fld
+		if(designatorObj.getKind() != Obj.Var && designatorObj.getKind() != Obj.Elem && 
+		   designatorObj.getKind() != Obj.Fld) {
+			report_error("Dodela je moguca samo promenljivoj, elementu niza ili polju objekta", designatorRest_first);
+			return;
+		}
+		
+		// Provera kompatibilnosti tipova
+		Struct destType = designatorObj.getType();
+		if(exprType != null && destType != null && !exprType.assignableTo(destType)) {
+			report_error("Tip izraza nije kompatibilan sa tipom designatora pri dodeli", designatorRest_first);
+		}
+	}
+	
+	@Override
+	public void visit(DesignatorRest_third designatorRest_third) {
+		// INC (++)
+		Obj designatorObj = ((DesignatorStatement)designatorRest_third.getParent()).getDesignator().obj;
+		
+		if(designatorObj == null || designatorObj == Tab.noObj) {
+			return;
+		}
+		
+		if(designatorObj.getKind() != Obj.Var && designatorObj.getKind() != Obj.Elem && 
+		   designatorObj.getKind() != Obj.Fld) {
+			report_error("Inkrement je moguc samo nad promenljivom, elementom niza ili poljem objekta", designatorRest_third);
+			return;
+		}
+		
+		if(designatorObj.getType() == null || !designatorObj.getType().equals(Tab.intType)) {
+			report_error("Inkrement je moguc samo nad int tipom", designatorRest_third);
+		}
+	}
+	
+	@Override
+	public void visit(DesignatorRest_fourth designatorRest_fourth) {
+		// DEC (--)
+		Obj designatorObj = ((DesignatorStatement)designatorRest_fourth.getParent()).getDesignator().obj;
+		
+		if(designatorObj == null || designatorObj == Tab.noObj) {
+			return;
+		}
+		
+		if(designatorObj.getKind() != Obj.Var && designatorObj.getKind() != Obj.Elem && 
+		   designatorObj.getKind() != Obj.Fld) {
+			report_error("Dekrement je moguc samo nad promenljivom, elementom niza ili poljem objekta", designatorRest_fourth);
+			return;
+		}
+		
+		if(designatorObj.getType() == null || !designatorObj.getType().equals(Tab.intType)) {
+			report_error("Dekrement je moguc samo nad int tipom", designatorRest_fourth);
+		}
+	}
+	
+	@Override
+	public void visit(DesignatorRest_second designatorRest_second) {
+		// Poziv metode
+		Obj designatorObj = ((DesignatorStatement)designatorRest_second.getParent()).getDesignator().obj;
+		
+		if(designatorObj == null || designatorObj == Tab.noObj) {
+			return;
+		}
+		
+		if(designatorObj.getKind() != Obj.Meth) {
+			report_error("Poziv metode je moguc samo nad metodom", designatorRest_second);
+		}
+	}
+	
+	// READ STATEMENT //
+	
+	@Override
+	public void visit(SingleStatement_sixth singleStatement_sixth) {
+		// read(Designator)
+		Obj designatorObj = singleStatement_sixth.getDesignator().obj;
+		
+		if(designatorObj == null || designatorObj == Tab.noObj) {
+			return;
+		}
+		
+		if(designatorObj.getKind() != Obj.Var && designatorObj.getKind() != Obj.Elem && 
+		   designatorObj.getKind() != Obj.Fld) {
+			report_error("Read je moguc samo nad promenljivom, elementom niza ili poljem objekta", singleStatement_sixth);
+			return;
+		}
+		
+		Struct type = designatorObj.getType();
+		if(type == null || (!type.equals(Tab.intType) && !type.equals(Tab.charType) && !type.equals(boolType))) {
+			report_error("Read je moguc samo nad int, char ili bool tipom", singleStatement_sixth);
+		}
+	}
+	
+	// PRINT STATEMENT //
+	
+	@Override
+	public void visit(SingleStatement_seventh singleStatement_seventh) {
+		// print(Expr [, numConst])
+		Struct exprType = singleStatement_seventh.getExpr().struct;
+		
+		if(exprType == null || (!exprType.equals(Tab.intType) && !exprType.equals(Tab.charType) && !exprType.equals(boolType))) {
+			report_error("Print je moguc samo nad int, char ili bool tipom", singleStatement_seventh);
+		}
+	}
+	
+}

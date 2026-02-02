@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 26/0/2026 19:11:14
+// 2/1/2026 0:0:47
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -15,6 +15,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(AddExpr AddExpr) { }
     public void visit(Relop Relop) { }
     public void visit(MulopFactorList MulopFactorList) { }
+    public void visit(FactorSub FactorSub) { }
     public void visit(ConditionZeroOne ConditionZeroOne) { }
     public void visit(Unary Unary) { }
     public void visit(ElseBlock ElseBlock) { }
@@ -22,7 +23,6 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(FormParMore FormParMore) { }
     public void visit(Addop Addop) { }
     public void visit(MethodNameType MethodNameType) { }
-    public void visit(Factor Factor) { }
     public void visit(DesignatorStatementZeroOne DesignatorStatementZeroOne) { }
     public void visit(ActParsBracketsZeroOne ActParsBracketsZeroOne) { }
     public void visit(AndCondFactList AndCondFactList) { }
@@ -31,8 +31,8 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ZeroOneExpr ZeroOneExpr) { }
     public void visit(ActParsZeroOne ActParsZeroOne) { }
     public void visit(DesignatorRest DesignatorRest) { }
-    public void visit(OrCondTermList OrCondTermList) { }
     public void visit(Expr Expr) { }
+    public void visit(OrCondTermList OrCondTermList) { }
     public void visit(ConstDeclMore ConstDeclMore) { }
     public void visit(CommaNumConst CommaNumConst) { }
     public void visit(IdentOrLength IdentOrLength) { }
@@ -53,10 +53,15 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(DesignatorListRest_expr DesignatorListRest_expr) { visit(); }
     public void visit(DesignatorListRest_dot DesignatorListRest_dot) { visit(); }
     public void visit(Designator Designator) { visit(); }
-    public void visit(Factor_fourth Factor_fourth) { visit(); }
-    public void visit(Factor_third Factor_third) { visit(); }
-    public void visit(Factor_second Factor_second) { visit(); }
-    public void visit(Factor_first Factor_first) { visit(); }
+    public void visit(Unary_epsilon Unary_epsilon) { visit(); }
+    public void visit(Unary_minus Unary_minus) { visit(); }
+    public void visit(FactorSub_expr FactorSub_expr) { visit(); }
+    public void visit(FactorSub_new FactorSub_new) { visit(); }
+    public void visit(FactorSub_bool FactorSub_bool) { visit(); }
+    public void visit(FactorSub_chr FactorSub_chr) { visit(); }
+    public void visit(FactorSub_num FactorSub_num) { visit(); }
+    public void visit(FactorSub_des FactorSub_des) { visit(); }
+    public void visit(Factor Factor) { visit(); }
     public void visit(Mulop_percent Mulop_percent) { visit(); }
     public void visit(Mulop_div Mulop_div) { visit(); }
     public void visit(Mulop_mul Mulop_mul) { visit(); }
@@ -67,8 +72,6 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(Addop_plus Addop_plus) { visit(); }
     public void visit(AddopTermList_epsilon AddopTermList_epsilon) { visit(); }
     public void visit(AddopTermList_rek AddopTermList_rek) { visit(); }
-    public void visit(Unary_epsilon Unary_epsilon) { visit(); }
-    public void visit(Unary_minus Unary_minus) { visit(); }
     public void visit(AddExpr_addop AddExpr_addop) { visit(); }
     public void visit(Expr_normal Expr_normal) { visit(); }
     public void visit(Expr_ternary Expr_ternary) { visit(); }
