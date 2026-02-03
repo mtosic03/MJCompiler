@@ -59,12 +59,13 @@ ConstDecl, VarDeclaration, VarDeclarationMore,
 ConstDeclMore, EnumMemberList, EnumMember, FormParList, Constant,
 FormPars, VarDeclMore, FormParMore, StatementList, Statement, SingleStatement,
 DesignatorStatement, IdentOrLength, Addop, 
-Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, CondFact,
-RelopExprZeroOne, Relop, Condition, CondTerm, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
+Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, 
+RelopExprZeroOne, Relop, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
 CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, ProgramName,
 MethodNameType;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest;
 
@@ -400,7 +401,7 @@ Unary ::=   (Unary_minus) MINUS
             ;
             
 // ============================================================
-// DESIGNATOR ----promeniti designator gramatiku kako bi lakse odradio 3 fazu
+// DESIGNATOR
 // ============================================================
 
 Designator ::= (Designator) IDENT DesignatorListRest;

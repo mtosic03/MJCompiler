@@ -90,12 +90,9 @@ nonterminal ActParsZeroOne ActParsZeroOne;
 nonterminal ActParsBracketsZeroOne ActParsBracketsZeroOne;
 nonterminal ActPars ActPars;
 nonterminal CommaExprList CommaExprList;
-nonterminal CondFact CondFact;
-nonterminal
+nonterminal 
 RelopExprZeroOne RelopExprZeroOne;
 nonterminal Relop Relop;
-nonterminal Condition Condition;
-nonterminal CondTerm CondTerm;
 nonterminal OrCondTermList OrCondTermList;
 nonterminal AndCondFactList AndCondFactList;
 nonterminal Assignop Assignop;
@@ -114,6 +111,7 @@ nonterminal
 MethodNameType MethodNameType;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest;
 
@@ -449,7 +447,7 @@ Unary ::=   (Unary_minus) MINUS {: RESULT=new Unary_minus(); :}
             ;
             
 // ============================================================
-// DESIGNATOR 
+// DESIGNATOR ----promeniti designator gramatiku kako bi lakse odradio 3 fazu
 // ============================================================
 
 Designator ::= (Designator) IDENT:I1 DesignatorListRest:D2 {: RESULT=new Designator(I1, D2); RESULT.setLine(I1left); :};

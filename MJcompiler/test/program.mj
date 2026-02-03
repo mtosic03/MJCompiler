@@ -1,11 +1,19 @@
 program Prog
-int a[];
+int a;
+int b;
+const int c=5;
 enum Broj{nula=0, jedan=0, dva}
 {
 	
     void main() 
     {
-      a=new int[Broj.nula+8];
+     	
     }
+    char meth(){
+    	if(a&&c ){}
+    	
+    	return 'a';
+    }
+
  
 }

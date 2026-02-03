@@ -4,7 +4,6 @@ package rs.ac.bg.etf.pp1;
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
-import rs.ac.bg.etf.pp1.ast.VisitorAdaptor;
 import rs.etf.pp1.symboltable.*;
 import rs.etf.pp1.symboltable.concepts.*;
 
@@ -28,6 +27,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	private int enumCurrentValue;
 	
 	private boolean hasReturn;
+	 	
 
 
 	public void report_error(String message, SyntaxNode info) {
@@ -217,11 +217,28 @@ public class SemAnalyzer extends VisitorAdaptor {
 		Tab.chainLocalSymbols(currentMethod);
 		Tab.closeScope();
 		currentMethod=null;
+		hasReturn=false;
 	}
 	
 	@Override
 	public void visit(SingleStatement_fifth  singleStatement_fifth ) {
 		hasReturn=true;
+		if(singleStatement_fifth.getZeroOneExpr() instanceof ZeroOneExpr_first) {
+			ZeroOneExpr_first zeroOneExpr=(ZeroOneExpr_first)singleStatement_fifth.getZeroOneExpr();
+			Struct exprType=zeroOneExpr.getExpr().struct;
+			
+			if(currentMethod.getType()==Tab.noType) {
+				report_error("Void metoda ne moze imati return sa izrazom",singleStatement_fifth);
+			}
+			if(exprType!=null && !exprType.assignableTo(currentMethod.getType())) {
+				report_error("Tip return statementa nije kompatibilan sa povratnom vrednoscu funkcije", singleStatement_fifth);
+			}
+		}else {
+			if(currentMethod.getType()!=Tab.noType) {
+				report_error("Metoda koja nije void mora imati povratnu vrednost",singleStatement_fifth);
+			}
+		}
+		
 	}
 	
 	// FORM PARAMETER DECLARATION //
@@ -571,7 +588,26 @@ public class SemAnalyzer extends VisitorAdaptor {
 					report_error("Sa referentnim tipovima mogu se koristiti samo == i !=", condFact);
 				}
 			}
+			condFact.struct = boolType;
+		}else {
+			Struct exprType=condFact.getAddExpr().struct;
+			if(exprType!=null && !exprType.equals(boolType)) {
+				report_error("Uslov mora biti bool tipa",condFact);
+				condFact.struct=Tab.noType;
+			}else {
+				condFact.struct=boolType;
+			}
 		}
+	}
+	
+	@Override
+	public void visit(CondTerm condTerm) {
+		condTerm.struct=boolType;
+	}
+	
+	@Override
+	public void visit(Condition condition) {
+		condition.struct=boolType;
 	}
 	
 	
@@ -689,5 +725,66 @@ public class SemAnalyzer extends VisitorAdaptor {
 			report_error("Print je moguc samo nad int, char ili bool tipom", singleStatement_seventh);
 		}
 	}
+	
+	// BREAK AND CONTINUE
+	
+	private boolean insideLoopOrSwitch(SyntaxNode node) {
+		SyntaxNode parent=node.getParent();
+		
+		while(parent!=null) {
+			if(parent instanceof SingleStatement_ninth || parent instanceof SingleStatement_eighth) {
+	                return true;
+	        }
+            if(parent instanceof MethodDecl) {
+                return false;
+            }
+            
+            parent = parent.getParent();
+		}
+		return false;
+	}
+	
+	@Override 
+	public void visit(SingleStatement_third singleStatement_third) {
+		if(!insideLoopOrSwitch(singleStatement_third)) {
+			report_error("break je moguce koristiti samo unutar for i switch",singleStatement_third);
+		}
+	}
+	
+
+	private boolean insideForLoop(SyntaxNode node) {
+		SyntaxNode parent=node.getParent();
+		
+		while(parent!=null) {
+			if(parent instanceof SingleStatement_ninth ) {
+	            return true;
+	        }
+            if(parent instanceof MethodDecl) {
+                return false;
+            }
+            
+            parent = parent.getParent();
+		}
+		return false;
+	}
+	
+	@Override 
+	public void visit(SingleStatement_fourth singleStatement_fourth) {
+		if(!insideForLoop(singleStatement_fourth)) {
+			report_error("continue je moguce koristiti samo unutar for petlje",singleStatement_fourth);
+		}
+	}
+
+	// IF
+	@Override
+	public void visit(SingleStatement_second singleStatement_second) {
+		Struct condType=singleStatement_second.getCondition().struct;
+		if(condType==null || !condType.equals(boolType)) {
+			report_error("Condition u if mora biti bool tipa", singleStatement_second);
+		}
+	}
+	
+	
+	
 	
 }
