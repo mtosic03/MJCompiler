@@ -318,13 +318,13 @@ public class SemAnalyzer extends VisitorAdaptor {
 
 	private Obj processDesignatorListRest(Obj baseObj, DesignatorListRest rest) {
 		if(rest instanceof DesignatorListRest_epsilon) {
-			// Bazni slučaj - vraćamo bazni objekat
+			// Bazni slucaj - vracamo bazni objekat
 			return baseObj;
 		}
 		else if(rest instanceof DesignatorListRest_dot) {
 			DesignatorListRest_dot dotRest = (DesignatorListRest_dot)rest;
 			
-			// Prvo rekurzivno procesiramo unutrašnji lanac
+			// Prvo rekurzivno procesiramo unutrasnji lanac
 			Obj currentObj = processDesignatorListRest(baseObj, dotRest.getDesignatorListRest());
 			
 			if(currentObj == null || currentObj == Tab.noObj) {
@@ -343,19 +343,11 @@ public class SemAnalyzer extends VisitorAdaptor {
 				return new Obj(Obj.Fld, "length", Tab.intType);
 			}
 			
-			// Inače, pristup ident polju/metodi klase ili konstanti enum-a
+			// Inače, pristup ident polju ili konstanti enum-a
 			String memberName = ((IdentOrLength_ident)dotRest.getIdentOrLength()).getI1();
 			
-			if(currentType.getKind() == Struct.Class) {
-				// Pristup polju ili metodi klase - members su u Struct-u
-				Obj member = currentType.getMembersTable().searchKey(memberName);
-				if(member == null) {
-					report_error("Polje ili metoda '"+memberName+"' ne postoji u klasi", dotRest);
-					return Tab.noObj;
-				}
-				return member;
-			}
-			else if(currentObj.getKind() == Obj.Type && currentType.getKind() == Struct.Enum) {
+			
+			 if(currentObj.getKind() == Obj.Type && currentType.getKind() == Struct.Enum) {
 				// Pristup konstanti enum-a
 				// Enum konstante su u LOCAL SYMBOLS Obj-a, NE u Struct members!
 				Obj enumConst = null;
@@ -432,6 +424,36 @@ public class SemAnalyzer extends VisitorAdaptor {
 		
 		// Obradimo DesignatorListRest rekurzivno koristeći pomocnu metodu
 		designator.obj = processDesignatorListRest(baseObj, designator.getDesignatorListRest());
+		
+		if(designator.obj!=Tab.noObj && designator.obj!=null) {
+			String kindName=getKindName(designator.obj);
+			if(kindName!=".") {
+				report_info("Pristup "+kindName+": "+designator.getI1(),designator);
+			}
+			
+		}
+		
+	}
+	
+	private String getKindName(Obj obj) {
+		switch (obj.getKind()) {
+			case Obj.Con: 
+				return "konstanti";
+			case Obj.Var:
+				if(obj.getFpPos()>0) return "formalnom parametru";
+				if(currentMethod!=null) return "lokalnoj/globalnoj promenljivoj";
+				return "globalnoj promenljivoj";
+			case Obj.Elem:
+				return "elementu niza";
+			case Obj.Meth:
+				return ".";
+			case Obj.Type:
+				return "tipu";
+			case Obj.Fld:
+				return "polju";
+			default:
+				return ".";
+			}
 	}
 	
 	
@@ -458,6 +480,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 		    if(designatorObj != null && designatorObj != Tab.noObj) {
 		        // Proveri da li je poziv metode (ima ActPars)
 		        if(factorSub_des.getActParsBracketsZeroOne() instanceof ActParsBracketsZeroOne_brackets) {
+		        	 report_info("Poziv funkcije: " + designatorObj.getName(), factorSub_des);
 		            // Poziv metode u izrazu
 		            if(designatorObj.getKind() != Obj.Meth) {
 		                report_error("Poziv metode je moguc samo nad metodom", factorSub_des);
@@ -795,6 +818,10 @@ public class SemAnalyzer extends VisitorAdaptor {
 	    if(designatorObj.getKind() != Obj.Meth) {
 	        report_error("Poziv metode je moguc samo nad metodom", designatorRest_second);
 	        return;
+	    }
+	    
+	    if(designatorObj != null && designatorObj != Tab.noObj && designatorObj.getKind() == Obj.Meth) {
+	        report_info("Poziv funkcije: " + designatorObj.getName(), designatorRest_second);
 	    }
 	    checkMethodArguments(designatorObj, designatorRest_second.getActParsZeroOne(), designatorRest_second);
 	}
