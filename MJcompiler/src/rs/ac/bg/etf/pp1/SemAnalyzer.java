@@ -1,6 +1,11 @@
 package rs.ac.bg.etf.pp1;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import rs.ac.bg.etf.pp1.ast.*;
@@ -27,6 +32,8 @@ public class SemAnalyzer extends VisitorAdaptor {
 	private int enumCurrentValue;
 	
 	private boolean hasReturn;
+	
+	private Set<Integer> currentCases=null;
 	 	
 
 
@@ -246,36 +253,47 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override 
 	public void visit(FormPars_var formPars_var) {
-		Obj varObj=null;
-		if(currentMethod==null) {
-			report_error("Semanticka greska", formPars_var);
-		}else {
-			varObj=Tab.currentScope().findSymbol(formPars_var.getI2());
-		}
-		if(varObj==null || varObj == Tab.noObj) {
-			varObj=Tab.insert(Obj.Var, formPars_var.getI2(), currentType);
-			varObj.setFpPos(1);
-			currentMethod.setLevel(currentMethod.getLevel()+1);
-		}else{
-			report_error("Dvostruka definicija formalnog parametra "+formPars_var.getI2(),formPars_var);
-		}
+	    Obj varObj = null;
+	    if(currentMethod == null) {
+	        report_error("Semanticka greska", formPars_var);
+	        return;  
+	    } else {
+	        varObj = Tab.currentScope().findSymbol(formPars_var.getI2());
+	    }
+	    
+	    if(varObj == null || varObj == Tab.noObj) {
+	        
+	        int currentParamNumber = currentMethod.getLevel() + 1;
+	        
+	        varObj = Tab.insert(Obj.Var, formPars_var.getI2(), currentType);
+	        varObj.setFpPos(currentParamNumber); 
+	        
+	        currentMethod.setLevel(currentParamNumber);  
+	    } else {
+	        report_error("Dvostruka definicija formalnog parametra " + formPars_var.getI2(), formPars_var);
+	    }
 	}
 	
 	@Override 
 	public void visit(FormPars_arr formPars_arr) {
-		Obj varObj=null;
-		if(currentMethod==null) {
-			report_error("Semanticka greska",formPars_arr);
-		}else {
-			varObj=Tab.currentScope().findSymbol(formPars_arr.getI2());
-		}
-		if(varObj==null || varObj == Tab.noObj) {
-			varObj=Tab.insert(Obj.Var, formPars_arr.getI2(), new Struct(Struct.Array,currentType));
-			varObj.setFpPos(1);
-			currentMethod.setLevel(currentMethod.getLevel()+1);
-		}else{
-			report_error("Dvostruka definicija promenljive "+formPars_arr.getI2(),formPars_arr);
-		}
+	    Obj varObj = null;
+	    if(currentMethod == null) {
+	        report_error("Semanticka greska", formPars_arr);
+	        return;  
+	    } else {
+	        varObj = Tab.currentScope().findSymbol(formPars_arr.getI2());
+	    }
+	    
+	    if(varObj == null || varObj == Tab.noObj) {
+	        int currentParamNumber = currentMethod.getLevel() + 1;
+	        
+	        varObj = Tab.insert(Obj.Var, formPars_arr.getI2(), new Struct(Struct.Array, currentType));
+	        varObj.setFpPos(currentParamNumber); 
+	        
+	        currentMethod.setLevel(currentParamNumber); 
+	    } else {
+	        report_error("Dvostruka definicija promenljive " + formPars_arr.getI2(), formPars_arr);
+	    }
 	}
 	
 	
@@ -435,13 +453,102 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override
 	public void visit(FactorSub_des factorSub_des) {
-		Obj designatorObj = factorSub_des.getDesignator().obj;
-		if(designatorObj != null && designatorObj != Tab.noObj) {
-			factorSub_des.struct = designatorObj.getType();
-		} else {
-			factorSub_des.struct = Tab.noType;
-		}
+		 Obj designatorObj = factorSub_des.getDesignator().obj;
+		    
+		    if(designatorObj != null && designatorObj != Tab.noObj) {
+		        // Proveri da li je poziv metode (ima ActPars)
+		        if(factorSub_des.getActParsBracketsZeroOne() instanceof ActParsBracketsZeroOne_brackets) {
+		            // Poziv metode u izrazu
+		            if(designatorObj.getKind() != Obj.Meth) {
+		                report_error("Poziv metode je moguc samo nad metodom", factorSub_des);
+		                factorSub_des.struct = Tab.noType;
+		                return;
+		            }
+		            
+		            // Proveri argumente
+		            ActParsBracketsZeroOne_brackets actParsBrackets = 
+		                (ActParsBracketsZeroOne_brackets)factorSub_des.getActParsBracketsZeroOne();
+		            checkMethodArguments(designatorObj, actParsBrackets.getActParsZeroOne(), factorSub_des);
+		            
+		            // Tip izraza je povratni tip metode
+		            factorSub_des.struct = designatorObj.getType();
+		        } else {
+		            // Samo Designator (ne poziv metode)
+		            factorSub_des.struct = designatorObj.getType();
+		        }
+		    } else {
+		        factorSub_des.struct = Tab.noType;
+		    }
 	}
+	
+	// LOGIKA ZA PROVERAVANJE ARGUMENATA U FUNKCIJAMA  >>>>>>>>>>>
+	
+	private void checkMethodArguments(Obj method, ActParsZeroOne actParsZeroOne, SyntaxNode errorNode) {
+	    // Broj formalnih parametara
+	    int formalCount = method.getLevel();
+	    
+	    // Prikupi formalne tipove
+	    List<Struct> formalTypes = new ArrayList<>();
+	    for(int i = 0; i < formalCount; i++) {
+	        formalTypes.add(null);
+	    }
+	    
+	    for(Obj local : method.getLocalSymbols()) {
+	        if(local.getFpPos() > 0 && local.getFpPos() <= formalCount) {
+	            formalTypes.set(local.getFpPos() - 1, local.getType());
+	        }
+	    }
+	    
+	    // Prikupi stvarne tipove
+	    List<Struct> actualTypes = collectActualArguments(actParsZeroOne);
+	    
+	    // Proveri broj
+	    if(actualTypes.size() != formalTypes.size()) {
+	        report_error("Neodgovarajuci broj argumenata u pozivu metode " + method.getName() + 
+	                     ": ocekivano " + formalTypes.size() + ", pronadjeno " + actualTypes.size(), 
+	                     errorNode);
+	        return;
+	    }
+	    
+	    // Proveri tipove
+	    for(int i = 0; i < actualTypes.size(); i++) {
+	        if(actualTypes.get(i) != null && formalTypes.get(i) != null && 
+	           !actualTypes.get(i).assignableTo(formalTypes.get(i))) {
+	            report_error("Tip argumenta nije kompatibilan pri pozivu metode " + 
+	                         method.getName(), errorNode);
+	        }
+	    }
+	}
+
+	private List<Struct> collectActualArguments(ActParsZeroOne actParsZeroOne) {
+	    List<Struct> types = new ArrayList<>();
+	    
+	    if(actParsZeroOne instanceof ActParsZeroOne_epsilon) {
+	        return types;
+	    }
+	    
+	    ActParsZeroOne_ActPars actParsNode = (ActParsZeroOne_ActPars)actParsZeroOne;
+	    collectActParsTypes(actParsNode.getActPars(), types);
+	    
+	    return types;
+	}
+
+	private void collectActParsTypes(ActPars actPars, List<Struct> types) {
+	    types.add(actPars.getExpr().struct);
+	    collectCommaExprList(actPars.getCommaExprList(), types);
+	}
+
+	private void collectCommaExprList(CommaExprList list, List<Struct> types) {
+	    if(list instanceof CommaExprList_epsilon) {
+	        return;
+	    }
+	    
+	    CommaExprList_rek rekList = (CommaExprList_rek)list;
+	    types.add(rekList.getExpr().struct);
+	    collectCommaExprList(rekList.getCommaExprList(), types);
+	}
+	
+	// <<<<<<<<<<<< LOGIKA ZA PROVERAVANJE ARGUMENATA U FUNKCIJAMA 
 	
 	@Override 
 	public void visit(FactorSub_new factorSub_new) {
@@ -536,11 +643,11 @@ public class SemAnalyzer extends VisitorAdaptor {
 		Struct listType = addExpr_addop.getAddopTermList().struct;
 		
 		// Kada je AddopTermList epsilon, listType je null
-		// U tom slučaju rezultat je samo Term
+		// U tom slucaju rezultat je samo Term
 		if(listType == null) {
 			addExpr_addop.struct = termType;
 		} else {
-			// Ako postoji lista, ona već sadrži rezultat operacija
+			// Ako postoji lista, ona vec sadrzi rezultat operacija
 			addExpr_addop.struct = listType;
 		}
 	}
@@ -639,7 +746,6 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override
 	public void visit(DesignatorRest_third designatorRest_third) {
-		// INC (++)
 		Obj designatorObj = ((DesignatorStatement)designatorRest_third.getParent()).getDesignator().obj;
 		
 		if(designatorObj == null || designatorObj == Tab.noObj) {
@@ -655,11 +761,11 @@ public class SemAnalyzer extends VisitorAdaptor {
 		if(designatorObj.getType() == null || !designatorObj.getType().equals(Tab.intType)) {
 			report_error("Inkrement je moguc samo nad int tipom", designatorRest_third);
 		}
+		
 	}
 	
 	@Override
 	public void visit(DesignatorRest_fourth designatorRest_fourth) {
-		// DEC (--)
 		Obj designatorObj = ((DesignatorStatement)designatorRest_fourth.getParent()).getDesignator().obj;
 		
 		if(designatorObj == null || designatorObj == Tab.noObj) {
@@ -679,16 +785,18 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override
 	public void visit(DesignatorRest_second designatorRest_second) {
-		// Poziv metode
-		Obj designatorObj = ((DesignatorStatement)designatorRest_second.getParent()).getDesignator().obj;
-		
-		if(designatorObj == null || designatorObj == Tab.noObj) {
-			return;
-		}
-		
-		if(designatorObj.getKind() != Obj.Meth) {
-			report_error("Poziv metode je moguc samo nad metodom", designatorRest_second);
-		}
+	    // Poziv metode kao statement
+	    Obj designatorObj = ((DesignatorStatement)designatorRest_second.getParent()).getDesignator().obj;
+	    
+	    if(designatorObj == null || designatorObj == Tab.noObj) {
+	        return;
+	    }
+	    
+	    if(designatorObj.getKind() != Obj.Meth) {
+	        report_error("Poziv metode je moguc samo nad metodom", designatorRest_second);
+	        return;
+	    }
+	    checkMethodArguments(designatorObj, designatorRest_second.getActParsZeroOne(), designatorRest_second);
 	}
 	
 	// READ STATEMENT //
@@ -783,6 +891,52 @@ public class SemAnalyzer extends VisitorAdaptor {
 			report_error("Condition u if mora biti bool tipa", singleStatement_second);
 		}
 	}
+	
+	// SWITCH
+	
+	@Override 
+	public void visit(SingleStatement_eighth singleStatement_eighth) {
+		Struct swExpr=singleStatement_eighth.getExpr().struct;
+		
+		if(swExpr==null || !swExpr.equals(Tab.intType)) {
+			report_error("Expr unutar switch-a mora biti int tipa",singleStatement_eighth);
+		}
+		currentCases=null;
+	}
+	
+	@Override
+	public void visit(CaseList_first caseList_first) {
+		if(currentCases == null) {
+	        currentCases = new HashSet<Integer>();
+	    }
+		int num=caseList_first.getN1();
+		if(!currentCases.contains(num)){
+			currentCases.add(num);
+		}else {
+			report_error("Ne moze postojati vise case grana sa istom konstantom", caseList_first);
+		}
+	}
+	
+	//FOR
+	
+	@Override 
+	public void visit(SingleStatement_ninth singleStatement_ninth) {
+		if(singleStatement_ninth.getConditionZeroOne() instanceof ConditionZeroOne_first) {
+			ConditionZeroOne_first cond=(ConditionZeroOne_first)singleStatement_ninth.getConditionZeroOne();
+			Struct condType=cond.getCondition().struct;
+			if(condType==null || !condType.equals(boolType)) {
+				report_error("Condition u for petlji mora biti bool tipa", cond);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -1,19 +1,10 @@
 program Prog
-int a;
-int b;
-const int c=5;
-enum Broj{nula=0, jedan=0, dva}
-{
-	
-    void main() 
-    {
-     	
-    }
-    char meth(){
-    	if(a&&c ){}
-    	
-    	return 'a';
-    }
 
+{
+
+	int f1(int x) { return x;}
+	int f2(int x, bool y, int z)int a;{return f1(x)+1;}
+	int f3(){return f2(1,true,1);}
+	void main(){}
  
 }

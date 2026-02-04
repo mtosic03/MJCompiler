@@ -1,25 +1,25 @@
 // generated with ast extension for cup
 // version 0.8
-// 3/1/2026 20:10:20
+// 3/1/2026 22:59:45
 
 
 package rs.ac.bg.etf.pp1.ast;
 
 public class ElseBlock_first extends ElseBlock {
 
-    private SingleStatement SingleStatement;
+    private Statement Statement;
 
-    public ElseBlock_first (SingleStatement SingleStatement) {
-        this.SingleStatement=SingleStatement;
-        if(SingleStatement!=null) SingleStatement.setParent(this);
+    public ElseBlock_first (Statement Statement) {
+        this.Statement=Statement;
+        if(Statement!=null) Statement.setParent(this);
     }
 
-    public SingleStatement getSingleStatement() {
-        return SingleStatement;
+    public Statement getStatement() {
+        return Statement;
     }
 
-    public void setSingleStatement(SingleStatement SingleStatement) {
-        this.SingleStatement=SingleStatement;
+    public void setStatement(Statement Statement) {
+        this.Statement=Statement;
     }
 
     public void accept(Visitor visitor) {
@@ -27,16 +27,16 @@ public class ElseBlock_first extends ElseBlock {
     }
 
     public void childrenAccept(Visitor visitor) {
-        if(SingleStatement!=null) SingleStatement.accept(visitor);
+        if(Statement!=null) Statement.accept(visitor);
     }
 
     public void traverseTopDown(Visitor visitor) {
         accept(visitor);
-        if(SingleStatement!=null) SingleStatement.traverseTopDown(visitor);
+        if(Statement!=null) Statement.traverseTopDown(visitor);
     }
 
     public void traverseBottomUp(Visitor visitor) {
-        if(SingleStatement!=null) SingleStatement.traverseBottomUp(visitor);
+        if(Statement!=null) Statement.traverseBottomUp(visitor);
         accept(visitor);
     }
 
@@ -45,8 +45,8 @@ public class ElseBlock_first extends ElseBlock {
         buffer.append(tab);
         buffer.append("ElseBlock_first(\n");
 
-        if(SingleStatement!=null)
-            buffer.append(SingleStatement.toString("  "+tab));
+        if(Statement!=null)
+            buffer.append(Statement.toString("  "+tab));
         else
             buffer.append(tab+"  null");
         buffer.append("\n");

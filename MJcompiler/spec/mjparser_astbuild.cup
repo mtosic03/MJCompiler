@@ -265,14 +265,14 @@ SingleStatement ::=     (SingleStatement_first) DesignatorStatement:D1 SEMICOLON
 						|
 						(SingleStatement_sixth) READ OPENBRACKET Designator:D1 CLBRACKET SEMICOLON {: RESULT=new SingleStatement_sixth(D1); RESULT.setLine(D1left); :}
 						|
-						(SingleStatement_seventh)	PRINT OPENBRACKET Expr:E1 CommaNumConst:C2 CLBRACKET SEMICOLON {: RESULT=new SingleStatement_seventh(E1, C2); RESULT.setLine(E1left); :}
+						(SingleStatement_seventh) PRINT OPENBRACKET Expr:E1 CommaNumConst:C2 CLBRACKET SEMICOLON {: RESULT=new SingleStatement_seventh(E1, C2); RESULT.setLine(E1left); :}
 						|
 						(SingleStatement_eighth) SWITCH OPENBRACKET Expr:E1 CLBRACKET CURLYOPENBRACKET CaseList:C2 CURLYCLBRACKET {: RESULT=new SingleStatement_eighth(E1, C2); RESULT.setLine(E1left); :}
 						|
 						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne:D1 SEMICOLON ConditionZeroOne:C2 SEMICOLON DesignatorStatementZeroOne:D3 CLBRACKET Statement:S4 {: RESULT=new SingleStatement_ninth(D1, C2, D3, S4); RESULT.setLine(D1left); :}
 						;
 						
-ElseBlock ::= 	(ElseBlock_first) ELSE SingleStatement:S1 {: RESULT=new ElseBlock_first(S1); RESULT.setLine(S1left); :}
+ElseBlock ::= 	(ElseBlock_first) ELSE Statement:S1 {: RESULT=new ElseBlock_first(S1); RESULT.setLine(S1left); :}
 				|
 				(ElseBlock_epsilon) {: RESULT=new ElseBlock_epsilon(); :}
 				;
@@ -447,7 +447,7 @@ Unary ::=   (Unary_minus) MINUS {: RESULT=new Unary_minus(); :}
             ;
             
 // ============================================================
-// DESIGNATOR ----promeniti designator gramatiku kako bi lakse odradio 3 fazu
+// DESIGNATOR
 // ============================================================
 
 Designator ::= (Designator) IDENT:I1 DesignatorListRest:D2 {: RESULT=new Designator(I1, D2); RESULT.setLine(I1left); :};
