@@ -61,13 +61,12 @@ FormPars, VarDeclMore, FormParMore, StatementList, Statement, SingleStatement,
 DesignatorStatement, IdentOrLength, Addop, 
 Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, 
 RelopExprZeroOne, Relop, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
-CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, ProgramName,
-MethodNameType;
+CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, ProgramName;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest, MethodNameType;
 
 precedence left ELSE;
 

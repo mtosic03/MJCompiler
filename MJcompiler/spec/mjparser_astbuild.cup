@@ -107,13 +107,11 @@ nonterminal ElseBlock ElseBlock;
 nonterminal Statements Statements;
 nonterminal Unary Unary;
 nonterminal ProgramName ProgramName;
-nonterminal
-MethodNameType MethodNameType;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest, MethodNameType;
 
 precedence left ELSE;
 

@@ -6,6 +6,7 @@
 			<fileset dir="src/rs/ac/bg/etf/pp1">
 				<exclude name="util/Log4JUtils.java"></exclude>
 				<exclude name="SemAnalyzer.java"></exclude>
+				<exclude name="CodeGenerator.java"></exclude>
 			</fileset>
 		</delete>
 	</target>
@@ -43,9 +44,37 @@
 				<pathelement path="lib/cup_v10k.jar"/>
 				<pathelement path="lib/log4j-1.2.17.jar"/>
 				<pathelement path="lib/symboltable-1-1.jar"/>
+				<pathelement path="lib/mj-runtime-1.1.jar"/>
 			</classpath>
 		</javac>
 		
 	</target>
-	
+	<!--skripta za disasembliranje obj fajla koji pravimo-->
+	<target name="disasm">
+		<java classname="rs.etf.pp1.mj.runtime.disasm">
+			<arg value="test/program.obj"/>
+			<classpath>
+				<pathelement location="lib/mj-runtime-1.1.jar"/>
+			</classpath>
+		</java>
+	</target>
+	<!--target koji radi isto sto i runObj, samo sto pored toga ispisuje i instrukcije koje je izvrsio i ispise stanje exprStacka-->
+	<target name="debugObj" depends="disasm">
+		<java classname="rs.etf.pp1.mj.runtime.Run">
+			<arg value="test/program.obj"/>
+			<arg value="-debug"/>
+			<classpath>
+				<pathelement location="lib/mj-runtime-1.1.jar"/>
+			</classpath>
+		</java>
+	</target>
+	<!--skripta za bezuslovno izvrsavanje obj fajla koji pravimo-->
+	<target name="runObj" depends="debugObj">
+		<java classname="rs.etf.pp1.mj.runtime.Run">
+			<arg value="test/program.obj"/>
+			<classpath>
+				<pathelement location="lib/mj-runtime-1.1.jar"/>
+			</classpath>
+		</java>
+	</target>
 </project>

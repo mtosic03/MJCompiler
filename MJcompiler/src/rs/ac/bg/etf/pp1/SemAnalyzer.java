@@ -34,6 +34,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	private boolean hasReturn;
 	
 	private Set<Integer> currentCases=null;
+	int nVars;
 	 	
 
 
@@ -68,6 +69,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override
 	public void visit(Program program) {
+		this.nVars=Tab.currentScope().getnVars();
 		Tab.chainLocalSymbols(currentProgram);
 		Tab.closeScope();
 		currentProgram=null;
@@ -140,7 +142,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 		if(varObj==null || varObj == Tab.noObj) {
 			varObj=Tab.insert(Obj.Var, varDeclaration_arr.getI1(), new Struct(Struct.Array,currentType));
 		}else{
-			report_error("Dvostruka definicija promenljive "+varDeclaration_arr.getI1(),varDeclaration_arr);
+			report_error("Dvostruka definicija niza "+varDeclaration_arr.getI1(),varDeclaration_arr);
 		}
 	}
 	
@@ -199,7 +201,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	// METHOD DECLARATIONS //
 	@Override
 	public void visit(MethodNameType_void methodNameType_void) {
-		currentMethod=Tab.insert(Obj.Meth,methodNameType_void.getI1(),Tab.noType);
+		methodNameType_void.obj=currentMethod=Tab.insert(Obj.Meth,methodNameType_void.getI1(),Tab.noType);
 		Tab.openScope();
 		hasReturn=false;
 		if(methodNameType_void.getI1().equalsIgnoreCase("main"))
@@ -209,7 +211,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override
 	public void visit(MethodNameType_type methodNameType_type) {
-		currentMethod=Tab.insert(Obj.Meth,methodNameType_type.getI2(),currentType);
+		methodNameType_type.obj=currentMethod=Tab.insert(Obj.Meth,methodNameType_type.getI2(),currentType);
 		hasReturn=false;
 		Tab.openScope();
 	}
@@ -292,7 +294,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	        
 	        currentMethod.setLevel(currentParamNumber); 
 	    } else {
-	        report_error("Dvostruka definicija promenljive " + formPars_arr.getI2(), formPars_arr);
+	        report_error("Dvostruka definicija niza " + formPars_arr.getI2(), formPars_arr);
 	    }
 	}
 	
@@ -318,7 +320,6 @@ public class SemAnalyzer extends VisitorAdaptor {
 
 	private Obj processDesignatorListRest(Obj baseObj, DesignatorListRest rest) {
 		if(rest instanceof DesignatorListRest_epsilon) {
-			// Bazni slucaj - vracamo bazni objekat
 			return baseObj;
 		}
 		else if(rest instanceof DesignatorListRest_dot) {
@@ -365,7 +366,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 				return enumConst;
 			}
 			else {
-				report_error("Tip objekta mora biti klasa ili nabrajanje za pristup polju", dotRest);
+				report_error("Tip objekta mora biti enum kako bi pristupili polju", dotRest);
 				return Tab.noObj;
 			}
 		}
@@ -425,6 +426,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 		// Obradimo DesignatorListRest rekurzivno koristeći pomocnu metodu
 		designator.obj = processDesignatorListRest(baseObj, designator.getDesignatorListRest());
 		
+		// kako bi implementirali svaki report info za fazu detektovanja koriscenja simbola
 		if(designator.obj!=Tab.noObj && designator.obj!=null) {
 			String kindName=getKindName(designator.obj);
 			if(kindName!=".") {
@@ -448,7 +450,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 			case Obj.Meth:
 				return ".";
 			case Obj.Type:
-				return "tipu";
+				return ".";
 			case Obj.Fld:
 				return "polju";
 			default:
@@ -956,16 +958,6 @@ public class SemAnalyzer extends VisitorAdaptor {
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
