@@ -1,11 +1,10 @@
 program prog
-
-const int pi=3;
-int x, y[];
-
-{
-
-	void main()int a,b; char carr[];{
-		print(4*8+5);
+int matr[][];
+{	
+	void main()int a,b,c;char carr[];{
+	    carr=new char[5];
+	    carr[1]='a';
+		print(carr[1]);
 	}
+
 }

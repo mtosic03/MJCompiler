@@ -73,6 +73,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 		Tab.chainLocalSymbols(currentProgram);
 		Tab.closeScope();
 		currentProgram=null;
+		//provera da li main postoji i da li je main globalna(level=0)
 		if(mainMethod==null || mainMethod.getLevel()>0) {
 			report_error("Program nema adekvatnu main metodu",program);
 		}
@@ -199,21 +200,35 @@ public class SemAnalyzer extends VisitorAdaptor {
 
 	
 	// METHOD DECLARATIONS //
-	@Override
-	public void visit(MethodNameType_void methodNameType_void) {
-		methodNameType_void.obj=currentMethod=Tab.insert(Obj.Meth,methodNameType_void.getI1(),Tab.noType);
-		Tab.openScope();
-		hasReturn=false;
-		if(methodNameType_void.getI1().equalsIgnoreCase("main"))
-			mainMethod=currentMethod;
-		
-	}
 	
 	@Override
+	public void visit(MethodNameType_void methodNameType_void) {
+		String methName=methodNameType_void.getI1();
+		if(Tab.currentScope().findSymbol(methName)!=null) {
+			report_error("Dvostruka definicija metode "+methName,methodNameType_void);
+			methodNameType_void.obj=currentMethod=Tab.noObj;
+		}else {
+			methodNameType_void.obj=currentMethod=Tab.insert(Obj.Meth,methName,Tab.noType);
+			Tab.openScope();
+			hasReturn=false;
+			
+			if(methName.equals("main")) {
+				mainMethod=currentMethod;
+			}
+		}
+	}
+	@Override
 	public void visit(MethodNameType_type methodNameType_type) {
-		methodNameType_type.obj=currentMethod=Tab.insert(Obj.Meth,methodNameType_type.getI2(),currentType);
-		hasReturn=false;
-		Tab.openScope();
+		String methName=methodNameType_type.getI2();
+		if(Tab.currentScope().findSymbol(methName)!=null) {
+			report_error("Dvostruka definicija metode "+methName,methodNameType_type);
+			methodNameType_type.obj=currentMethod=Tab.noObj;
+		}else {
+			methodNameType_type.obj=currentMethod=Tab.insert(Obj.Meth,methName,currentType);
+			hasReturn=false;
+			Tab.openScope();
+		}
+		
 	}
 	
 	@Override
@@ -264,13 +279,11 @@ public class SemAnalyzer extends VisitorAdaptor {
 	    }
 	    
 	    if(varObj == null || varObj == Tab.noObj) {
-	        
 	        int currentParamNumber = currentMethod.getLevel() + 1;
-	        
 	        varObj = Tab.insert(Obj.Var, formPars_var.getI2(), currentType);
 	        varObj.setFpPos(currentParamNumber); 
-	        
-	        currentMethod.setLevel(currentParamNumber);  
+	        currentMethod.setLevel(currentParamNumber); 
+	        //svaki put uvecamo level, kako bi naredni parametar imao za jefan veci fpPos
 	    } else {
 	        report_error("Dvostruka definicija formalnog parametra " + formPars_var.getI2(), formPars_var);
 	    }
@@ -305,12 +318,12 @@ public class SemAnalyzer extends VisitorAdaptor {
 		Obj typeObj=Tab.find(type.getI1());
 		if(typeObj == Tab.noObj) {
 			report_error("Nepostojeci tip podatka "+type.getI1(),type);
-			currentType=Tab.noType;
+			type.struct= currentType =Tab.noType; 
 		}else if(typeObj.getKind()!=Obj.Type) {
 			report_error("Neadekvatan tip podatka "+type.getI1(),type);
-			currentType=Tab.noType;
+			type.struct= currentType=Tab.noType;
 		}else {
-			currentType=typeObj.getType();
+			type.struct= currentType=typeObj.getType();
 		}
 	}
 	
@@ -505,6 +518,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 		        factorSub_des.struct = Tab.noType;
 		    }
 	}
+	//-------------------------------------CHECKPOINT-----------------------------------------
 	
 	// LOGIKA ZA PROVERAVANJE ARGUMENATA U FUNKCIJAMA  >>>>>>>>>>>
 	
@@ -577,6 +591,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	
 	@Override 
 	public void visit(FactorSub_new factorSub_new) {
+		
 		Struct exprType = factorSub_new.getExpr().struct;
 		if(exprType == null || !exprType.equals(Tab.intType)) {
 			report_error("Velicina niza mora biti int tipa", factorSub_new);

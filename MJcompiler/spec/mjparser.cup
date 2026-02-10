@@ -54,7 +54,7 @@ terminal Character CHARACTER;
 
 
 nonterminal Program, ConstVarEnumDeclList, MethodDeclList, 
-ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, Type,
+ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, 
 ConstDecl, VarDeclaration, VarDeclarationMore, 
 ConstDeclMore, EnumMemberList, EnumMember, FormParList, Constant,
 FormPars, VarDeclMore, FormParMore, StatementList, Statement, SingleStatement,
@@ -64,7 +64,7 @@ RelopExprZeroOne, Relop, OrCondTermList, AndCondFactList, Assignop, DesignatorRe
 CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, ProgramName;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm, Type;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest, MethodNameType;
 
@@ -417,3 +417,4 @@ IdentOrLength ::=   (IdentOrLength_ident) IDENT
 					|
 					(IdentOrLength_length) LENGTH
 					;
+					

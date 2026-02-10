@@ -62,8 +62,7 @@ nonterminal VarDeclList VarDeclList;
 nonterminal EnumDeclList EnumDeclList;
 nonterminal EnumDeclName EnumDeclName;
 nonterminal MethodDecl MethodDecl;
-nonterminal Type Type;
-nonterminal
+nonterminal 
 ConstDecl ConstDecl;
 nonterminal VarDeclaration VarDeclaration;
 nonterminal VarDeclarationMore VarDeclarationMore;
@@ -109,7 +108,7 @@ nonterminal Unary Unary;
 nonterminal ProgramName ProgramName;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
-nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm, Type;
 
 nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest, MethodNameType;
 
@@ -462,3 +461,4 @@ IdentOrLength ::=   (IdentOrLength_ident) IDENT:I1 {: RESULT=new IdentOrLength_i
 					|
 					(IdentOrLength_length) LENGTH {: RESULT=new IdentOrLength_length(); :}
 					;
+					
