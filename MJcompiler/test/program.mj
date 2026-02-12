@@ -1,8 +1,15 @@
 program prog 
-{	
 
-	void main()int b[];{
-	   b=new int[5];
-	   print(b.length);
+{	
+	void f(bool ind){
+		if(ind==true){
+			print('1');
+		}else{
+			print('2');
+		}	
+		
+	}
+	void main()int a;{
+		f(true);
 	}
 }

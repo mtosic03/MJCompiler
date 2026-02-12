@@ -449,6 +449,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 	            report_error("Pristup '.length' je dozvoljen samo za nizove", more);
 	            return Tab.noObj;
 	        }
+	        ((DesignatorMore_dotLength)more).obj = baseObj;
 	        return new Obj(Obj.Fld, "length", Tab.intType);
 	    }
 	    

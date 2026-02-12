@@ -1,41 +1,201 @@
-INFO  01:12:07,107 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
-INFO  01:12:07,173 - #2 program
-INFO  01:12:07,174 - #45 prog
-INFO  01:12:07,174 - #3 {
-INFO  01:12:07,176 - #12 void
-INFO  01:12:07,176 - #45 main
-INFO  01:12:07,176 - #13 (
-INFO  01:12:07,176 - #14 )
-INFO  01:12:07,177 - #45 int
-INFO  01:12:07,177 - #45 b
-INFO  01:12:07,178 - #9 [
-INFO  01:12:07,178 - #10 ]
-INFO  01:12:07,179 - #7 ;
-INFO  01:12:07,180 - #3 {
-INFO  01:12:07,181 - #45 b
-INFO  01:12:07,182 - #6 =
-INFO  01:12:07,183 - #22 new
-INFO  01:12:07,184 - #45 int
-INFO  01:12:07,184 - #9 [
-INFO  01:12:07,185 - #46 5
-INFO  01:12:07,185 - #10 ]
-INFO  01:12:07,187 - #7 ;
-INFO  01:12:07,189 - #41 print
-INFO  01:12:07,198 - #13 (
-INFO  01:12:07,198 - #45 b
-INFO  01:12:07,198 - #15 .
-INFO  01:12:07,198 - #16 length
-INFO  01:12:07,198 - #14 )
-INFO  01:12:07,200 - #7 ;
-INFO  01:12:07,200 - #4 }
-INFO  01:12:07,201 - #4 }
-INFO  01:12:07,207 - Program(
+INFO  00:40:41,256 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  00:40:41,325 - #2 program
+INFO  00:40:41,325 - #45 prog
+INFO  00:40:41,325 - #3 {
+INFO  00:40:41,326 - #12 void
+INFO  00:40:41,327 - #45 f
+INFO  00:40:41,327 - #13 (
+INFO  00:40:41,327 - #45 bool
+INFO  00:40:41,327 - #45 ind
+INFO  00:40:41,328 - #14 )
+INFO  00:40:41,329 - #3 {
+INFO  00:40:41,330 - #35 if
+INFO  00:40:41,331 - #13 (
+INFO  00:40:41,331 - #45 ind
+INFO  00:40:41,333 - #25 ==
+INFO  00:40:41,337 - #47 1
+INFO  00:40:41,339 - #14 )
+INFO  00:40:41,342 - #3 {
+INFO  00:40:41,343 - #41 print
+INFO  00:40:41,343 - #13 (
+INFO  00:40:41,343 - #48 1
+INFO  00:40:41,343 - #14 )
+INFO  00:40:41,344 - #7 ;
+INFO  00:40:41,354 - #4 }
+INFO  00:40:41,355 - #36 else
+INFO  00:40:41,356 - #3 {
+INFO  00:40:41,356 - #41 print
+INFO  00:40:41,356 - #13 (
+INFO  00:40:41,356 - #48 2
+INFO  00:40:41,356 - #14 )
+INFO  00:40:41,357 - #7 ;
+INFO  00:40:41,357 - #4 }
+INFO  00:40:41,357 - #4 }
+INFO  00:40:41,357 - #12 void
+INFO  00:40:41,358 - #45 main
+INFO  00:40:41,358 - #13 (
+INFO  00:40:41,358 - #14 )
+INFO  00:40:41,359 - #45 int
+INFO  00:40:41,359 - #45 a
+INFO  00:40:41,359 - #7 ;
+INFO  00:40:41,360 - #3 {
+INFO  00:40:41,361 - #45 f
+INFO  00:40:41,361 - #13 (
+INFO  00:40:41,362 - #47 1
+INFO  00:40:41,362 - #14 )
+INFO  00:40:41,363 - #7 ;
+INFO  00:40:41,364 - #4 }
+INFO  00:40:41,364 - #4 }
+INFO  00:40:41,373 - Program(
   ProgramName(
    prog
   ) [ProgramName]
   ConstVarEnumDeclList_epsilon(
   ) [ConstVarEnumDeclList_epsilon]
-  MethodDeclList_endRek(
+  MethodDeclList_rek(
+    MethodDeclList_endRek(
+      MethodDecl(
+        MethodNameType_void(
+         f
+        ) [MethodNameType_void]
+        FormParList_form(
+          FormPars_var(
+            Type(
+             bool
+            ) [Type]
+           ind
+          ) [FormPars_var]
+          FormParMore_epsilon(
+          ) [FormParMore_epsilon]
+        ) [FormParList_form]
+        VarDeclMore_epsilon(
+        ) [VarDeclMore_epsilon]
+        StatementList_rek(
+          StatementList_epsilon(
+          ) [StatementList_epsilon]
+          Statement_ss(
+            SingleStatement_second(
+              Condition(
+                CondTerm(
+                  CondFact(
+                    AddExpr_addop(
+                      Term(
+                        MulopFactorList_factor(
+                          Factor(
+                            Unary_epsilon(
+                            ) [Unary_epsilon]
+                            FactorSub_des(
+                              Designator_var(
+                               ind
+                                DesignatorMore_epsilon(
+                                ) [DesignatorMore_epsilon]
+                              ) [Designator_var]
+                              ActParsBracketsZeroOne_epsilon(
+                              ) [ActParsBracketsZeroOne_epsilon]
+                            ) [FactorSub_des]
+                          ) [Factor]
+                        ) [MulopFactorList_factor]
+                      ) [Term]
+                      AddopTermList_epsilon(
+                      ) [AddopTermList_epsilon]
+                    ) [AddExpr_addop]
+                    RelopExprZeroOne_relopExpr(
+                      Relop_first(
+                      ) [Relop_first]
+                      AddExpr_addop(
+                        Term(
+                          MulopFactorList_factor(
+                            Factor(
+                              Unary_epsilon(
+                              ) [Unary_epsilon]
+                              FactorSub_bool(
+                               1
+                              ) [FactorSub_bool]
+                            ) [Factor]
+                          ) [MulopFactorList_factor]
+                        ) [Term]
+                        AddopTermList_epsilon(
+                        ) [AddopTermList_epsilon]
+                      ) [AddExpr_addop]
+                    ) [RelopExprZeroOne_relopExpr]
+                  ) [CondFact]
+                  AndCondFactList_epsilon(
+                  ) [AndCondFactList_epsilon]
+                ) [CondTerm]
+                OrCondTermList_epsilon(
+                ) [OrCondTermList_epsilon]
+              ) [Condition]
+              Statement_block(
+                Statements(
+                  StatementList_rek(
+                    StatementList_epsilon(
+                    ) [StatementList_epsilon]
+                    Statement_ss(
+                      SingleStatement_seventh(
+                        Expr_normal(
+                          AddExpr_addop(
+                            Term(
+                              MulopFactorList_factor(
+                                Factor(
+                                  Unary_epsilon(
+                                  ) [Unary_epsilon]
+                                  FactorSub_chr(
+                                   1
+                                  ) [FactorSub_chr]
+                                ) [Factor]
+                              ) [MulopFactorList_factor]
+                            ) [Term]
+                            AddopTermList_epsilon(
+                            ) [AddopTermList_epsilon]
+                          ) [AddExpr_addop]
+                        ) [Expr_normal]
+                        CommaNumConst_epsilon(
+                        ) [CommaNumConst_epsilon]
+                      ) [SingleStatement_seventh]
+                    ) [Statement_ss]
+                  ) [StatementList_rek]
+                ) [Statements]
+              ) [Statement_block]
+              ElseMarker(
+              ) [ElseMarker]
+              ElseBlock_first(
+                Statement_block(
+                  Statements(
+                    StatementList_rek(
+                      StatementList_epsilon(
+                      ) [StatementList_epsilon]
+                      Statement_ss(
+                        SingleStatement_seventh(
+                          Expr_normal(
+                            AddExpr_addop(
+                              Term(
+                                MulopFactorList_factor(
+                                  Factor(
+                                    Unary_epsilon(
+                                    ) [Unary_epsilon]
+                                    FactorSub_chr(
+                                     2
+                                    ) [FactorSub_chr]
+                                  ) [Factor]
+                                ) [MulopFactorList_factor]
+                              ) [Term]
+                              AddopTermList_epsilon(
+                              ) [AddopTermList_epsilon]
+                            ) [AddExpr_addop]
+                          ) [Expr_normal]
+                          CommaNumConst_epsilon(
+                          ) [CommaNumConst_epsilon]
+                        ) [SingleStatement_seventh]
+                      ) [Statement_ss]
+                    ) [StatementList_rek]
+                  ) [Statements]
+                ) [Statement_block]
+              ) [ElseBlock_first]
+            ) [SingleStatement_second]
+          ) [Statement_ss]
+        ) [StatementList_rek]
+      ) [MethodDecl]
+    ) [MethodDeclList_endRek]
     MethodDecl(
       MethodNameType_void(
        main
@@ -47,9 +207,9 @@ INFO  01:12:07,207 - Program(
           Type(
            int
           ) [Type]
-          VarDeclaration_arr(
-           b
-          ) [VarDeclaration_arr]
+          VarDeclaration_elem(
+           a
+          ) [VarDeclaration_elem]
           VarDeclarationMore_epsilon(
           ) [VarDeclarationMore_epsilon]
         ) [VarDeclList]
@@ -57,95 +217,50 @@ INFO  01:12:07,207 - Program(
         ) [VarDeclMore_epsilon]
       ) [VarDeclMore_list]
       StatementList_rek(
-        StatementList_rek(
-          StatementList_epsilon(
-          ) [StatementList_epsilon]
-          Statement_ss(
-            SingleStatement_first(
-              DesignatorStatement(
-                Designator_var(
-                 b
-                  DesignatorMore_epsilon(
-                  ) [DesignatorMore_epsilon]
-                ) [Designator_var]
-                DesignatorRest_first(
-                  Assignop(
-                  ) [Assignop]
-                  Expr_normal(
-                    AddExpr_addop(
-                      Term(
-                        MulopFactorList_factor(
-                          Factor(
-                            Unary_epsilon(
-                            ) [Unary_epsilon]
-                            FactorSub_new(
-                              Type(
-                               int
-                              ) [Type]
-                              Expr_normal(
-                                AddExpr_addop(
-                                  Term(
-                                    MulopFactorList_factor(
-                                      Factor(
-                                        Unary_epsilon(
-                                        ) [Unary_epsilon]
-                                        FactorSub_num(
-                                         5
-                                        ) [FactorSub_num]
-                                      ) [Factor]
-                                    ) [MulopFactorList_factor]
-                                  ) [Term]
-                                  AddopTermList_epsilon(
-                                  ) [AddopTermList_epsilon]
-                                ) [AddExpr_addop]
-                              ) [Expr_normal]
-                            ) [FactorSub_new]
-                          ) [Factor]
-                        ) [MulopFactorList_factor]
-                      ) [Term]
-                      AddopTermList_epsilon(
-                      ) [AddopTermList_epsilon]
-                    ) [AddExpr_addop]
-                  ) [Expr_normal]
-                ) [DesignatorRest_first]
-              ) [DesignatorStatement]
-            ) [SingleStatement_first]
-          ) [Statement_ss]
-        ) [StatementList_rek]
+        StatementList_epsilon(
+        ) [StatementList_epsilon]
         Statement_ss(
-          SingleStatement_seventh(
-            Expr_normal(
-              AddExpr_addop(
-                Term(
-                  MulopFactorList_factor(
-                    Factor(
-                      Unary_epsilon(
-                      ) [Unary_epsilon]
-                      FactorSub_des(
-                        Designator_var(
-                         b
-                          DesignatorMore_dotLength(
-                          ) [DesignatorMore_dotLength]
-                        ) [Designator_var]
-                        ActParsBracketsZeroOne_epsilon(
-                        ) [ActParsBracketsZeroOne_epsilon]
-                      ) [FactorSub_des]
-                    ) [Factor]
-                  ) [MulopFactorList_factor]
-                ) [Term]
-                AddopTermList_epsilon(
-                ) [AddopTermList_epsilon]
-              ) [AddExpr_addop]
-            ) [Expr_normal]
-            CommaNumConst_epsilon(
-            ) [CommaNumConst_epsilon]
-          ) [SingleStatement_seventh]
+          SingleStatement_first(
+            DesignatorStatement(
+              Designator_var(
+               f
+                DesignatorMore_epsilon(
+                ) [DesignatorMore_epsilon]
+              ) [Designator_var]
+              DesignatorRest_second(
+                ActParsZeroOne_ActPars(
+                  ActPars(
+                    Expr_normal(
+                      AddExpr_addop(
+                        Term(
+                          MulopFactorList_factor(
+                            Factor(
+                              Unary_epsilon(
+                              ) [Unary_epsilon]
+                              FactorSub_bool(
+                               1
+                              ) [FactorSub_bool]
+                            ) [Factor]
+                          ) [MulopFactorList_factor]
+                        ) [Term]
+                        AddopTermList_epsilon(
+                        ) [AddopTermList_epsilon]
+                      ) [AddExpr_addop]
+                    ) [Expr_normal]
+                    CommaExprList_epsilon(
+                    ) [CommaExprList_epsilon]
+                  ) [ActPars]
+                ) [ActParsZeroOne_ActPars]
+              ) [DesignatorRest_second]
+            ) [DesignatorStatement]
+          ) [SingleStatement_first]
         ) [Statement_ss]
       ) [StatementList_rek]
     ) [MethodDecl]
-  ) [MethodDeclList_endRek]
+  ) [MethodDeclList_rek]
 ) [Program]
-INFO  01:12:07,207 - =====================================================================
-INFO  01:12:07,218 - Pristup lokalnoj/globalnoj promenljivoj: b na liniji 5
-INFO  01:12:07,219 - Pristup polju: b na liniji 6
-INFO  01:12:07,219 - =====================================================================
+INFO  00:40:41,374 - =====================================================================
+INFO  00:40:41,385 - Pristup formalnom parametru: ind na liniji 5
+INFO  00:40:41,386 - Poziv funkcije: f na liniji 3
+INFO  00:40:41,386 - =====================================================================
+INFO  00:40:41,392 - Parsiranje i generisanje koda uspesno zavrseno!

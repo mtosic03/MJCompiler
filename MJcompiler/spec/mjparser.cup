@@ -53,7 +53,7 @@ terminal Integer NUMBER, BOOL;
 terminal Character CHARACTER;
 
 
-nonterminal Program, ConstVarEnumDeclList, MethodDeclList, 
+nonterminal Program, ConstVarEnumDeclList, MethodDeclList, ElseMarker, 
 ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, 
 ConstDecl, VarDeclaration, VarDeclarationMore, 
 ConstDeclMore, EnumMemberList, EnumMember, FormParList, Constant,
@@ -208,7 +208,7 @@ Statements ::=  (Statements) CURLYOPENBRACKET StatementList CURLYCLBRACKET;
 
 SingleStatement ::=     (SingleStatement_first) DesignatorStatement SEMICOLON
 						|
-						(SingleStatement_second) IF OPENBRACKET Condition CLBRACKET Statement ElseBlock
+						(SingleStatement_second) IF OPENBRACKET Condition CLBRACKET Statement ElseMarker ElseBlock
 						|
 						(SingleStatement_third) BREAK SEMICOLON
 						|
@@ -224,6 +224,8 @@ SingleStatement ::=     (SingleStatement_first) DesignatorStatement SEMICOLON
 						|
 						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne SEMICOLON ConditionZeroOne SEMICOLON DesignatorStatementZeroOne CLBRACKET Statement
 						;
+						
+ElseMarker ::= (ElseMarker) /* epsilon */ ;
 						
 ElseBlock ::= 	(ElseBlock_first) ELSE Statement
 				|
