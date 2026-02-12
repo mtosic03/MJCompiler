@@ -1,11 +1,151 @@
-INFO  13:43:59,487 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
-INFO  13:43:59,986 - #2 program
-INFO  13:43:59,986 - #45 prog
-INFO  13:43:59,986 - #45 int
-INFO  13:43:59,991 - #45 matr
-INFO  13:43:59,993 - #9 [
-INFO  13:43:59,993 - #10 ]
-INFO  13:43:59,993 - #9 [
-ERROR 13:43:59,993 - 
-Sintaksna greska na liniji 2
-ERROR 13:43:59,994 - Fatalna greska, parsiranje se ne moze nastaviti na liniji 2
+INFO  01:12:07,107 - Compiling source file: C:\Users\mt003\git\repository\MJcompiler\test\program.mj
+INFO  01:12:07,173 - #2 program
+INFO  01:12:07,174 - #45 prog
+INFO  01:12:07,174 - #3 {
+INFO  01:12:07,176 - #12 void
+INFO  01:12:07,176 - #45 main
+INFO  01:12:07,176 - #13 (
+INFO  01:12:07,176 - #14 )
+INFO  01:12:07,177 - #45 int
+INFO  01:12:07,177 - #45 b
+INFO  01:12:07,178 - #9 [
+INFO  01:12:07,178 - #10 ]
+INFO  01:12:07,179 - #7 ;
+INFO  01:12:07,180 - #3 {
+INFO  01:12:07,181 - #45 b
+INFO  01:12:07,182 - #6 =
+INFO  01:12:07,183 - #22 new
+INFO  01:12:07,184 - #45 int
+INFO  01:12:07,184 - #9 [
+INFO  01:12:07,185 - #46 5
+INFO  01:12:07,185 - #10 ]
+INFO  01:12:07,187 - #7 ;
+INFO  01:12:07,189 - #41 print
+INFO  01:12:07,198 - #13 (
+INFO  01:12:07,198 - #45 b
+INFO  01:12:07,198 - #15 .
+INFO  01:12:07,198 - #16 length
+INFO  01:12:07,198 - #14 )
+INFO  01:12:07,200 - #7 ;
+INFO  01:12:07,200 - #4 }
+INFO  01:12:07,201 - #4 }
+INFO  01:12:07,207 - Program(
+  ProgramName(
+   prog
+  ) [ProgramName]
+  ConstVarEnumDeclList_epsilon(
+  ) [ConstVarEnumDeclList_epsilon]
+  MethodDeclList_endRek(
+    MethodDecl(
+      MethodNameType_void(
+       main
+      ) [MethodNameType_void]
+      FormParList_epsilon(
+      ) [FormParList_epsilon]
+      VarDeclMore_list(
+        VarDeclList(
+          Type(
+           int
+          ) [Type]
+          VarDeclaration_arr(
+           b
+          ) [VarDeclaration_arr]
+          VarDeclarationMore_epsilon(
+          ) [VarDeclarationMore_epsilon]
+        ) [VarDeclList]
+        VarDeclMore_epsilon(
+        ) [VarDeclMore_epsilon]
+      ) [VarDeclMore_list]
+      StatementList_rek(
+        StatementList_rek(
+          StatementList_epsilon(
+          ) [StatementList_epsilon]
+          Statement_ss(
+            SingleStatement_first(
+              DesignatorStatement(
+                Designator_var(
+                 b
+                  DesignatorMore_epsilon(
+                  ) [DesignatorMore_epsilon]
+                ) [Designator_var]
+                DesignatorRest_first(
+                  Assignop(
+                  ) [Assignop]
+                  Expr_normal(
+                    AddExpr_addop(
+                      Term(
+                        MulopFactorList_factor(
+                          Factor(
+                            Unary_epsilon(
+                            ) [Unary_epsilon]
+                            FactorSub_new(
+                              Type(
+                               int
+                              ) [Type]
+                              Expr_normal(
+                                AddExpr_addop(
+                                  Term(
+                                    MulopFactorList_factor(
+                                      Factor(
+                                        Unary_epsilon(
+                                        ) [Unary_epsilon]
+                                        FactorSub_num(
+                                         5
+                                        ) [FactorSub_num]
+                                      ) [Factor]
+                                    ) [MulopFactorList_factor]
+                                  ) [Term]
+                                  AddopTermList_epsilon(
+                                  ) [AddopTermList_epsilon]
+                                ) [AddExpr_addop]
+                              ) [Expr_normal]
+                            ) [FactorSub_new]
+                          ) [Factor]
+                        ) [MulopFactorList_factor]
+                      ) [Term]
+                      AddopTermList_epsilon(
+                      ) [AddopTermList_epsilon]
+                    ) [AddExpr_addop]
+                  ) [Expr_normal]
+                ) [DesignatorRest_first]
+              ) [DesignatorStatement]
+            ) [SingleStatement_first]
+          ) [Statement_ss]
+        ) [StatementList_rek]
+        Statement_ss(
+          SingleStatement_seventh(
+            Expr_normal(
+              AddExpr_addop(
+                Term(
+                  MulopFactorList_factor(
+                    Factor(
+                      Unary_epsilon(
+                      ) [Unary_epsilon]
+                      FactorSub_des(
+                        Designator_var(
+                         b
+                          DesignatorMore_dotLength(
+                          ) [DesignatorMore_dotLength]
+                        ) [Designator_var]
+                        ActParsBracketsZeroOne_epsilon(
+                        ) [ActParsBracketsZeroOne_epsilon]
+                      ) [FactorSub_des]
+                    ) [Factor]
+                  ) [MulopFactorList_factor]
+                ) [Term]
+                AddopTermList_epsilon(
+                ) [AddopTermList_epsilon]
+              ) [AddExpr_addop]
+            ) [Expr_normal]
+            CommaNumConst_epsilon(
+            ) [CommaNumConst_epsilon]
+          ) [SingleStatement_seventh]
+        ) [Statement_ss]
+      ) [StatementList_rek]
+    ) [MethodDecl]
+  ) [MethodDeclList_endRek]
+) [Program]
+INFO  01:12:07,207 - =====================================================================
+INFO  01:12:07,218 - Pristup lokalnoj/globalnoj promenljivoj: b na liniji 5
+INFO  01:12:07,219 - Pristup polju: b na liniji 6
+INFO  01:12:07,219 - =====================================================================

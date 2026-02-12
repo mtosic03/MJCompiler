@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 9/1/2026 18:41:42
+// 10/1/2026 14:16:30
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -25,6 +25,7 @@ public interface Visitor {
     public void visit(MethodNameType MethodNameType);
     public void visit(DesignatorStatementZeroOne DesignatorStatementZeroOne);
     public void visit(ActParsBracketsZeroOne ActParsBracketsZeroOne);
+    public void visit(Designator Designator);
     public void visit(AndCondFactList AndCondFactList);
     public void visit(CaseList CaseList);
     public void visit(ConstVarEnumDeclList ConstVarEnumDeclList);
@@ -35,24 +36,23 @@ public interface Visitor {
     public void visit(OrCondTermList OrCondTermList);
     public void visit(ConstDeclMore ConstDeclMore);
     public void visit(CommaNumConst CommaNumConst);
-    public void visit(IdentOrLength IdentOrLength);
     public void visit(RelopExprZeroOne RelopExprZeroOne);
     public void visit(Statement Statement);
     public void visit(VarDeclMore VarDeclMore);
     public void visit(VarDeclarationMore VarDeclarationMore);
     public void visit(CommaExprList CommaExprList);
     public void visit(MethodDeclList MethodDeclList);
-    public void visit(DesignatorListRest DesignatorListRest);
+    public void visit(DesignatorMore DesignatorMore);
     public void visit(SingleStatement SingleStatement);
     public void visit(EnumMember EnumMember);
     public void visit(FormPars FormPars);
     public void visit(AddopTermList AddopTermList);
-    public void visit(IdentOrLength_length IdentOrLength_length);
-    public void visit(IdentOrLength_ident IdentOrLength_ident);
-    public void visit(DesignatorListRest_epsilon DesignatorListRest_epsilon);
-    public void visit(DesignatorListRest_expr DesignatorListRest_expr);
-    public void visit(DesignatorListRest_dot DesignatorListRest_dot);
-    public void visit(Designator Designator);
+    public void visit(DesignatorMore_epsilon DesignatorMore_epsilon);
+    public void visit(DesignatorMore_dotLength DesignatorMore_dotLength);
+    public void visit(DesignatorMore_dotIdent DesignatorMore_dotIdent);
+    public void visit(DesignatorArrName DesignatorArrName);
+    public void visit(Designator_arr Designator_arr);
+    public void visit(Designator_var Designator_var);
     public void visit(Unary_epsilon Unary_epsilon);
     public void visit(Unary_minus Unary_minus);
     public void visit(FactorSub_expr FactorSub_expr);

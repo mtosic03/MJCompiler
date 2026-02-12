@@ -81,7 +81,6 @@ nonterminal Statement Statement;
 nonterminal SingleStatement SingleStatement;
 nonterminal
 DesignatorStatement DesignatorStatement;
-nonterminal IdentOrLength IdentOrLength;
 nonterminal Addop Addop;
 nonterminal 
 Mulop Mulop;
@@ -110,7 +109,7 @@ nonterminal ProgramName ProgramName;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm, Type;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest, MethodNameType;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorMore, DesignatorArrName, MethodNameType;
 
 precedence left ELSE;
 
@@ -447,18 +446,18 @@ Unary ::=   (Unary_minus) MINUS {: RESULT=new Unary_minus(); :}
 // DESIGNATOR
 // ============================================================
 
-Designator ::= (Designator) IDENT:I1 DesignatorListRest:D2 {: RESULT=new Designator(I1, D2); RESULT.setLine(I1left); :};
+				
+Designator ::=  (Designator_var) IDENT:I1 DesignatorMore:D2 {: RESULT=new Designator_var(I1, D2); RESULT.setLine(I1left); :}
+             	| 
+             	(Designator_arr) DesignatorArrName:D1 SQUAREOPENBRACKET Expr:E2 SQUARECLBRACKET DesignatorMore:D3 {: RESULT=new Designator_arr(D1, E2, D3); RESULT.setLine(D1left); :}
+				;
+				
+DesignatorArrName ::= (DesignatorArrName) IDENT:I1 {: RESULT=new DesignatorArrName(I1); RESULT.setLine(I1left); :};
 
 
-DesignatorListRest ::=  (DesignatorListRest_dot) DOT IdentOrLength:I1 DesignatorListRest:D2 {: RESULT=new DesignatorListRest_dot(I1, D2); RESULT.setLine(I1left); :}
-						|
-						(DesignatorListRest_expr) SQUAREOPENBRACKET Expr:E1 SQUARECLBRACKET DesignatorListRest:D2 {: RESULT=new DesignatorListRest_expr(E1, D2); RESULT.setLine(E1left); :}
-						|
-						(DesignatorListRest_epsilon) {: RESULT=new DesignatorListRest_epsilon(); :} /*epsilon*/
-						;  				
-
-IdentOrLength ::=   (IdentOrLength_ident) IDENT:I1 {: RESULT=new IdentOrLength_ident(I1); RESULT.setLine(I1left); :}
-					|
-					(IdentOrLength_length) LENGTH {: RESULT=new IdentOrLength_length(); :}
+DesignatorMore ::=  (DesignatorMore_dotIdent) DOT IDENT:I1 DesignatorMore:D2 {: RESULT=new DesignatorMore_dotIdent(I1, D2); RESULT.setLine(I1left); :}
+                 	| 
+                 	(DesignatorMore_dotLength) DOT LENGTH {: RESULT=new DesignatorMore_dotLength(); :}
+                 	| 
+                 	(DesignatorMore_epsilon) {: RESULT=new DesignatorMore_epsilon(); :} /* epsilon */
 					;
-					

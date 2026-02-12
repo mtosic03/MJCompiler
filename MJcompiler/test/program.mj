@@ -1,10 +1,8 @@
-program prog
-int matr[][];
+program prog 
 {	
-	void main()int a,b,c;char carr[];{
-	    carr=new char[5];
-	    carr[1]='a';
-		print(carr[1]);
-	}
 
+	void main()int b[];{
+	   b=new int[5];
+	   print(b.length);
+	}
 }

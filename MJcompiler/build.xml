@@ -60,7 +60,7 @@
 	</target>
 	<!--target koji radi isto sto i runObj, samo sto pored toga ispisuje i instrukcije koje je izvrsio i ispise stanje exprStacka-->
 	<target name="debugObj" depends="disasm">
-		<java classname="rs.etf.pp1.mj.runtime.Run">
+		<java classname="rs.etf.pp1.mj.runtime.Run" input="test/read_inputs.txt">
 			<arg value="test/program.obj"/>
 			<arg value="-debug"/>
 			<classpath>
@@ -70,7 +70,7 @@
 	</target>
 	<!--skripta za bezuslovno izvrsavanje obj fajla koji pravimo-->
 	<target name="runObj" depends="debugObj">
-		<java classname="rs.etf.pp1.mj.runtime.Run">
+		<java classname="rs.etf.pp1.mj.runtime.Run" input="test/read_inputs.txt">
 			<arg value="test/program.obj"/>
 			<classpath>
 				<pathelement location="lib/mj-runtime-1.1.jar"/>

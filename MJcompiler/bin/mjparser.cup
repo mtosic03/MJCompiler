@@ -58,7 +58,7 @@ ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl,
 ConstDecl, VarDeclaration, VarDeclarationMore, 
 ConstDeclMore, EnumMemberList, EnumMember, FormParList, Constant,
 FormPars, VarDeclMore, FormParMore, StatementList, Statement, SingleStatement,
-DesignatorStatement, IdentOrLength, Addop, 
+DesignatorStatement, Addop, 
 Mulop, ActParsZeroOne, ActParsBracketsZeroOne, ActPars, CommaExprList, 
 RelopExprZeroOne, Relop, OrCondTermList, AndCondFactList, Assignop, DesignatorRest, ZeroOneExpr,
 CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock, Statements, Unary, ProgramName;
@@ -66,7 +66,7 @@ CommaNumConst, CaseList, DesignatorStatementZeroOne, ConditionZeroOne, ElseBlock
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Factor, FactorSub, MulopFactorList, Term, Expr, AddopTermList, AddExpr;
 nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondFact, CondTerm, Type;
 
-nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorListRest, MethodNameType;
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Designator, DesignatorMore, DesignatorArrName, MethodNameType;
 
 precedence left ELSE;
 
@@ -403,18 +403,18 @@ Unary ::=   (Unary_minus) MINUS
 // DESIGNATOR
 // ============================================================
 
-Designator ::= (Designator) IDENT DesignatorListRest;
+				
+Designator ::=  (Designator_var) IDENT DesignatorMore
+             	| 
+             	(Designator_arr) DesignatorArrName SQUAREOPENBRACKET Expr SQUARECLBRACKET DesignatorMore
+				;
+				
+DesignatorArrName ::= (DesignatorArrName) IDENT;
 
 
-DesignatorListRest ::=  (DesignatorListRest_dot) DOT IdentOrLength DesignatorListRest
-						|
-						(DesignatorListRest_expr) SQUAREOPENBRACKET Expr SQUARECLBRACKET DesignatorListRest
-						|
-						(DesignatorListRest_epsilon) /*epsilon*/
-						;  				
-
-IdentOrLength ::=   (IdentOrLength_ident) IDENT
-					|
-					(IdentOrLength_length) LENGTH
+DesignatorMore ::=  (DesignatorMore_dotIdent) DOT IDENT DesignatorMore
+                 	| 
+                 	(DesignatorMore_dotLength) DOT LENGTH
+                 	| 
+                 	(DesignatorMore_epsilon) /* epsilon */
 					;
-					
