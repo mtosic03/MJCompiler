@@ -56,8 +56,16 @@ terminal Character CHARACTER;
 nonterminal Program Program;
 nonterminal ConstVarEnumDeclList ConstVarEnumDeclList;
 nonterminal MethodDeclList MethodDeclList;
-nonterminal ElseMarker ElseMarker;
-nonterminal 
+nonterminal
+ElseMarker ElseMarker;
+nonterminal OrMarker OrMarker;
+nonterminal ForBodyMarker ForBodyMarker;
+nonterminal ForCondMarker ForCondMarker;
+nonterminal ForIncrMarker ForIncrMarker;
+nonterminal CaseMarker CaseMarker;
+nonterminal SwitchMarker SwitchMarker;
+nonterminal TernaryMarker TernaryMarker;
+nonterminal
 ConstDeclList ConstDeclList;
 nonterminal VarDeclList VarDeclList;
 nonterminal EnumDeclList EnumDeclList;
@@ -264,11 +272,15 @@ SingleStatement ::=     (SingleStatement_first) DesignatorStatement:D1 SEMICOLON
 						|
 						(SingleStatement_seventh) PRINT OPENBRACKET Expr:E1 CommaNumConst:C2 CLBRACKET SEMICOLON {: RESULT=new SingleStatement_seventh(E1, C2); RESULT.setLine(E1left); :}
 						|
-						(SingleStatement_eighth) SWITCH OPENBRACKET Expr:E1 CLBRACKET CURLYOPENBRACKET CaseList:C2 CURLYCLBRACKET {: RESULT=new SingleStatement_eighth(E1, C2); RESULT.setLine(E1left); :}
+						(SingleStatement_eighth) SWITCH OPENBRACKET Expr:E1 CLBRACKET CURLYOPENBRACKET SwitchMarker:S2 CaseList:C3 CURLYCLBRACKET {: RESULT=new SingleStatement_eighth(E1, S2, C3); RESULT.setLine(E1left); :}
 						|
-						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne:D1 SEMICOLON ConditionZeroOne:C2 SEMICOLON DesignatorStatementZeroOne:D3 CLBRACKET Statement:S4 {: RESULT=new SingleStatement_ninth(D1, C2, D3, S4); RESULT.setLine(D1left); :}
+						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne:D1 SEMICOLON ForCondMarker:F2 ConditionZeroOne:C3 SEMICOLON ForIncrMarker:F4 DesignatorStatementZeroOne:D5 ForBodyMarker:F6 CLBRACKET Statement:S7 {: RESULT=new SingleStatement_ninth(D1, F2, C3, F4, D5, F6, S7); RESULT.setLine(D1left); :}
 						;
 						
+ForBodyMarker ::= (ForBodyMarker) {: RESULT=new ForBodyMarker(); :} /* epsilon */;
+ForCondMarker ::= (ForCondMarker) {: RESULT=new ForCondMarker(); :} /* epsilon */;
+ForIncrMarker ::= (ForIncrMarker) {: RESULT=new ForIncrMarker(); :} /* epsilon */;	
+SwitchMarker ::= (SwitchMarker) {: RESULT=new SwitchMarker(); :} /* epsilon */;					
 ElseMarker ::= (ElseMarker) {: RESULT=new ElseMarker(); :} /* epsilon */ ;
 						
 ElseBlock ::= 	(ElseBlock_first) ELSE Statement:S1 {: RESULT=new ElseBlock_first(S1); RESULT.setLine(S1left); :}
@@ -286,10 +298,12 @@ CommaNumConst ::= (CommaNumConst_first) COMMA NUMBER:N1 {: RESULT=new CommaNumCo
 				  (CommaNumConst_epsilon) {: RESULT=new CommaNumConst_epsilon(); :}
 				  ;
 
-CaseList ::=    (CaseList_first) CASE NUMBER:N1 COLON StatementList:S2 CaseList:C3 {: RESULT=new CaseList_first(N1, S2, C3); RESULT.setLine(N1left); :} 
+CaseList ::=    (CaseList_first) CASE NUMBER:N1 COLON CaseMarker:C2 StatementList:S3 CaseList:C4 {: RESULT=new CaseList_first(N1, C2, S3, C4); RESULT.setLine(N1left); :} 
 				|
 				(CaseList_epsilon) {: RESULT=new CaseList_epsilon(); :}
 				;
+				
+CaseMarker ::= (CaseMarker) {: RESULT=new CaseMarker(); :} /* epsilon */;
 			
 DesignatorStatementZeroOne ::=  (DesignatorStatementZeroOne_first) DesignatorStatement:D1 {: RESULT=new DesignatorStatementZeroOne_first(D1); RESULT.setLine(D1left); :}	
 								|
@@ -349,10 +363,12 @@ ActParsBracketsZeroOne ::=  (ActParsBracketsZeroOne_brackets) OPENBRACKET ActPar
 
 Condition ::= (Condition) CondTerm:C1 OrCondTermList:O2 {: RESULT=new Condition(C1, O2); RESULT.setLine(C1left); :};
 
-OrCondTermList ::=  (OrCondTermList_rek) OrCondTermList:O1 OR CondTerm:C2 {: RESULT=new OrCondTermList_rek(O1, C2); RESULT.setLine(O1left); :} 
+OrCondTermList ::=  (OrCondTermList_rek) OrCondTermList:O1 OrMarker:O2 OR CondTerm:C3 {: RESULT=new OrCondTermList_rek(O1, O2, C3); RESULT.setLine(O1left); :} 
 					|
 					(OrCondTermList_epsilon) {: RESULT=new OrCondTermList_epsilon(); :} /* epsilon */ 
 					; 
+					
+OrMarker ::= (OrMarker) {: RESULT=new OrMarker(); :} /* epsilon */;
 
 CondTerm ::= (CondTerm) CondFact:C1 AndCondFactList:A2 {: RESULT=new CondTerm(C1, A2); RESULT.setLine(C1left); :};
 
@@ -385,10 +401,12 @@ Relop ::=   (Relop_first) EQUAL {: RESULT=new Relop_first(); :}
 // EXPRESSIONS 
 // ============================================================
 
-Expr ::=    (Expr_ternary) Condition:C1 QUESTIONMARK Expr:E2 COLON Expr:E3 {: RESULT=new Expr_ternary(C1, E2, E3); RESULT.setLine(C1left); :}
+Expr ::=    (Expr_ternary) Condition:C1 QUESTIONMARK Expr:E2 TernaryMarker:T3 COLON Expr:E4 {: RESULT=new Expr_ternary(C1, E2, T3, E4); RESULT.setLine(C1left); :}
             |
             (Expr_normal) AddExpr:A1 {: RESULT=new Expr_normal(A1); RESULT.setLine(A1left); :}
             ;
+
+TernaryMarker ::= (TernaryMarker) {: RESULT=new TernaryMarker(); :} /* epsilon */;
 
 AddExpr ::= (AddExpr_addop) Term:T1 AddopTermList:A2 {: RESULT=new AddExpr_addop(T1, A2); RESULT.setLine(T1left); :};
 

@@ -1,15 +1,28 @@
-program prog 
+program prog
 
-{	
-	void f(bool ind){
-		if(ind==true){
-			print('1');
-		}else{
-			print('2');
-		}	
-		
-	}
-	void main()int a;{
-		f(true);
+{
+	void main()int a, b, c;{
+		a = 5;
+		b = 3;
+
+		c = a > b ? 1 : 0;
+		print(c);
+		print(eol);
+
+		c = a < b ? 1 : 0;
+		print(c);
+		print(eol);
+
+		c = a > 0 && b > 0 ? 10 : 20;
+		print(c);
+		print(eol);
+
+		c = a > 0 || b < 0 ? 30 : 40;
+		print(c);
+		print(eol);
+
+		c = a > 100 ? 50 : 60;
+		print(c);
+		print(eol);
 	}
 }

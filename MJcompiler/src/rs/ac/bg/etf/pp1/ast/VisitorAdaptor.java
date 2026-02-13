@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 13/1/2026 0:22:13
+// 13/1/2026 17:9:30
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -73,6 +73,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(AddopTermList_epsilon AddopTermList_epsilon) { visit(); }
     public void visit(AddopTermList_rek AddopTermList_rek) { visit(); }
     public void visit(AddExpr_addop AddExpr_addop) { visit(); }
+    public void visit(TernaryMarker TernaryMarker) { visit(); }
     public void visit(Expr_normal Expr_normal) { visit(); }
     public void visit(Expr_ternary Expr_ternary) { visit(); }
     public void visit(Relop_sixth Relop_sixth) { visit(); }
@@ -87,6 +88,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(AndCondFactList_epsilon AndCondFactList_epsilon) { visit(); }
     public void visit(AndCondFactList_rek AndCondFactList_rek) { visit(); }
     public void visit(CondTerm CondTerm) { visit(); }
+    public void visit(OrMarker OrMarker) { visit(); }
     public void visit(OrCondTermList_epsilon OrCondTermList_epsilon) { visit(); }
     public void visit(OrCondTermList_rek OrCondTermList_rek) { visit(); }
     public void visit(Condition Condition) { visit(); }
@@ -107,6 +109,7 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ConditionZeroOne_first ConditionZeroOne_first) { visit(); }
     public void visit(DesignatorStatementZeroOne_epsilon DesignatorStatementZeroOne_epsilon) { visit(); }
     public void visit(DesignatorStatementZeroOne_first DesignatorStatementZeroOne_first) { visit(); }
+    public void visit(CaseMarker CaseMarker) { visit(); }
     public void visit(CaseList_epsilon CaseList_epsilon) { visit(); }
     public void visit(CaseList_first CaseList_first) { visit(); }
     public void visit(CommaNumConst_epsilon CommaNumConst_epsilon) { visit(); }
@@ -116,6 +119,10 @@ public abstract class VisitorAdaptor implements Visitor {
     public void visit(ElseBlock_epsilon ElseBlock_epsilon) { visit(); }
     public void visit(ElseBlock_first ElseBlock_first) { visit(); }
     public void visit(ElseMarker ElseMarker) { visit(); }
+    public void visit(SwitchMarker SwitchMarker) { visit(); }
+    public void visit(ForIncrMarker ForIncrMarker) { visit(); }
+    public void visit(ForCondMarker ForCondMarker) { visit(); }
+    public void visit(ForBodyMarker ForBodyMarker) { visit(); }
     public void visit(SingleStatement_ninth SingleStatement_ninth) { visit(); }
     public void visit(SingleStatement_eighth SingleStatement_eighth) { visit(); }
     public void visit(SingleStatement_seventh SingleStatement_seventh) { visit(); }

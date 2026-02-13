@@ -53,7 +53,8 @@ terminal Integer NUMBER, BOOL;
 terminal Character CHARACTER;
 
 
-nonterminal Program, ConstVarEnumDeclList, MethodDeclList, ElseMarker, 
+nonterminal Program, ConstVarEnumDeclList, MethodDeclList,
+ElseMarker, OrMarker, ForBodyMarker, ForCondMarker, ForIncrMarker, CaseMarker, SwitchMarker, TernaryMarker,
 ConstDeclList, VarDeclList, EnumDeclList, EnumDeclName, MethodDecl, 
 ConstDecl, VarDeclaration, VarDeclarationMore, 
 ConstDeclMore, EnumMemberList, EnumMember, FormParList, Constant,
@@ -220,11 +221,15 @@ SingleStatement ::=     (SingleStatement_first) DesignatorStatement SEMICOLON
 						|
 						(SingleStatement_seventh) PRINT OPENBRACKET Expr CommaNumConst CLBRACKET SEMICOLON
 						|
-						(SingleStatement_eighth) SWITCH OPENBRACKET Expr CLBRACKET CURLYOPENBRACKET CaseList CURLYCLBRACKET
+						(SingleStatement_eighth) SWITCH OPENBRACKET Expr CLBRACKET CURLYOPENBRACKET SwitchMarker CaseList CURLYCLBRACKET
 						|
-						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne SEMICOLON ConditionZeroOne SEMICOLON DesignatorStatementZeroOne CLBRACKET Statement
+						(SingleStatement_ninth) FOR OPENBRACKET DesignatorStatementZeroOne SEMICOLON ForCondMarker ConditionZeroOne SEMICOLON ForIncrMarker DesignatorStatementZeroOne ForBodyMarker CLBRACKET Statement
 						;
 						
+ForBodyMarker ::= (ForBodyMarker) /* epsilon */;
+ForCondMarker ::= (ForCondMarker) /* epsilon */;
+ForIncrMarker ::= (ForIncrMarker) /* epsilon */;	
+SwitchMarker ::= (SwitchMarker) /* epsilon */;					
 ElseMarker ::= (ElseMarker) /* epsilon */ ;
 						
 ElseBlock ::= 	(ElseBlock_first) ELSE Statement
@@ -242,10 +247,12 @@ CommaNumConst ::= (CommaNumConst_first) COMMA NUMBER
 				  (CommaNumConst_epsilon)
 				  ;
 
-CaseList ::=    (CaseList_first) CASE NUMBER COLON StatementList CaseList 
+CaseList ::=    (CaseList_first) CASE NUMBER COLON CaseMarker StatementList CaseList 
 				|
 				(CaseList_epsilon)
 				;
+				
+CaseMarker ::= (CaseMarker) /* epsilon */;
 			
 DesignatorStatementZeroOne ::=  (DesignatorStatementZeroOne_first) DesignatorStatement	
 								|
@@ -305,10 +312,12 @@ ActParsBracketsZeroOne ::=  (ActParsBracketsZeroOne_brackets) OPENBRACKET ActPar
 
 Condition ::= (Condition) CondTerm OrCondTermList;
 
-OrCondTermList ::=  (OrCondTermList_rek) OrCondTermList OR CondTerm 
+OrCondTermList ::=  (OrCondTermList_rek) OrCondTermList OrMarker OR CondTerm 
 					|
 					(OrCondTermList_epsilon) /* epsilon */ 
 					; 
+					
+OrMarker ::= (OrMarker) /* epsilon */;
 
 CondTerm ::= (CondTerm) CondFact AndCondFactList;
 
@@ -341,10 +350,12 @@ Relop ::=   (Relop_first) EQUAL
 // EXPRESSIONS 
 // ============================================================
 
-Expr ::=    (Expr_ternary) Condition QUESTIONMARK Expr COLON Expr
+Expr ::=    (Expr_ternary) Condition QUESTIONMARK Expr TernaryMarker COLON Expr
             |
             (Expr_normal) AddExpr
             ;
+
+TernaryMarker ::= (TernaryMarker) /* epsilon */;
 
 AddExpr ::= (AddExpr_addop) Term AddopTermList;
 
