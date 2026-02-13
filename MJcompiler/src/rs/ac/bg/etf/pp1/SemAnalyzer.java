@@ -327,6 +327,9 @@ public class SemAnalyzer extends VisitorAdaptor {
 			type.struct= currentType=Tab.noType;
 		}else {
 			type.struct= currentType=typeObj.getType();
+			if (currentType.getKind() == Struct.Enum) {
+	              currentType = Tab.intType;
+	          }
 		}
 	}
 	
