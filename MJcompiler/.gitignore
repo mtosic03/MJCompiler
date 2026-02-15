@@ -1,0 +1,13 @@
+# Compiled classes
+**/*.class
+
+# Logs
+logs/
+
+# Generated binary files
+bin/program.obj
+bin/file.txt
+bin/read_inputs.txt
+
+# Runtime lib (downloaded dependency)
+lib/
