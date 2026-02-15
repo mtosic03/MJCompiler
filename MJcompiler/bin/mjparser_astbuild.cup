@@ -44,7 +44,7 @@ scan with{:
 	return s;
 :}
 
-terminal PROG, CURLYOPENBRACKET, CURLYCLBRACKET, CONST, ASSIGN, SEMICOLON, COMMA,
+terminal PROG, CURLYOPENBRACKET, CURLYCLBRACKET, CONST, ASSIGN, SEMICOLON, COMMA, MONKEY,
 SQUAREOPENBRACKET, SQUARECLBRACKET, ENUM, VOID, OPENBRACKET, CLBRACKET, DOT, LENGTH, PLUS, MINUS,
 PERCENT, MUL, DIV, NEW, QUESTIONMARK, COLON, EQUAL, DIFFERENT, GREATERTHEN, GREATERTHENOREQUAL, LESSTHEN, LESSTHENOREQUAL,
 AND, OR, INC, DEC, IF, ELSE, BREAK, CONTINUE, RETURN, READ, PRINT, SWITCH, CASE, FOR;
@@ -437,6 +437,8 @@ Mulop ::=   (Mulop_mul) MUL {: RESULT=new Mulop_mul(); :}
 			(Mulop_div) DIV {: RESULT=new Mulop_div(); :}
 			|
 			(Mulop_percent) PERCENT {: RESULT=new Mulop_percent(); :}
+			|
+			(Mulop_monkey) MONKEY {: RESULT=new Mulop_monkey(); :}
 			;
 
 // ============================================================
