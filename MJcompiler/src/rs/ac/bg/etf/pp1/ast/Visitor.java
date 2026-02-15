@@ -1,6 +1,6 @@
 // generated with ast extension for cup
 // version 0.8
-// 13/1/2026 17:9:30
+// 15/1/2026 0:0:19
 
 
 package rs.ac.bg.etf.pp1.ast;
@@ -55,6 +55,7 @@ public interface Visitor {
     public void visit(Designator_var Designator_var);
     public void visit(Unary_epsilon Unary_epsilon);
     public void visit(Unary_minus Unary_minus);
+    public void visit(FactorSub_hash FactorSub_hash);
     public void visit(FactorSub_expr FactorSub_expr);
     public void visit(FactorSub_new FactorSub_new);
     public void visit(FactorSub_bool FactorSub_bool);

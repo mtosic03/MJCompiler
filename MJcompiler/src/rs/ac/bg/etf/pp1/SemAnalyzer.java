@@ -244,6 +244,7 @@ public class SemAnalyzer extends VisitorAdaptor {
 		hasReturn=false;
 	}
 	
+	//obilazak return-a
 	@Override
 	public void visit(SingleStatement_fifth  singleStatement_fifth ) {
 		hasReturn=true;
@@ -505,7 +506,6 @@ public class SemAnalyzer extends VisitorAdaptor {
 		        factorSub_des.struct = Tab.noType;
 		    }
 	}
-	//-------------------------------------CHECKPOINT-----------------------------------------
 	
 	// LOGIKA ZA PROVERAVANJE ARGUMENATA U FUNKCIJAMA  >>>>>>>>>>>
 	
@@ -575,6 +575,20 @@ public class SemAnalyzer extends VisitorAdaptor {
 	}
 	
 	// <<<<<<<<<<<< LOGIKA ZA PROVERAVANJE ARGUMENATA U FUNKCIJAMA 
+	
+	@Override
+	public void visit(FactorSub_hash factorSub_hash) {
+		Obj arrObj=factorSub_hash.getDesignatorArrName().obj;
+		
+		if(arrObj==Tab.noObj || arrObj==null) {
+			factorSub_hash.struct=Tab.noType;
+		}else if(arrObj.getType().getElemType()!=Tab.intType) {
+			factorSub_hash.struct=Tab.noType;
+			report_error("Elementi niza moraju biti int tipa", factorSub_hash);
+		}else {
+			factorSub_hash.struct=Tab.intType;
+		}
+	}
 	
 	@Override 
 	public void visit(FactorSub_new factorSub_new) {

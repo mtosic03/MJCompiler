@@ -83,6 +83,7 @@ import java_cup.runtime.Symbol;
 "}"	    {return new_symbol(sym.CURLYCLBRACKET, yytext());}
 "["	    {return new_symbol(sym.SQUAREOPENBRACKET, yytext());}
 "]"	    {return new_symbol(sym.SQUARECLBRACKET, yytext());}
+"#"		{return new_symbol(sym.HASH, yytext());}
 
 
 [0-9]+	{return new_symbol(sym.NUMBER, new Integer (yytext()));}
